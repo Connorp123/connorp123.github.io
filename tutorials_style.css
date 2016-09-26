@@ -1,0 +1,11 @@
+*{
+    font-family: "Source Code Pro";
+}
+body {
+    background-color: gainsboro;
+    color: black;
+}
+h1 {
+    font-size: 300%;
+    color: aqua;
+}
