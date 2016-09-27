@@ -1,30 +1,48 @@
-*{
+/****************
+ * All elements *
+ ****************/
+* {
     font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
     color: mediumblue;
 }
+
+/********
+ * body *
+ ********/
 body {
     background-color: lightslategrey;
     color: white;;
 }
+/******
+ * h1 *
+ ******/
 h1 {
     color: black;
 }
 
- /* unvisited & visited link */
+/*****************************
+ * unvisited & visited links *
+ *****************************/
 a:link, a:visited {
     color: limegreen;
 }
 
-/* visited link */
+/*****************
+ * Visited links *
+ *****************/
 a:visited {
 }
 
-/* mouse over link */
+/*******************
+ * Mouse over link *
+ *******************/
 a:hover {
     color: hotpink;
 }
 
-/* selected link */
+/******************
+ * Selected links *
+ ******************/
 a:active {
     color: blue;
 }
