@@ -2,10 +2,15 @@
     font-family: "Source Code Pro";
 }
 body {
-    background-color: gainsboro;
+    background-color: white;
     color: black;
 }
 h1 {
     font-size: 300%;
     color: aqua;
+}
+code{
+  color:black;
+  font-family: monospace;
+  background-color: gainsboro;
 }
