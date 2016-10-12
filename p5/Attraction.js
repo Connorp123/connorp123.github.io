@@ -6,7 +6,7 @@ function setup() {
     myCanvas.parent('myContainer');
 
     // Creates the walker object
-    w = new Walker();
+
 }
 
 function draw() {
@@ -20,18 +20,53 @@ function draw() {
     // w.display();
 }
 
-function Walker() {
+function Walker(x, y, r) {
 
     // Initializes the walker to the middle of the screen
-    this.pos = createVector(width/2, height/2);
+    this.pos = createVector(x, y);
 
     // Initializes the velocity
     this.vel = createVector(20,20);
     this.acc = createVector(0,0);
+    this.r = r;                     // Radius
     this.maxVel = 50;
     this.maxAcc = 3;
 
     // this.acc = p5.Vector.fromAngle(3*PI/2);
+
+    // Check if the ball is colliding with another object
+    this.checkEdgeCollide = function() {
+        // If the ball is hitting the left side of the screen
+        if (this.pos.x < this.r) {
+            // Places the ball at the border
+            this.pos.x = this.r;
+            // Makes the ball bounce off @ 80% velocity
+            this.vel.x *= -0.8;
+        }
+        // If the ball is hitting the right side of the screen
+        if (this.pos.x > width-this.r) {
+            // Places the ball at the border
+            this.pos.x = width-this.r;
+            // Makes the ball bounce off @ 80% velocity
+            this.vel.x *= -0.8;
+        }
+        // If the ball is hitting the top of the screen
+        if (this.pos.y < this.r) {
+            // Places the ball at the border
+            this.pos.y = this.r;
+            // Makes the ball bounce off @ 80% velocity
+            this.vel.y *= -0.8;
+        }
+        // If the ball is hitting the bottom of the screen
+        if (this.pos.y > height-this.r) {
+            // Places the ball at the border
+            this.pos.y = height-this.r;
+            // Makes the ball bounce off @ 80% velocity
+            this.vel.y *= -0.8;
+            // Reduces the speed of the ball by 1% (due to friction on the ground)
+            this.vel.x *= 0.99;
+        }
+    }
 
     // Makes it walk randomly around the screen
     this.update = function () {
@@ -60,19 +95,21 @@ function Walker() {
         this.vel.limit(this.maxVel);
         // Velocity changes position
         this.pos.add(this.vel);
+        // Checks for collisions
+        this.checkEdgeCollide();
     }
 
     // Draws the walker
     this.display = function () {
         fill(255);
-        ellipse(this.pos.x, this.pos.y, 48, 48);
+        ellipse(this.pos.x, this.pos.y, this.r*2, this.r*2);
     }
 }
 
 
 function keyPressed() {
     if(key === "F") {
-        walkers.push(new Walker());
+        walkers.push(new Walker(mouseX, mouseY, 20));
     }
     if(key === "C") {
         walkers = [];
