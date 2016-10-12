@@ -6,7 +6,7 @@ var mouseP = new p5.Vector(0,0);
 
 // Set up the drawing
 function setup() {
-  var myCanvas = createCanvas(windowWidth - 100, windowHeight - 200);
+  var myCanvas = createCanvas(windowWidth-20, windowHeight - 200);
   myCanvas.parent('myContainer');
   smooth();
   strokeWeight(5);
