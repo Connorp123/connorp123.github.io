@@ -1,11 +1,11 @@
 function FlowField(r) {
-  // How large is each "cell" of the flow field
-  this.resolution = r;
-  // Determine the number of columns and rows based on sketch's width and height
+
+  // Determines the number of columns
+  this.resolution = r; // The size of each "cell"
   this.cols = width / this.resolution;
   this.rows = height / this.resolution;
-  // A flow field is a two dimensional array of p5.Vectors
-  // We can't make 2D arrays, but this is sort of faking it
+
+  // Makes a 2d array
   this.make2Darray = function(n) {
     var array = [];
     for (var i = 0; i < n; i++) {
@@ -13,22 +13,31 @@ function FlowField(r) {
     }
     return array;
   };
+
+  // Creates the FlowField
   this.field = this.make2Darray(this.cols);
 
-  this.init = function() {
-    // Reseed noise so we get a new flow field every time
+
+  this.init = function () {
+    // Reseed the noise so that we get a new flow every time
     // Need to get noise working
     noiseSeed(Math.floor(random(10000)));
     var xoff = 0;
     for (var i = 0; i < this.cols; i++) {
       var yoff = 0;
       for (var j = 0; j < this.rows; j++) {
-        var theta = map(noise(xoff, yoff), 0, 1, 0, TWO_PI);
-        //var theta = map(sin(xoff)+cos(yoff),-2,2,0,TWO_PI);
+
+        // var theta = PI / 2;
+        var theta = map(noise(xoff,yoff), 0, 1, 0, TWO_PI);
+        // var theta = map(sin(xoff)+cos(yoff), -2, 2, 0, TWO_PI);
+
         // Polar to cartesian coordinate transformation to get x and y components of the vector
         this.field[i][j] = createVector(cos(theta), sin(theta));
+
+        // Increment yoff
         yoff += 0.1;
       }
+      // Increment xoff
       xoff += 0.1;
     }
   };
@@ -46,7 +55,7 @@ function FlowField(r) {
   this.lookup = function(lookup) {
     var column = Math.floor(constrain(lookup.x / this.resolution, 0, this.cols - 1));
     var row = Math.floor(constrain(lookup.y / this.resolution, 0, this.rows - 1));
-    //println(lookup.x);
+
     return this.field[column][row].copy();
   };
 
@@ -63,8 +72,8 @@ function FlowField(r) {
     var len = v.mag() * scayl;
     // Draw three lines to make an arrow (draw pointing up since we've rotate to the proper direction)
     line(0, 0, len, 0);
-    //line(len,0,len-arrowsize,+arrowsize/2);
-    //line(len,0,len-arrowsize,-arrowsize/2);
+    line(len,0,len-arrowsize,+arrowsize/2);
+    line(len,0,len-arrowsize,-arrowsize/2);
     pop();
   };
 }

@@ -32,7 +32,7 @@ function Vehicle(x,y,ms,mf) {
     this.acceleration.add(force);
   }
 
-    // Method to update location
+  // Method to update location
   this.update = function() {
     // Update velocity
     this.velocity.add(this.acceleration);
@@ -68,3 +68,80 @@ function Vehicle(x,y,ms,mf) {
     pop();
   }
 }
+
+// MY CODE:
+
+// function Vehicle(x, y, ms, mf) {
+//
+//     this.pos = createVector(x, y);
+//     this.vel = createVector(0, 0);
+//     this.acc = createVector(0, 0);
+//     this.r = 4;
+//     this.maxSpeed = ms || 4;     // Max speed
+//     this.maxForce = mf || 0.1;  // Handling power
+//
+//     // Moves the Vehicle
+//     this.run = function () {
+//         this.update();
+//         this.borders();
+//         this.display();
+//     };
+//
+//     // Reynolds' flow field algorithm
+//     this.follow = function (flow) {
+//         // What is the vector at the current position?
+//         var desired = flow.lookup(this.position);
+//
+//         // Scale it up by maxSpeed
+//         desired.mult(this.maxSpeed);
+//
+//         // Calculate the steering force (desired - velocity)
+//         var steer = p5.Vector.sub(desired, this.velocity);
+//         steer.limit(this.maxForce); // Limit the max steering force
+//         this.applyForce(steer); // Steer the vehicle
+//     };
+//
+//     this.applyForce = function (force) {
+//         // var f = force.copy();
+//         // f.div(this.mass);
+//         this.acc.add(force);
+//     };
+//
+//     // Update the location
+//     this.update = function() {
+//         // Update velocity
+//         this.vel.add(this.acc);
+//
+//         // Limit the speed
+//         this.vel.limit(this.maxSpeed);
+//         this.pos.add(this.vel);
+//
+//         // Reset Acceleration to 0
+//         this.acc.mult(0);
+//     };
+//
+//     // Wraparound
+//     this.borders = function () {
+//         if (this.pos.x < -this.r) this.pos.x = width + this.r; // Moves from the left side to the right side
+//         if (this.pos.x > width + this.r) this.pos.x = -this.r;       // Moves from the right side to the left
+//         if (this.pos.y < this.pos.r) this.pos.y = height + this.r; // Moves from the top of the screen to the bottom
+//         if (this.pos.y > height + this.pos.r) this.pos.y = -this.r; // Moves from the top of the screen to the bottom
+//     };
+//
+//     this.display = function () {
+//         // Draw a triangle rotated in the direction of velocity
+//         var theta = this.vel.heading() + PI / 2;
+//         fill(127);
+//         stroke(200);
+//         strokeWeight(1);
+//         push();
+//         translate(this.pos.x, this.pos.y);
+//         rotate(theta);
+//         beginShape();
+//         vertex(0, -this.r * 2);
+//         vertex(-this.r, this.r * 2);
+//         vertex(this.r, this.r * 2);
+//         endShape(CLOSE);
+//         pop();
+//     }
+// }
