@@ -2,7 +2,7 @@ var w;
 var walkers = [];
 
 function setup() {
-    var myCanvas = createCanvas(windowWidth-20, windowHeight-200);
+    var myCanvas = createCanvas(windowWidth-20, windowHeight);
     myCanvas.parent('myContainer');
 }
 

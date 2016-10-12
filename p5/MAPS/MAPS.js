@@ -6,7 +6,7 @@ var mouseP = new p5.Vector(0,0);
 
 // Set up the drawing
 function setup() {
-  var myCanvas = createCanvas(windowWidth-20, windowHeight - 200);
+  var myCanvas = createCanvas(windowWidth-20, windowHeight);
   myCanvas.parent('myContainer');
   smooth();
   strokeWeight(5);
@@ -20,7 +20,7 @@ function draw() {
   mouseP.set(mouseX,mouseY);
 
   // Re-draw the background
-  background(200,200,200);
+  background(51);
 
   // Update all of the balls
   for(var i in balls) {
