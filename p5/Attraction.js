@@ -4,9 +4,6 @@ var walkers = [];
 function setup() {
     var myCanvas = createCanvas(windowWidth-20, windowHeight-200);
     myCanvas.parent('myContainer');
-
-    // Creates the walker object
-
 }
 
 function draw() {
@@ -16,8 +13,6 @@ function draw() {
         walkers[i].update();
         walkers[i].display();
     }
-    // w.update();
-    // w.display();
 }
 
 function Walker(x, y, r) {
@@ -63,8 +58,6 @@ function Walker(x, y, r) {
             this.pos.y = height-this.r;
             // Makes the ball bounce off @ 80% velocity
             this.vel.y *= -0.8;
-            // Reduces the speed of the ball by 1% (due to friction on the ground)
-            this.vel.x *= 0.99;
         }
     }
 
