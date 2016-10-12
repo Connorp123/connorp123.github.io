@@ -1,9 +1,13 @@
 var w;
 var walkers = [];
+var maxAccSlider;
 
 function setup() {
     var myCanvas = createCanvas(windowWidth-20, windowHeight);
     myCanvas.parent('myContainer');
+
+    maxAccSlider  = createSlider(1, 10, 1, 0.1);
+    maxAccSlider.parent('maxAcceleration');
 }
 
 function draw() {
@@ -71,7 +75,7 @@ function Walker(x, y, r) {
         this.acc = p5.Vector.sub(mouse, this.pos);
 
         // Controls the max size of the acceleration
-        this.acc.limit(this.maxAcc);
+        this.acc.limit(maxAccSlider.value());
         // this.acc.normalize();
 
         // this.acc.mult(.5);
