@@ -31,6 +31,33 @@ function Vehicle(x,y) {
         this.applyForce(steer);
     }
 
+    this.attract = function (target) {
+        // Gets the mouse position
+        var mouse = createVector(mouseX, mouseY);
+
+        // Points the acceleration towards the mouse
+        this.acceleration.add(p5.Vector.sub(mouse, this.position));
+
+        // Controls the max size of the acceleration
+        this.acceleration.limit(this.maxforce);
+        // this.acc.normalize();
+
+        // this.acc.mult(.5);
+        // this.acc.setMag(0.1);
+
+        // Create a vector from an angle
+        // this.acc = p5.Vector.fromAngle(3*PI/2);
+
+        // Rotates the velocity
+        // this.vel.rotate(0.1);
+
+        // Acceleration changes velocity
+        this.velocity.add(this.acceleration);
+        this.velocity.limit(this.maxspeed);
+        // Velocity changes position
+        this.position.add(this.velocity);
+    }
+
     this.separate = function (vehicles) {
         var desiredseparation = this.r*2;
         var sum = createVector();

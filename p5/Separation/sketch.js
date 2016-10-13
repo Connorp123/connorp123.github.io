@@ -19,12 +19,18 @@ function setup() {
 
 function draw() {
     background(51);
+    mouse = createVector(mouseX, mouseY);
     // Display the flowField in "debug" mode
     if (debug) flowField.display();
     // Tell all the vehicles to follow the flow field
     for (var i = 0; i < vehicles.length; i++) {
         if (flow) vehicles[i].follow(flowField);
-        vehicles[i].separate(vehicles);
+        if (attract) {
+            vehicles[i].attract(mouse);
+        }
+        if (separate) {
+            vehicles[i].separate(vehicles);
+        }
         vehicles[i].run();
     }
 
@@ -34,18 +40,29 @@ function mouseDragged() {
     vehicles.push(new Vehicle(mouseX, mouseY));
 }
 var flow = false;
+var attract = false;
+var separate = true;
 // Key-binds
 function keyPressed() {
+    // "F" - Toggles the flow field
     if(key === "F") {
         // Create a new flow field
         flow = !flow;
         if(flow) flowField.init();
-
     }
+    // "A" - Toggles the attraction to the mouse
+    if(key === "A") {
+        attract = !attract;
+    }
+    // "A" - Toggles the separation of the vehicles
+    if(key === "S") {
+        separate = !separate;
+    }
+    // "A" - Clears the vehicles
     if(key === "C") {
         vehicles = [];
     }
-    // SPACE - Debug
+    // SPACE - Toggles debug
     if (key === ' ') {
         debug = !debug;
     }
