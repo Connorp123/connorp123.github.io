@@ -12,9 +12,9 @@ function setup() {
     flowField = new FlowField(20);
 
     // Makes a bunch of vehicles with random values
-    for (var i = 0; i < 20; i++) {
-        vehicles.push(new Vehicle(random(width), random(height)));
-    }
+    // for (var i = 0; i < 20; i++) {
+    //     vehicles.push(new Vehicle(random(width), random(height)));
+    // }
 }
 
 function draw() {
