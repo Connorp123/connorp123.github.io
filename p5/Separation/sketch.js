@@ -18,7 +18,7 @@ function setup() {
 }
 
 function draw() {
-    background(51);
+    if (!trails) background(51);
     mouse = createVector(mouseX, mouseY);
     // Display the flowField in "debug" mode
     if (debug) flowField.display();
@@ -42,6 +42,7 @@ function mouseDragged() {
 var flow = false;
 var attract = false;
 var separate = true;
+var trails = false;
 // Key-binds
 function keyPressed() {
     // "F" - Toggles the flow field
@@ -54,11 +55,15 @@ function keyPressed() {
     if(key === "A") {
         attract = !attract;
     }
-    // "A" - Toggles the separation of the vehicles
+    // "S" - Toggles the separation of the vehicles
     if(key === "S") {
         separate = !separate;
     }
-    // "A" - Clears the vehicles
+    // "T" - Toggles the trails
+    if(key === "T") {
+        trails = !trails;
+    }
+    // "C" - Clears the vehicles
     if(key === "C") {
         vehicles = [];
     }
