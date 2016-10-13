@@ -4,14 +4,15 @@ var vehicles = [];  // List of Vehicle objects
 
 function setup() {
     // Creates the canvas
-    var myCanvas = createCanvas(640, 360);
+    // var myCanvas = createCanvas(640, 360);
+    var myCanvas = createCanvas(windowWidth, windowHeight);
     myCanvas.parent('canvas');
 
     // Makes a new flowField
     flowField = new FlowField(20);
 
     // Makes a bunch of vehicles with random values
-    for (var i = 0; i < 75; i++) {
+    for (var i = 0; i < 50; i++) {
         vehicles.push(new Vehicle(random(width), random(height)));
     }
 }
@@ -23,11 +24,8 @@ function draw() {
     // Tell all the vehicles to follow the flow field
     for (var i = 0; i < vehicles.length; i++) {
         if (flow) vehicles[i].follow(flowField);
-        vehicles[i].run();
         vehicles[i].separate(vehicles);
-        vehicles[i].update();
-        vehicles[i].borders();
-        vehicles[i].display();
+        vehicles[i].run();
     }
 
 }
@@ -52,12 +50,3 @@ function keyPressed() {
         debug = !debug;
     }
 }
-
-
-
-
-//
-// // When the mouse is pressed
-// function mousePressed() {
-
-// }

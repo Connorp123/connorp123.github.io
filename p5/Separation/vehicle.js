@@ -5,9 +5,9 @@ function Vehicle(x,y) {
     this.position = createVector(x,y);
     this.acceleration = createVector(0,0);
     this.velocity = createVector(0,0);
-    this.r = 12;
-    this.maxspeed = 3;
-    this.maxforce = 0.2;
+    this.r = 30;
+    this.maxspeed = 6;
+    this.maxforce = 0.5;
 
     this.applyForce = function(force) {
         // We could add mass here if we want A = F / M
@@ -104,24 +104,24 @@ function Vehicle(x,y) {
 
 }
 
-    // this.run = function() {
-    //     this.update();
-    //     this.borders();
-    //     this.display();
-    // }
+// this.run = function() {
+//     this.update();
+//     this.borders();
+//     this.display();
+// }
 
-    // // Implementing Reynolds' flow field following algorithm
-    // // http://www.red3d.com/cwr/steer/FlowFollow.html
-    // this.follow = function(flow) {
-    //     // What is the vector at that spot in the flow field?
-    //     var desired = flow.lookup(this.position);
-    //     // Scale it up by maxspeed
-    //     desired.mult(this.maxspeed);
-    //     // Steering is desired minus velocity
-    //     var steer = p5.Vector.sub(desired, this.velocity);
-    //     steer.limit(this.maxforce);  // Limit to maximum steering force
-    //     this.applyForce(steer);
-    // }
+// // Implementing Reynolds' flow field following algorithm
+// // http://www.red3d.com/cwr/steer/FlowFollow.html
+// this.follow = function(flow) {
+//     // What is the vector at that spot in the flow field?
+//     var desired = flow.lookup(this.position);
+//     // Scale it up by maxspeed
+//     desired.mult(this.maxspeed);
+//     // Steering is desired minus velocity
+//     var steer = p5.Vector.sub(desired, this.velocity);
+//     steer.limit(this.maxforce);  // Limit to maximum steering force
+//     this.applyForce(steer);
+// }
 
 
 
