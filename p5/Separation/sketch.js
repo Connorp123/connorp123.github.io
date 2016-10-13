@@ -50,3 +50,7 @@ function keyPressed() {
         debug = !debug;
     }
 }
+
+function touchMoved() {
+    return false;
+}
