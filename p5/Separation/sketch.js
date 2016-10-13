@@ -52,5 +52,6 @@ function keyPressed() {
 }
 
 function touchMoved() {
+    vehicles.push(new Vehicle(mouseX, mouseY));
     return false;
 }
