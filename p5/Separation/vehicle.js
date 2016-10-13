@@ -6,7 +6,7 @@ function Vehicle(x,y) {
     this.acceleration = createVector(0,0);
     this.velocity = createVector(0,0);
     this.r = 30;
-    this.maxspeed = 6;
+    this.maxspeed = 15;
     this.maxforce = 0.5;
 
     this.applyForce = function(force) {
