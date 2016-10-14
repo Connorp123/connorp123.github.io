@@ -29,9 +29,18 @@ function draw() {
 // Key-binds
 function keyPressed() {
     if (key === "C") {
-        vehicles = [];
+        flock.boids = [];
+    }
+    if (key === "F") {
+        var b = new Boid(width/2,height/2);
+        flock.addBoid(b);
     }
 }
+
+function mouseDragged() {
+
+}
+
 
 
 
