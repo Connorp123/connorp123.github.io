@@ -16,15 +16,15 @@ function Vehicle(x, y) {
 
 
     // Apply all of the different steering behaviors
-    this.applyBehaviors = function(vehicles, sepMultiplier, seekMultiplier) {
+    this.applyBehaviors = function(vehicles) {
 
         // Calculate the force vectors
         var separateForce = this.separate(vehicles);
         var seekForce = this.seek(createVector(mouseX,mouseY));
 
         // Prioritize the separation force
-        separateForce.mult(sepMultiplier);
-        seekForce.mult(seekMultiplier);
+        separateForce.mult(sepSlider.value());
+        seekForce.mult(seekSlider.value());
 
         // Apply the forces
         this.applyForce(separateForce);
