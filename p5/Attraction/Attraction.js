@@ -26,6 +26,9 @@ function Walker(x, y, r) {
     this.r = r;                     // Radius
     this.maxVel = 50;
     this.maxAcc = 3;
+    this.R = random(0,255);
+    this.G = random(0,255);
+    this.B = random(0,255);
 
     // this.acc = p5.Vector.fromAngle(3*PI/2);
 
@@ -94,7 +97,7 @@ function Walker(x, y, r) {
 
     // Draws the walker
     this.display = function () {
-        fill(255);
+        fill(this.R, this.G, this.B);
         ellipse(this.pos.x, this.pos.y, this.r*2, this.r*2);
     }
 }

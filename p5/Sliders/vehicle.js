@@ -13,6 +13,9 @@ function Vehicle(x, y) {
     this.maxforce = 0.2;  // Maximum steering force
     this.acceleration = createVector(0, 0);
     this.velocity = createVector(0, 0);
+    this.R = random(0,255);
+    this.G = random(0,255);
+    this.B = random(0,255);
 
 
     // Apply all of the different steering behaviors
@@ -95,9 +98,10 @@ function Vehicle(x, y) {
     }
 
     this.display = function() {
-        fill(127);
-        stroke(200);
-        strokeWeight(2);
+        fill(this.R, this.G, this.B);
+        // stroke(200);
+        noStroke();
+        // strokeWeight(2);
         push();
         translate(this.position.x, this.position.y);
         ellipse(0, 0, this.r, this.r);

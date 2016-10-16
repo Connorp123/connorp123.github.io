@@ -16,6 +16,9 @@ function Boid(x, y) {
     this.r = 3.0;
     this.maxspeed = 3; // Maximum speed
     this.maxforce = 0.05; // Maximum steering force
+    this.R = random(0,255);
+    this.G = random(0,255);
+    this.B = random(0,255);
 
     this.run = function(boids) {
         this.flock(boids);
@@ -73,8 +76,10 @@ function Boid(x, y) {
     this.render = function() {
         // Draw a triangle rotated in the direction of velocity
         var theta = this.velocity.heading() + radians(90);
-        fill(127);
-        stroke(200);
+        fill(this.R, this.G, this.B);
+        // stroke(200);
+        noStroke();
+        // strokeWeight(2);
         push();
         translate(this.position.x, this.position.y);
         rotate(theta);

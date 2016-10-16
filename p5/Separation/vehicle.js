@@ -8,6 +8,9 @@ function Vehicle(x,y) {
     this.r = 30;
     this.maxspeed = 15;
     this.maxforce = 0.5;
+    this.R = random(0,255);
+    this.G = random(0,255);
+    this.B = random(0,255);
 
     this.applyForce = function(force) {
         // We could add mass here if we want A = F / M
@@ -106,8 +109,9 @@ function Vehicle(x,y) {
     this.display = function () {
         // Draw a triangle rotated in the direction of velocity
         // var theta = this.velocity.heading() + PI / 2;
-        fill(127);
-        stroke(200);
+        fill(this.R, this.G, this.B);
+        // stroke(200);
+        noStroke();
         strokeWeight(2);
         push();
         translate(this.position.x, this.position.y);

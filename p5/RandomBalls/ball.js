@@ -9,6 +9,9 @@ function Ball(x, y, r, acc, vel) {
     this.r = r || 30;
     this.maxVel = 10;
     this.maxForce = 0.5;
+    this.R = random(0,255);
+    this.G = random(0,255);
+    this.B = random(0,255);
 
     // Runs all the methods required for each update of the ball
     this.run = function() {
@@ -36,9 +39,10 @@ function Ball(x, y, r, acc, vel) {
 
     // Draws the ball
     this.display = function () {
-        fill(127);
-        stroke(200);
-        strokeWeight(2);
+        fill(this.R, this.G, this.B);
+        // stroke(200);
+        noStroke();
+        // strokeWeight(2);
         push();
         translate(this.pos.x, this.pos.y);
         ellipse(0, 0, this.r, this.r);

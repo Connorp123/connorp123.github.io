@@ -4,6 +4,9 @@ function Vehicle(x, y, m) {
     this.acc = createVector(0, 0);
     this.maxspeed = 8;
     this.maxforce = 1;
+    this.R = random(0,255);
+    this.G = random(0,255);
+    this.B = random(0,255);
 
     this.r = 6;
 
@@ -45,9 +48,10 @@ function Vehicle(x, y, m) {
     this.display = function() {
         // Draw a triangle rotated in the direction of velocity
         var theta = this.vel.heading() + PI / 2;
-        fill(127);
-        stroke(200);
-        strokeWeight(1);
+        fill(this.R, this.G, this.B);
+        // stroke(200);
+        noStroke();
+        // strokeWeight(2);
         push();
         translate(this.pos.x, this.pos.y);
         rotate(theta);
