@@ -21,11 +21,11 @@ function setup() {
 }
 
 function draw() {
-    background(51);
+    if (!trails) background(51);
     flock.run();
 }
 
-
+var trails = false;
 // Key-binds
 function keyPressed() {
     if (key === "C") {
@@ -34,6 +34,10 @@ function keyPressed() {
     if (key === "F") {
         var b = new Boid(width/2,height/2);
         flock.addBoid(b);
+    }
+    // "T" - Toggles the trails
+    if(key === "T") {
+        trails = !trails;
     }
 }
 
