@@ -4,7 +4,7 @@ function setup(){
 
 var img;
 function preload() {
-    img = loadImage("monkey.jpg");
+    img = loadImage("goat.jpg");
 }
 
 function draw(){
