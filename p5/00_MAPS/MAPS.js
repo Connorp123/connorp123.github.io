@@ -20,7 +20,7 @@ function draw() {
   mouseP.set(mouseX,mouseY);
 
   // Re-draw the background
-  background(51);
+  background(151);
 
   // Update all of the balls
   for(var i in balls) {
@@ -37,6 +37,7 @@ function Ball(x,y,r) {
   this.acc = new p5.Vector(0,0);  // Acceleration
   this.r = r;                     // Radius
   this.beingDragged = false;      // If it's being dragged or not
+  this.rgb = [random(0,255), random(0,255), random(0,255)];
 
   // Check if the ball is colliding with another object
   this.checkEdgeCollide = function() {
@@ -76,13 +77,12 @@ function Ball(x,y,r) {
   this.update = function() {
     // Draw the ball
     fill(0,0,0,0);
-    stroke(0);
+    stroke(this.rgb[0], this.rgb[1], this.rgb[2]);
     ellipse(this.pos.x,this.pos.y,this.r*2,this.r*2);
 
     // Draw the velocity vector
     stroke(0,0,255,120);
     line(this.pos.x,this.pos.y,this.pos.x+this.vel.x*5,this.pos.y+this.vel.y*5);
-
     // Draw the acceleration vector
     stroke(255,0,0,120);
     line(this.pos.x,this.pos.y,this.pos.x+this.acc.x*100,this.pos.y+this.acc.y*100);
