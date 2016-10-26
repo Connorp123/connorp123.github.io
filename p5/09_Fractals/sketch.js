@@ -4,7 +4,7 @@ function setup() {
     var myCanvas = createCanvas(windowWidth, windowHeight);
     myCanvas.parent('canvas');
 
-     fractal = new Fractal(width/2, height/2, 500);
+     fractal = new Fractal(width/2, height/2, height/2);
 }//------------------------------------------------------------------------------------------------
 
 function draw() {
