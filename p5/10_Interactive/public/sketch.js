@@ -1,5 +1,5 @@
 var socket;
-
+var myColor;
 
 function setup() {
     var myCanvas = createCanvas(windowWidth, windowHeight);
@@ -7,6 +7,14 @@ function setup() {
     background(51);
     socket = io.connect('http://localhost:3000');
     socket.on('mouse', newDrawing);
+
+    // Chooses a random color for the user
+    myColor = {
+        r: random(0,255),
+        g: random(0,255),
+        b: random(0,255),
+        alpha: 255
+    }
 }//------------------------------------------------------------------------------------------------
 
 function draw() {
@@ -16,14 +24,17 @@ function draw() {
 function mouseDragged() {
     console.log('Sending: ' + mouseX + ', ' + mouseY);
 
+    // Set up & send the data to the server
     var data = {
         x: mouseX,
-        y: mouseY
+        y: mouseY,
+        color: myColor
     }
     socket.emit('mouse', data);
 
+    // Draw the ellipse on the client's screen
     noStroke();
-    fill(255);
+    fill(myColor.r, myColor.g, myColor.b, myColor.alpha);
     ellipse(mouseX, mouseY, 36, 36);
 }
 
@@ -31,6 +42,6 @@ function mouseDragged() {
 
 function newDrawing(data) {
     noStroke();
-    fill(255, 0 , 100);
+    fill(data.color.r, data.color.g, data.color.b, data.color.alpha);
     ellipse(data.x, data.y, 36, 36);
 }
