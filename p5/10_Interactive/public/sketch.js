@@ -36,12 +36,14 @@ function mouseDragged() {
     noStroke();
     fill(myColor.r, myColor.g, myColor.b, myColor.alpha);
     ellipse(mouseX, mouseY, 36, 36);
-}
-
-//--------------------------------------------------------------------
+}//------------------------------------------------------------------------------------------------
 
 function newDrawing(data) {
     noStroke();
     fill(data.color.r, data.color.g, data.color.b, data.color.alpha);
     ellipse(data.x, data.y, 36, 36);
-}
+}//------------------------------------------------------------------------------------------------
+
+function touchMoved() {
+    return false;
+}//------------------------------------------------------------------------------------------------
