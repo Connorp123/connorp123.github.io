@@ -45,5 +45,20 @@ function newDrawing(data) {
 }//------------------------------------------------------------------------------------------------
 
 function touchMoved() {
+    console.log('Sending: ' + mouseX + ', ' + mouseY);
+
+    // Set up & send the data to the server
+    var data = {
+        x: mouseX,
+        y: mouseY,
+        color: myColor
+    }
+    socket.emit('mouse', data);
+
+    // Draw the ellipse on the client's screen
+    noStroke();
+    fill(myColor.r, myColor.g, myColor.b, myColor.alpha);
+    ellipse(mouseX, mouseY, 36, 36);
+
     return false;
 }//------------------------------------------------------------------------------------------------
