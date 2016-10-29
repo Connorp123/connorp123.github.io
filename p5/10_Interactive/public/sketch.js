@@ -5,7 +5,7 @@ function setup() {
     var myCanvas = createCanvas(windowWidth, windowHeight);
     myCanvas.parent('canvas');
     background(51);
-    socket = io.connect('http://192.168.1.3:3000');
+    socket = io.connect('http://68.5.58.114:3000');
     socket.on('mouse', newDrawing);
 
     // Chooses a random color for the user
