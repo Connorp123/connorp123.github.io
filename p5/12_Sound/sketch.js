@@ -1,14 +1,11 @@
-// Daniel Shiffman
-// http://codingrainbow.com
-// http://patreon.com/codingrainbow
-// Code for: https://youtu.be/NCCHQwNAN6Y
-
 var song;
 var button;
 var amp;
+var vol;
+var diam;
 
 function setup() {
-  createCanvas(200, 200);
+  createCanvas(windowWidth-100, windowHeight-100);
   song = loadSound("rainbow.mp3", loaded);
   amp = new p5.Amplitude();
   background(51);
@@ -22,10 +19,11 @@ function loaded() {
 function draw() {
   background(51);
 
-  var vol = amp.getLevel();
-  var diam = map(vol, 0, 0.3, 10, 200);
+  vol = amp.getLevel();
+  diam = map(vol, 0, 0.3, 10, windowHeight);
+  clr = color(map(vol, 0, 0.3, 0, 255), map(vol, 0, 0.3, 125, 255), 255);
 
-  fill(255, 0, 255);
+  fill(clr);
   ellipse(width / 2, height / 2, diam, diam);
 }
 
