@@ -14,102 +14,173 @@
 	</head>
 	<body>
 
-<header class="navbar navbar-default navbar-static-top" role="banner">
-  <div class="container">
-    <div class="navbar-header">
-      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <!--<a href="/" class="navbar-brand">Bootply</a>-->
+    <header class="navbar navbar-default navbar-static-top" role="banner">
+      <div class="container">
+
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+        <nav class="collapse navbar-collapse" role="navigation">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="about.html">About Me</a>
+            </li>
+            <li>
+              <a href="data.html">Data Stuff</a>
+            </li>
+            <li>
+              <a href="p5.html">p5 Playground</a>
+            </li>
+            <li>
+              <a href="tutorials.html">Tutorials</a>
+            </li>
+            <li>
+              <a href="contact.html">Contact Me</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Begin Body -->
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <h2 id="sec0">Welcome!</h2>
+          <hr>
+          <p>This is my personal website where I'll be posting the things that I'm interested in! Right now, mostly
+              stuff with p5.js!:)
+            </p>
+          <hr>
+
+          <h3>Here's what I've been creating with p5.js</h3>
+          <p>(Always scroll down to see the controls!)</p>
+          <hr>
+
+          <li><a href="p5/01_Attraction/Attraction.html"><h4>Messing around with attraction</h4></a></li>
+          <li><a href="p5/02_Arrival/Arrive.html"><h4>Testing arrival with vehicles</h4></a>
+          <li><a href="p5/03_FlowField/FlowField.html"><h4>Changeable flow field</h4></a>
+          <li><a href="p5/04_Separation/Separation.html"><h4>Adding separation to what we already have</h4></a>
+          <li><a href="p5/05_RandomBalls/RandomBalls.html"><h4>Balls spawned with random acceleration and velocity</h4></a>
+          <li><a href="p5/06_Sliders/Sliders.html"><h4>Demonstrating sliders with seek/separation behavior</h4></a>
+          <li><a href="p5/07_Flocking/Flocking.html"><h4>A demonstration of a complex system of Boids</h4></a>
+          <li><a href="p5/08_RotatingShapes/RotatingShapes.html"><h4>Basic rotating shapes with WebGL</h4></a>
+          <li><a href="p5/09_Fractals/Fractals.html"><h4>Simple fractal pattern with circles</h4></a>
+          <li><a href="p5/11_Torque/Torque.html"><h4>Physics Simulation - Torque</h4></a>
+
+          <hr>
+
+          <h3>Interactive Sketches!</h3>
+          <h4>Join one with a friend!</h4>
+
+          <hr>
+
+          <li><a href="p5/10_Interactive/public/index.html"><h4>Drawing with friends!</h4></a></li>
+
+          <hr>
+
+          <h3>Here's a cool physics simulation I found</h3>
+
+          <hr>
+
+          <a href="p5/00_MAPS/MAPS.html"><h4>MAPS - Mostly Accurate Physics Simulation</h4></a>
+
+          <hr>
+
+          <h2>
+            <a href="https://github.com/Connorp123/connorp123.github.io/tree/master/p5">
+              All of my p5 code
+            </a>
+          </h2>
+
+          <h2><a href="https://p5js.org/">The p5.js framework</a></h2>
+
+          <h3>
+            Most of this code was made thanks to
+            <a href="http://shiffman.net/">Daniel Shiffman</a>
+            and his amazing
+            <a href="https://www.youtube.com/user/shiffman">YouTube tutorials!</a>
+            Check him out!
+          </h3>
+
+        </div>
+
+      </div>
     </div>
-    <nav class="collapse navbar-collapse" role="navigation">
-      <ul class="nav navbar-nav">
-        <li>
-          <a href="about.html">About Me</a>
-        </li>
-        <li>
-          <a href="data.html">Data Stuff</a>
-        </li>
-        <li>
-          <a href="p5.html">p5 Playground</a>
-        </li>
-        <li>
-          <a href="tutorials.html">Tutorials</a>
-        </li>
-        <li>
-          <a href="contact.html">Contact Me</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-</header>
 
-<!-- Begin Body -->
-<div class="container">
-	<div class="row">
-  			<!--<div class="col-md-3" id="leftCol">-->
-				<!--<div class="well">-->
-              	<!--<ul class="nav nav-stacked" id="sidebar">-->
-                  <!--<li><a href="#sec1">Recent Content</a></li>-->
-                  <!--<li><a href="#sec2">Section 2</a></li>-->
-                  <!--<li><a href="#sec3">Section 3</a></li>-->
-                  <!--<li><a href="#sec4">Section 4</a></li>-->
-              	<!--</ul>-->
-  				<!--</div>-->
-      		<!--</div>-->
-      		<div class="col-md-12">
-
-                <h2 id="sec0">Welcome!</h2>
-                <hr>
-                This is my personal website where I'll be posting the things that I'm interested in! Right now, mostly
-                stuff with p5.js!:)
-              	<hr>
-
-              	<h2 id="sec1">Recent Content</h2>
-
-                  <div class="col-md-4">
-                    <div class="panel panel-default">
-                      <div class="panel-heading"><h3><a href="p5.html">p5 Playground</a></h3></div>
-                      <div class="panel-body">
-                        <li><a href="p5/01_Attraction/Attraction.html">Messing around with attraction</a></li>
-                        <li><a href="p5/02_Arrival/Arrive.html">Testing arrival with vehicles</a></li>
-                        <li><a href="p5/03_FlowField/FlowField.html">Changeable flow field</a></li>
-                        <li><a href="p5/04_Separation/Separation.html">Adding separation to what we already have</a></li>
-                        <li><a href="p5/05_RandomBalls/RandomBalls.html">Balls spawned with random acceleration and velocity</a></li>
-                        <li><a href="p5/06_Sliders/Sliders.html">Demonstrating sliders with seek/separation behavior</a></li>
-                        <li><a href="p5/07_Flocking/Flocking.html">A demonstration of a complex system of Boids</a></li>
-                        <li><a href="p5/08_RotatingShapes/RotatingShapes.html">Basic rotating shapes with WebGL</a></li>
-                        <li><a href="p5/09_Fractals/Fractals.html">Simple fractal pattern with circles</a></li>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4">
-                      <div class="panel panel-default">
-                      <div class="panel-heading"><h3><a href="data.html">Data Stuff</a></h3></div>
-                      <div class="panel-body">
-                        <li><a href="data.html#ParamaountScatter">Paramount movies produced per year - Scatter</a></li>
-                        <li><a href="data.html#ParamaountPie">Paramount movies produced per year - Pie</a></li>
-                      </div>
-                    </div>
-                  </div>
+    <!-- script references -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
 
 
 
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="panel panel-default">
-                      <div class="panel-heading"><h3><a href="tutorials.html">Tutorials</a></h3></div>
-                      <div class="panel-body">
-                        <li><a href="tutorials.html#Quicksort">QuickSort</a></li>
-                      </div>
-                    </div>
-                  </div>
 
-              	</div>
+
+
+<!--<div class="col-md-3" id="leftCol">-->
+<!--<div class="well">-->
+<!--<ul class="nav nav-stacked" id="sidebar">-->
+<!--<li><a href="#sec1">Recent Content</a></li>-->
+<!--<li><a href="#sec2">Section 2</a></li>-->
+<!--<li><a href="#sec3">Section 3</a></li>-->
+<!--<li><a href="#sec4">Section 4</a></li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+
+              	<!--<h2 id="sec1">Recent Content</h2>-->
+
+                  <!--<div class="col-md-4">-->
+                    <!--<div class="panel panel-default">-->
+                      <!--<div class="panel-heading"><h3><a href="p5.html">p5 Playground</a></h3></div>-->
+                      <!--<div class="panel-body">-->
+                        <!--<li><a href="p5/01_Attraction/Attraction.html">Messing around with attraction</a></li>-->
+                        <!--<li><a href="p5/02_Arrival/Arrive.html">Testing arrival with vehicles</a></li>-->
+                        <!--<li><a href="p5/03_FlowField/FlowField.html">Changeable flow field</a></li>-->
+                        <!--<li><a href="p5/04_Separation/Separation.html">Adding separation to what we already have</a></li>-->
+                        <!--<li><a href="p5/05_RandomBalls/RandomBalls.html">Balls spawned with random acceleration and velocity</a></li>-->
+                        <!--<li><a href="p5/06_Sliders/Sliders.html">Demonstrating sliders with seek/separation behavior</a></li>-->
+                        <!--<li><a href="p5/07_Flocking/Flocking.html">A demonstration of a complex system of Boids</a></li>-->
+                        <!--<li><a href="p5/08_RotatingShapes/RotatingShapes.html">Basic rotating shapes with WebGL</a></li>-->
+                        <!--<li><a href="p5/09_Fractals/Fractals.html">Simple fractal pattern with circles</a></li>-->
+                        <!--<li><a href="p5/11_Torque/Torque.html">Physics simulation - Torque</a></li>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+                  <!--<div class="col-md-4">-->
+                      <!--<div class="panel panel-default">-->
+                      <!--<div class="panel-heading"><h3><a href="data.html">Data Stuff</a></h3></div>-->
+                      <!--<div class="panel-body">-->
+                        <!--<li><a href="data.html#ParamaountScatter">Paramount movies produced per year - Scatter</a></li>-->
+                        <!--<li><a href="data.html#ParamaountPie">Paramount movies produced per year - Pie</a></li>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+
+
+                <!--<div class="row">-->
+                  <!--<div class="col-md-4">-->
+                    <!--<div class="panel panel-default">-->
+                      <!--<div class="panel-heading"><h3><a href="tutorials.html">Tutorials</a></h3></div>-->
+                      <!--<div class="panel-body">-->
+                        <!--<li><a href="tutorials.html#Quicksort">QuickSort</a></li>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
 
               	<!--<hr>-->
 
@@ -159,15 +230,3 @@
               	<!--<hr>-->
 
 
-      		</div>
-  	</div>
-</div>
-
-
-
-	<!-- script references -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/scripts.js"></script>
-	</body>
-</html>
