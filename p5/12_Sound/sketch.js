@@ -27,6 +27,16 @@ function draw() {
   ellipse(width / 2, height / 2, diam, diam);
 }
 
+function mouseClicked() {
+  if (!song.isPlaying()) {
+    song.play();
+    song.setVolume(0.3);
+    button.html("pause");
+  } else {
+    song.stop();
+    button.html("play");
+  }
+}
 
 function togglePlaying() {
   if (!song.isPlaying()) {
