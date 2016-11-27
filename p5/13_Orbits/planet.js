@@ -1,56 +1,68 @@
 // The "Planet" constructor
 
-function Planet(x, y) {
+function Planet(x, y, r, v) {
 
     // Planet properties
     this.pos = createVector(x,y);
     this.acc = createVector(0,0);
-    this.velocity = createVector(0,0);
-    this.r = 30;
-    this.m = 100;
+    this.vel = v || createVector(0,0);
+    // this.r = random(10,100);
+    this.r = r || 30;
+    this.mass = this.r * 200;
 
     // Color
     this.R = random(0,255);
     this.G = random(0,255);
     this.B = random(0,255);
+    this.alpha = 200;
 
-    // this.maxspeed = 15;
-    // this.maxforce = 0.5;
+    // Control variables
+    this.beingDragged = false;
+
+    this.maxVel = 10000000;
+    this.maxForce = 100000000;
     //----------------------------------------------------------------------------------------------
 
     // This function should be called in draw()
     this.run = function() {
         this.update();
-        this.borders();
+        // this.borders();
         this.display();
     }//---------------------------------------------------------------------------------------------
 
     // Apply a force to the planet
     this.applyForce = function(force) {
-        // We could add mass here if we want A = F / M
-        this.acc.add(force);
+
+        var newForce = force.div(this.mass);
+        force.limit(this.maxForce);
+        this.acc.add(newForce);
     }//---------------------------------------------------------------------------------------------
 
 
+    // Calculates and applies an attraction force towards the target
     this.attract = function (target) {
 
-        // Points the acceleration towards the mouse
-        this.acc.add(p5.Vector.sub(target, this.pos));
+        var attrForce = p5.Vector.sub(target, this.pos);
+        this.applyForce(attrForce);
 
-        // Acceleration changes velocity
-        this.velocity.add(this.acc);
-        this.velocity.limit(this.maxspeed);
-        // Velocity changes pos
-        this.pos.add(this.velocity);
     }//---------------------------------------------------------------------------------------------
 
     // Method to update location
     this.update = function () {
+
         // Update velocity
-        this.velocity.add(this.acc);
-        // Limit speed
-        this.velocity.limit(this.maxspeed);
-        this.pos.add(this.velocity);
+        if (this.beingDragged) {
+            this.drag();
+        }
+        else {
+            this.vel.add(this.acc);
+            this.vel.limit(this.maxVel);
+
+        }
+
+        // Update position
+        this.pos.add(this.vel);
+
         // Reset acceleration to 0 each cycle
         this.acc.mult(0);
     }//---------------------------------------------------------------------------------------------
@@ -59,10 +71,10 @@ function Planet(x, y) {
     this.display = function () {
         // Draw a triangle rotated in the direction of velocity
         // var theta = this.velocity.heading() + PI / 2;
-        fill(this.R, this.G, this.B);
-        // stroke(200);
-        noStroke();
-        strokeWeight(2);
+        fill(this.R, this.G, this.B, this.alpha);
+        stroke(this.R, this.G, this.B);
+        // noStroke();
+        strokeWeight(1);
         push();
         translate(this.pos.x, this.pos.y);
         ellipse(0, 0, this.r, this.r);
@@ -76,5 +88,42 @@ function Planet(x, y) {
         if (this.pos.x > width + this.r) this.pos.x = -this.r;
         if (this.pos.y > height + this.r) this.pos.y = -this.r;
     }//---------------------------------------------------------------------------------------------
+
+
+    // Create a velocity vector towards the mouse when the planet is being clicked
+    this.drag = function () {
+
+
+        // Create the velocity vector towards the mouse
+        this.vel = p5.Vector.sub(mVec, this.pos);
+        stroke(0, 120);
+        line(this.pos.x, this.pos.y, mouseX, mouseY);
+    }
+
+
+
+        // var mX = mouseX;
+        // var mY = mouseY;
+        //
+        // // Draw a planet
+        // planet2 = new Planet(mX, mY);
+        //
+        // // While the mouse button is held down
+        // while(mouseIsPressed) {
+        //
+        //     console.log(mouseIsPressed);
+        //
+        //     // Draw a line showing the velocity vector
+        //     color(0,0,255);
+        //     line(mX, mY, mouseX, mouseY);
+        //
+        // }
+        //
+        // // Create the velocity vector where they let go of the mouse
+        // var v = createVector(mX, mY, mouseX, mouseY);
+        //
+        // // Apply the velocity to the planet
+        // planet2.vel = v;
+    // }
 
 }

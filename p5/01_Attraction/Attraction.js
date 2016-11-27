@@ -1,17 +1,16 @@
 var w;
 var walkers = [];
-var maxAccSlider;
+var redraw = true;
+var myCanvas;
 
 function setup() {
-    var myCanvas = createCanvas(windowWidth-20, windowHeight);
+    myCanvas = createCanvas(windowWidth-20, windowHeight);
     myCanvas.parent('myContainer');
 
-    maxAccSlider  = createSlider(1, 10, 1, 0.1);
-    maxAccSlider.parent('maxAcceleration');
 }
 
 function draw() {
-    background(51);
+    if (redraw) background(51);
     // Shows the walker
     for(var i = 0; i < walkers.length; ++i) {
         walkers[i].update();
@@ -78,7 +77,7 @@ function Walker(x, y, r) {
         this.acc = p5.Vector.sub(mouse, this.pos);
 
         // Controls the max size of the acceleration
-        this.acc.limit(maxAccSlider.value());
+        this.acc.limit(this.maxAcc);
         // this.acc.normalize();
 
         // this.acc.mult(.5);
@@ -113,5 +112,11 @@ function keyPressed() {
     }
     if(key === "C") {
         walkers = [];
+    }
+    if(key === "B") {
+        redraw = !redraw;
+    }
+    if(key === "S") {
+        saveCanvas(myCanvas, 'p5_Attraction', 'png');
     }
 }
