@@ -3,13 +3,26 @@ var button;
 var amp;
 var vol;
 var diam;
+var canvas;
+var loading;
 
 function setup() {
-  createCanvas(windowWidth-100, windowHeight-100);
+  canvas = createCanvas(windowWidth-100, windowHeight-100);
+  canvas.parent('canvas');
+
   song = loadSound("rainbow.mp3", loaded);
+
+
+  // loading = createP('Sketch is loading!');
+  // loading.parent('p5_loading');
+
   amp = new p5.Amplitude();
   background(51);
 }
+
+// function preload() {
+//   song = loadSound("rainbow.mp3", loaded);
+// }
 
 function loaded() {
   button = createButton("play");
@@ -28,14 +41,7 @@ function draw() {
 }
 
 function mouseClicked() {
-  if (!song.isPlaying()) {
-    song.play();
-    song.setVolume(0.3);
-    button.html("pause");
-  } else {
-    song.stop();
-    button.html("play");
-  }
+  togglePlaying();
 }
 
 function togglePlaying() {
