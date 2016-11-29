@@ -4,6 +4,9 @@ var p = false;
 var planets = [];  // List of Planet objects
 var planet1;
 var planet2;
+var m1Input;
+var m2Input;
+var mInput;
 var userPlanet;
 var mVec;
 var gravity = false;
@@ -15,15 +18,28 @@ function setup() {
     myCanvas.parent('canvas');
 
     // Create the planets
-    planets.push(new Planet(width/4,         height/2, random(10,50)  ) );
-    planets.push(new Planet(width - width/4, height/2, random(50,100) ) );
+    planets.push(new Planet(width/4,         height/2, m1Input.value() ) );
+    planets.push(new Planet(width - width/4, height/2, m2Input.value() ) );
+
+}
+
+function preload() {
+    //Create the buttons
+    m1Input = createInput('50');
+    m1Input.parent('m1Input');
+    // // m1Input.input(myInputEvent);
+    m2Input = createInput('50');
+    m2Input.parent('m2Input');
+
+    mInput = createInput('50');
+    mInput.parent('mInput');
 
 }
 
 function draw() {
 
     // Re-draw the background
-    if (redraw) background(255);
+    if (redraw) background(100);
 
     mVec = createVector(mouseX, mouseY);
 
@@ -109,7 +125,11 @@ function keyPressed() {
     }
     // "N" - Create a new planet
     if (key === "N") {
-        planets.push(new Planet(mouseX, mouseY, random(10,100)));
+        planets.push(new Planet(mouseX, mouseY, mInput.value()));
+    }
+    // "R" - Reset the sketch
+    if (key === "R") {
+        Reset();
     }
 
 }
@@ -123,6 +143,16 @@ function Pause() {
         noLoop();
     }
     p = !p;
+}
+
+function Reset() {
+
+    // Clear the planets
+    planets = [];
+
+    // Create the starting planets
+    planets.push(new Planet(width/4,         height/2, m1Input.value() ) );
+    planets.push(new Planet(width - width/4, height/2, m2Input.value() ) );
 }
 
 // // Happens when someone drags their finger on a mobile device

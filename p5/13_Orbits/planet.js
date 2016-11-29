@@ -1,6 +1,6 @@
 // The "Planet" constructor
 
-function Planet(x, y, r, v) {
+function Planet(x, y, r, m, v) {
 
     // Planet properties
     this.pos = createVector(x,y);
@@ -8,13 +8,13 @@ function Planet(x, y, r, v) {
     this.vel = v || createVector(0,0);
     // this.r = random(10,100);
     this.r = r || 30;
-    this.mass = this.r * 200;
+    this.mass = this.m || this.r * 10000;
 
     // Color
     this.R = random(0,255);
     this.G = random(0,255);
     this.B = random(0,255);
-    this.alpha = 200;
+    this.alpha = 100;
 
     // Control variables
     this.beingDragged = false;
@@ -25,25 +25,31 @@ function Planet(x, y, r, v) {
 
     // This function should be called in draw()
     this.run = function() {
+        this.display();
         this.update();
         // this.borders();
-        this.display();
     }//---------------------------------------------------------------------------------------------
 
     // Apply a force to the planet
     this.applyForce = function(force) {
 
-        var newForce = force.div(this.mass);
-        force.limit(this.maxForce);
-        this.acc.add(newForce);
+        // var newForce = force.div(this.mass);
+        // force.limit(this.maxForce);
+        this.acc.add(force);
     }//---------------------------------------------------------------------------------------------
 
 
     // Calculates and applies an attraction force towards the target
     this.attract = function (target) {
 
-        var attrForce = p5.Vector.sub(target, this.pos);
-        this.applyForce(attrForce);
+        var G = 6.67;
+        var M = this.mass;
+        var r = p5.Vector.sub(target, this.pos);
+
+        var fGravity = r.normalize();
+        fGravity.mag((G * M) / (r * r));
+
+        this.applyForce(fGravity);
 
     }//---------------------------------------------------------------------------------------------
 
@@ -79,6 +85,24 @@ function Planet(x, y, r, v) {
         translate(this.pos.x, this.pos.y);
         ellipse(0, 0, this.r, this.r);
         pop();
+
+        if(debug) {
+
+            // Draw the velocity vector
+            stroke(0,0,255,120);
+            line(this.pos.x ,this.pos.y, this.pos.x+this.vel.x*5, this.pos.y+this.vel.y*5);
+
+            // Draw the acceleration vector
+            stroke(255,0,0,120);
+            line(this.pos.x, this.pos.y, this.pos.x+this.acc.x*100, this.pos.y+this.acc.y*100 );
+
+        }
+
+
+
+        // this.acc.mult(0);
+
+
     }//---------------------------------------------------------------------------------------------
 
     // Wraparound

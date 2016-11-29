@@ -5,7 +5,7 @@
   <title>Orbits</title>
 
   <script src="../libraries/p5.js" type="text/javascript"></script>
-  <!--<script src="../libraries/p5.dom.js" type="text/javascript"></script>-->
+  <script src="../libraries/p5.dom.js" type="text/javascript"></script>
   <!--<script src="../libraries/p5.sound.js" type="text/javascript"></script>-->
 
   <script src="planet.js" type="text/javascript"></script>
@@ -14,11 +14,20 @@
   <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
 </head>
 <body>
+  <p>Mass of planet 1</p>
+  <div id="m1Input"></div>
+
+  <p>Mass of planet 2</p>
+  <div id="m2Input"></div>
+
+  <p>Mass of the new planet (spawned with N)</p>
+  <div id="mInput"></div>
   <div id='canvas'></div>
   <p>Controls:</p>
-  <p>Drag to spawn new balls</p>
-  <p>C - Clear all balls</p>
+  <p>C - Clear all planets</p>
   <p>B - Toggle backgroud redraw</p>
-  <p>SPACE - Toggle debug mode</p>
+  <p>N - Spawn new planet</p>
+  <p>R - Reset</p>
+  <p>SPACE - Toggle debug</p>
 </body>
 </html>
