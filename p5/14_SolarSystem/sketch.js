@@ -1,4 +1,4 @@
-var debug = false;   // Draws debug stuff
+var debug = true;   // Draws debug stuff
 var redraw = true;
 var p = false;
 var planets = [];  // List of Planet objects
@@ -46,8 +46,8 @@ function draw() {
     // Apply gravity to the planets
     if(gravity) {
 
-        planets[0].attract(planets[1].pos, planets[1].mass);
-        planets[1].attract(planets[0].pos, planets[0].mass);
+        planets[0].attract(planets[1].pos, planets[1].mass, planets[1].radius);
+        planets[1].attract(planets[0].pos, planets[0].mass, planets[0].radius);
 
         // // For each planet
         // for(var i = 0; i < planets.length; ++i) {
@@ -118,8 +118,8 @@ function keyPressed() {
     if(key === "C") {
         planets = [];
     }
-    // SPACE - Toggles debug
-    if (key === ' ') {
+    // D - Toggles debug
+    if (key === 'D') {
         debug = !debug;
     }
     // "G" - Toggles gravity

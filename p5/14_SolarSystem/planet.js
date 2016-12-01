@@ -40,12 +40,12 @@ function Planet(x, y, r, m, v) {
 
 
     // Calculates and applies an attraction force towards the target
-    this.attract = function (target, mass) {
+    this.attract = function (target, mass, radius) {
 
-        var G = .0000000000667;
+        var G = .000000000667;
         var rVector = p5.Vector.sub(target, this.pos);
         var r = p5.Vector.dist(target, this.pos);
-        var R = this.r;
+        var R = radius;
 
         // var rAngle = rVector.heading();
         // var rX = rVector.x;
@@ -66,15 +66,15 @@ function Planet(x, y, r, m, v) {
         // Calculate the force of gravity
 
         // Check if they are overlapping
-        if(r < R) {
-            var GMr = G * this.mass * r;
-            var rCubed = r * r * r;
-            var fGrav = GMr / rCubed;
+        if(r < radius) {
+
+            console.log("Planets are overlapping. r = " + r);
+
+            var gMag = (G * this.mass * r) / (r * r * r);
         }
         else {
-            var gmm = G * m * M;
-            var rSquared = r * r;
-            var fGrav = gmm / rSquared;
+
+            var gMag = (G * m * M) / (r * r);
         }
 
 
@@ -85,7 +85,7 @@ function Planet(x, y, r, m, v) {
         // fGravity.setMag(fGrav);
         var fGravity = rVector.copy();
         fGravity.normalize();
-        fGravity.setMag(fGrav);
+        fGravity.setMag(gMag);
         // fGravity.rotate(rAngle);
 
         console.log("fGravity is: " + fGravity);
@@ -136,7 +136,7 @@ function Planet(x, y, r, m, v) {
 
             // Draw the acceleration vector
             stroke(255,0,0,120);
-            line(this.pos.x, this.pos.y, this.pos.x+this.acc.x*100, this.pos.y+this.acc.y*100 );
+            line(this.pos.x, this.pos.y, this.pos.x+this.acc.x*1000, this.pos.y+this.acc.y*1000 );
 
         }
 
