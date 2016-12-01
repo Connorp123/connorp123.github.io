@@ -1,4 +1,4 @@
-var debug = false;   // Draws debug stuff
+var debug = true;   // Draws debug stuff
 var redraw = true;
 var p = false;
 var planets = [];  // List of Planet objects
@@ -115,8 +115,8 @@ function keyPressed() {
     if(key === "C") {
         planets = [];
     }
-    // SPACE - Toggles debug
-    if (key === ' ') {
+    // D - Toggles debug
+    if (key === 'D') {
         debug = !debug;
     }
     // "G" - Toggles gravity
