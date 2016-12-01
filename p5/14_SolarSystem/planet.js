@@ -44,12 +44,12 @@ function Planet(x, y, r, m, v) {
 
         var G = .0000000000667;
         var rVector = p5.Vector.sub(target, this.pos);
-        var rAngle = rVector.heading();
-        var rX = rVector.x;
-        var rY = rVector.y;
-        var r = p5.Vector.dist(target, this.pos) * .5;
+        var r = p5.Vector.dist(target, this.pos);
+        var R = this.r;
 
-        console.log("r is: " + r);
+        // var rAngle = rVector.heading();
+        // var rX = rVector.x;
+        // var rY = rVector.y;
 
         // Find m & M
         var m;
@@ -64,9 +64,19 @@ function Planet(x, y, r, m, v) {
         }
 
         // Calculate the force of gravity
-        var gmm = G * m * M;
-        var rSquared = r * r;
-        var fGrav = gmm / rSquared;
+
+        // Check if they are overlapping
+        if(r < R) {
+            var GMr = G * this.mass * r;
+            var rCubed = r * r * r;
+            var fGrav = GMr / rCubed;
+        }
+        else {
+            var gmm = G * m * M;
+            var rSquared = r * r;
+            var fGrav = gmm / rSquared;
+        }
+
 
 
         // Create an acceleration vector caused by gravity
