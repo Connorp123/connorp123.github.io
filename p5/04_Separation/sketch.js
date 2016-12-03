@@ -1,11 +1,16 @@
 var debug = false;   // Draws debug stuff
+var flow = false;
+var attract = false;
+var separate = true;
+var redraw = true;
+
 var flowField;      // flowField object
 var vehicles = [];  // List of Vehicle objects
 
 function setup() {
     // Creates the canvas
-    // var myCanvas = createCanvas(640, 360);
-    var myCanvas = createCanvas(windowWidth, windowHeight);
+    var myCanvas = createCanvas(1280, 720);
+    // var myCanvas = createCanvas(windowWidth-20, windowHeight-20);
     myCanvas.parent('canvas');
 
     // Makes a new flowField
@@ -18,7 +23,7 @@ function setup() {
 }
 
 function draw() {
-    if (!trails) background(51);
+    if (redraw) background(51);
     mouse = createVector(mouseX, mouseY);
     // Display the flowField in "debug" mode
     if (debug) flowField.display();
@@ -39,10 +44,7 @@ function draw() {
 function mouseDragged() {
     vehicles.push(new Vehicle(mouseX, mouseY));
 }
-var flow = false;
-var attract = false;
-var separate = true;
-var trails = false;
+
 // Key-binds
 function keyPressed() {
     // "F" - Toggles the flow field
@@ -59,9 +61,9 @@ function keyPressed() {
     if(key === "S") {
         separate = !separate;
     }
-    // "T" - Toggles the trails
-    if(key === "T") {
-        trails = !trails;
+    // "B" - Toggles background re-draw
+    if(key === "B") {
+        redraw = !redraw;
     }
     // "C" - Clears the vehicles
     if(key === "C") {
@@ -71,6 +73,14 @@ function keyPressed() {
     if (key === ' ') {
         debug = !debug;
     }
+
+
+
+
+    if (key === "R") {
+        saveFrames("savedFrames", "jpg", 15, 5);
+    }
+
 }
 
 function touchMoved() {
