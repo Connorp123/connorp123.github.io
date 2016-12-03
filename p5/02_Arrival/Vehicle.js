@@ -2,7 +2,7 @@ function Vehicle(x, y, m) {
     this.pos = createVector(x, y);
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0);
-    this.maxspeed = 8;
+    this.maxspeed = 10;
     this.maxforce = 1;
     this.R = random(0,255);
     this.G = random(0,255);
