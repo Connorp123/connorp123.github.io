@@ -94,7 +94,7 @@ function Planet(x, y, r, m, v) {
 
             // Draw the acceleration vector
             stroke(255,0,0,120);
-            line(this.pos.x, this.pos.y, this.pos.x+this.acc.x*100, this.pos.y+this.acc.y*100 );
+            line(this.pos.x, this.pos.y, this.pos.x+this.acc.x*50, this.pos.y+this.acc.y*50 );
 
         }
 
