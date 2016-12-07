@@ -107,22 +107,31 @@ function Vehicle(x,y) {
     }
 
     this.display = function () {
-        // Draw a triangle rotated in the direction of velocity
-        // var theta = this.velocity.heading() + PI / 2;
+
+
+        // COLOR
         fill(this.R, this.G, this.B);
-        // stroke(200);
         noStroke();
         strokeWeight(2);
+
+        // CIRCLE
         push();
         translate(this.position.x, this.position.y);
         ellipse(0, 0, this.r, this.r);
         pop();
+
+
+        // TRIANGLE
+        // var theta = this.velocity.heading() + PI / 2;
+        // push();
+        // translate(this.position.x,this.position.y);
         // rotate(theta);
         // beginShape();
-        // vertex(0, -this.r * 2);
-        // vertex(-this.r, this.r * 2);
-        // vertex(this.r, this.r * 2);
+        // vertex(0, -this.r*2);
+        // vertex(-this.r, this.r*2);
+        // vertex(this.r, this.r*2);
         // endShape(CLOSE);
+        // pop();
     }
 
     // Wraparound

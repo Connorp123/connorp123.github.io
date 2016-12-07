@@ -9,8 +9,7 @@ var vehicles = [];  // List of Vehicle objects
 
 function setup() {
     // Creates the canvas
-    var myCanvas = createCanvas(1280, 720);
-    // var myCanvas = createCanvas(windowWidth-20, windowHeight-20);
+    var myCanvas = createCanvas(windowWidth-20, windowHeight-20);
     myCanvas.parent('canvas');
 
     // Makes a new flowField
@@ -73,14 +72,6 @@ function keyPressed() {
     if (key === ' ') {
         debug = !debug;
     }
-
-
-
-
-    if (key === "R") {
-        saveFrames("savedFrames", "jpg", 15, 5);
-    }
-
 }
 
 function touchMoved() {
