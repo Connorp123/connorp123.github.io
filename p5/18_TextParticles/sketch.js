@@ -1,17 +1,16 @@
-let redraw   = true;
-let reset    = true;
-let repel    = true;
+let redraw      = true;
+let reset       = true;
+let repel       = true;
 let displayMode = 0;
 let bgColor     = 0;
-let vehicles = [];
-let fontNames = ['waltograph42.ttf', 'waltographUI.ttf'];
+let vehicles    = [];
+let fontNames   = ['waltograph42.ttf', 'waltographUI.ttf'];
+let fontNum     = 0;
+let fontSize    = 200;
 let font;
-let fontNum   = 0;
-let fontSize  = 200;
 let textBox1;
 let fontButton;
 let displayModeButton;
-let urlValues;
 //--------------------------------------------------------------------------------------------------
 
 function preload() {
@@ -24,29 +23,8 @@ function setup() {
     let myCanvas = createCanvas(windowWidth, windowHeight);
     myCanvas.parent('canvas');
 
-    // Get the variables from the URL
-    urlValues = getURLValues();
-
      // Create the html elements
-    if(urlValues.text)
-        textBox1      = createInput(urlValues.text);
-    else
-        textBox1      = createInput('ConnorPeace');
-    fontButton        = createButton('Switch Font');
-    displayModeButton = createButton('Switch Particle Type');
-
-    textBox1.input(updateText);
-    fontButton.mousePressed(switchFont);
-    displayModeButton.mousePressed(changeDisplayMode);
-
-    textBox1.position(0,0);
-    fontButton.position(textBox1.width, 0);
-    displayModeButton.position(textBox1.width + fontButton.width, 0);
-
-    // textBox1.parent('textInput1');
-    // fontButton.parent('fontButton');
-    // displayModeButton.parent('displayModeButton');
-
+    createElements();
 
     // Display the particles
     updateText();
@@ -74,8 +52,13 @@ function keyPressed() {
 }//-------------------------------------------------------------------------------------------------
 
 function updateText() {
+
+    let text = textBox1.value();
+    let xPos = 25;
+    let yPos = (height + fontSize) / 2;
+
     // Gets a list of points from the borders of the text
-    let points = font.textToPoints(textBox1.value(), 75, height/1.75, fontSize, {
+    let points = font.textToPoints(text, xPos, yPos, fontSize, {
         sampleFactor: 0.15  // sampleFactor ~ frequency of points
     });
 
@@ -84,6 +67,7 @@ function updateText() {
     for(let i = 0; i < points.length; i++) {
         let pt = points[i];
         let vehicle = new Vehicle(pt.x, pt.y, 5);
+        vehicle.randomizePos();
         vehicles.push(vehicle);
     }
 }//-------------------------------------------------------------------------------------------------
@@ -92,6 +76,37 @@ function switchFont() {
     fontNum++;
     font = loadFont(fontNames[fontNum % fontNames.length], updateText);
 }//-------------------------------------------------------------------------------------------------
+
+// Create the HTML Elements
+function createElements() {
+
+    // Get the variables from the URL
+    let urlValues = getURLValues();
+
+    // Create the elements
+    if(urlValues.text)
+        textBox1      = createInput(urlValues.text);
+    else
+        textBox1      = createInput('ConnorPeace');
+    fontButton        = createButton('Switch Font');
+    displayModeButton = createButton('Switch Particle Type');
+
+    // Set their functions
+    textBox1.input(updateText);
+    fontButton.mousePressed(switchFont);
+    displayModeButton.mousePressed(changeDisplayMode);
+
+    // Set their positions
+    textBox1.position(0,0);
+    fontButton.position(textBox1.width, 0);
+    displayModeButton.position(textBox1.width + fontButton.width, 0);
+
+    // Set their parents
+    // textBox1.parent('textInput1');
+    // fontButton.parent('fontButton');
+    // displayModeButton.parent('displayModeButton');
+}
+
 
 // From http://stackoverflow.com/questions/8237780/javascript-read-variable-value-from-url
 function getURLValues() {
@@ -115,4 +130,4 @@ function changeDisplayMode() {
     displayMode++;
     displayMode = displayMode % 2;
     updateText();
-}
+}//-------------------------------------------------------------------------------------------------

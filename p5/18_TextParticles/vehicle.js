@@ -87,6 +87,13 @@ function Vehicle(x,y,r) {
         this.arrive(this.iPos);
     }//---------------------------------------------------------------------------------------------
 
+    this.randomizePos = function() {
+        this.pos.x = random(width);
+        this.pos.y = random(height);
+        this.prevPos.x = this.pos.x;
+        this.prevPos.y = this.pos.y;
+    }//---------------------------------------------------------------------------------------------
+
     // Steer this vehicle away from a target
     this.repel = function(target) {
 
