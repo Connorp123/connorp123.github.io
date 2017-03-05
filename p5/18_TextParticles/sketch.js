@@ -1,6 +1,7 @@
 let redraw   = true;
 let reset    = true;
 let repel    = true;
+let displayMode = 0;
 let vehicles = [];
 let fontNames = ['waltograph42.ttf', 'waltographUI.ttf'];
 let font;
@@ -8,6 +9,7 @@ let fontNum   = 0;
 let fontSize  = 200;
 let textBox1;
 let fontButton;
+let displayModeButton;
 let urlValues;
 //--------------------------------------------------------------------------------------------------
 
@@ -34,13 +36,16 @@ function setup() {
     fontButton = createButton('Switch Font');
     fontButton.parent('fontButton');
     fontButton.mousePressed(switchFont);
+    displayModeButton = createButton('Switch Particle Type');
+    displayModeButton.parent('displayModeButton');
+    displayModeButton.mousePressed(changeDisplayMode);
 
     // Display the particles
     updateText();
 }//-------------------------------------------------------------------------------------------------
 
 function draw() {
-    if (redraw) background(51);
+    if (redraw) background(0);
     mouse = createVector(mouseX, mouseY);
 
     // Applies behaviors to the vehicles
@@ -97,3 +102,9 @@ function getURLValues() {
     console.log(values);
     return values;
 }//-------------------------------------------------------------------------------------------------
+
+function changeDisplayMode() {
+    displayMode++;
+    displayMode = displayMode % 2;
+    updateText();
+}

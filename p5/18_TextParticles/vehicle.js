@@ -1,18 +1,20 @@
 function Vehicle(x,y,r) {
 
-    this.iPos = createVector(x,y);
-    this.pos  = this.iPos.copy();
-    this.acc  = createVector(0,0);
-    this.vel  = createVector(0,0);
-    this.r = r || 3;
-    this.maxSpeed = 15;
-    this.maxForce = 0.5;
-    this.clr = color( random(255), random(255), random(255) );
+    this.iPos     = createVector(x,y);
+    this.prevPos  = this.iPos.copy();
+    this.pos      = this.iPos.copy();
+    this.acc      = createVector(0,0);
+    this.vel      = createVector(0,0);
+    this.r        = r || 3;
+    this.maxSpeed = 10;
+    this.maxForce = 1;
+    this.clr      = color( random(255), random(255), random(255) );
 
     // Call the methods required to update this vehicle
     this.run = function() {
         this.update();
-        this.display();
+        this.display(displayMode);
+        this.updatePrev();
     }//---------------------------------------------------------------------------------------------
 
     // Update the physics of this vehicle
@@ -26,17 +28,36 @@ function Vehicle(x,y,r) {
         this.acc.mult(0);
     }//---------------------------------------------------------------------------------------------
 
-    this.display = function () {
-        // COLOR
+    this.display = function (displayMode) {
+        switch(displayMode) {
+            case 0  : this.displayLine();   break;
+            case 1  : this.displayCirlce(); break;
+            default : this.displayLine();
+        }
+    }//---------------------------------------------------------------------------------------------
+
+    this.displayCirlce = function () {
+        push();
         fill(this.clr);
         noStroke();
         strokeWeight(2);
-
-        // CIRCLE
-        push();
         translate(this.pos.x, this.pos.y);
         ellipse(0, 0, this.r*2, this.r*2);
         pop();
+    }//---------------------------------------------------------------------------------------------
+
+    this.displayLine = function() {
+        push();
+        stroke(this.clr);
+        strokeWeight(2);
+        line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+        pop();
+    }//---------------------------------------------------------------------------------------------
+
+    // Updates the previous position
+    this.updatePrev = function() {
+        this.prevPos.x = this.pos.x;
+        this.prevPos.y = this.pos.y;
     }//---------------------------------------------------------------------------------------------
 
     // Apply a force to this vehicle
