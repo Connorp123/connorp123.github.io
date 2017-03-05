@@ -95,12 +95,16 @@ function Vehicle(x,y,r) {
     }//---------------------------------------------------------------------------------------------
 
     // Steer this vehicle away from a target
-    this.repel = function(target) {
+    this.repel = function(target, dist) {
+
+        if(!dist) {
+            dist = 100;
+        }
 
         let desired = p5.Vector.sub(this.pos, target);
         let d = desired.mag();
 
-        if(d < 100) {
+        if(d < dist) {
             let steering = p5.Vector.sub(desired, this.vel);
             this.applyForce(steering);
         }

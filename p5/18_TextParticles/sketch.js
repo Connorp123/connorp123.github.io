@@ -1,12 +1,13 @@
 let redraw      = true;
 let reset       = true;
 let repel       = true;
+let radiate     = false;
 let displayMode = 0;
 let bgColor     = 0;
 let vehicles    = [];
 let fontNames   = ['waltograph42.ttf', 'waltographUI.ttf'];
 let fontNum     = 0;
-let fontSize    = 200;
+let fontSize;
 let font;
 let textBox1;
 let fontButton;
@@ -22,6 +23,9 @@ function setup() {
     // Creates the canvas
     let myCanvas = createCanvas(windowWidth, windowHeight);
     myCanvas.parent('canvas');
+    console.log(width + ", " + height);
+
+    fontSize = width / 4.5;
 
      // Create the html elements
     createElements();
@@ -38,17 +42,25 @@ function draw() {
     for (let i = 0; i < vehicles.length; i++) {
         if (reset)    vehicles[i].reset();
         if (repel)    vehicles[i].repel(mouse);
+        if (radiate)  vehicles[i].repel(createVector(width/2,height/2), width);
         vehicles[i].run();
     }
 }//-------------------------------------------------------------------------------------------------
 
 // Key-binds
 function keyPressed() {
-    if(key === "1") { reset  = !reset; }
-    if(key === "R") { repel  = !repel; }
-    if(key === "B") { redraw = !redraw; }
-    if(keyCode ===  DOWN_ARROW) { fontSize -= 5; updateText(); console.log("Working"); }
-    if(keyCode === UP_ARROW)    { fontSize += 5; updateText(); }
+    if(key === "1") { reset   = !reset; }
+    if(key === "R") { repel   = !repel; }
+    if(key === "B") { redraw  = !redraw; }
+    if(key === "F") { radiate = !radiate; }
+    if(keyCode === UP_ARROW)    { changeFontSize(5); }
+    if(keyCode ===  DOWN_ARROW) { changeFontSize(-5); }
+}//-------------------------------------------------------------------------------------------------
+
+function changeFontSize(amount) {
+    fontSize += amount;
+    updateText();
+    console.log("New font size: " + fontSize);
 }//-------------------------------------------------------------------------------------------------
 
 function updateText() {
