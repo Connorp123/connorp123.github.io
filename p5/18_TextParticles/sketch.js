@@ -2,6 +2,7 @@ let redraw   = true;
 let reset    = true;
 let repel    = true;
 let displayMode = 0;
+let bgColor     = 0;
 let vehicles = [];
 let fontNames = ['waltograph42.ttf', 'waltographUI.ttf'];
 let font;
@@ -20,7 +21,7 @@ function preload() {
 
 function setup() {
     // Creates the canvas
-    let myCanvas = createCanvas(1000, 600);
+    let myCanvas = createCanvas(windowWidth, windowHeight);
     myCanvas.parent('canvas');
 
     // Get the variables from the URL
@@ -28,24 +29,31 @@ function setup() {
 
      // Create the html elements
     if(urlValues.text)
-        textBox1 = createInput(urlValues.text);
+        textBox1      = createInput(urlValues.text);
     else
-        textBox1 = createInput('ConnorPeace');
-    textBox1.input(updateText);
-    textBox1.parent('textInput1');
-    fontButton = createButton('Switch Font');
-    fontButton.parent('fontButton');
-    fontButton.mousePressed(switchFont);
+        textBox1      = createInput('ConnorPeace');
+    fontButton        = createButton('Switch Font');
     displayModeButton = createButton('Switch Particle Type');
-    displayModeButton.parent('displayModeButton');
+
+    textBox1.input(updateText);
+    fontButton.mousePressed(switchFont);
     displayModeButton.mousePressed(changeDisplayMode);
+
+    textBox1.position(0,0);
+    fontButton.position(textBox1.width, 0);
+    displayModeButton.position(textBox1.width + fontButton.width, 0);
+
+    // textBox1.parent('textInput1');
+    // fontButton.parent('fontButton');
+    // displayModeButton.parent('displayModeButton');
+
 
     // Display the particles
     updateText();
 }//-------------------------------------------------------------------------------------------------
 
 function draw() {
-    if (redraw) background(0);
+    if (redraw) background(bgColor);
     mouse = createVector(mouseX, mouseY);
 
     // Applies behaviors to the vehicles
@@ -68,7 +76,7 @@ function keyPressed() {
 function updateText() {
     // Gets a list of points from the borders of the text
     let points = font.textToPoints(textBox1.value(), 75, height/1.75, fontSize, {
-        sampleFactor: 0.25  // sampleFactor ~ frequency of points
+        sampleFactor: 0.15  // sampleFactor ~ frequency of points
     });
 
     // Creates a vehicle at each of the points

@@ -5,7 +5,7 @@ function Vehicle(x,y,r) {
     this.pos      = this.iPos.copy();
     this.acc      = createVector(0,0);
     this.vel      = createVector(0,0);
-    this.r        = r || 3;
+    this.r        = r || 1;
     this.maxSpeed = 10;
     this.maxForce = 1;
     this.clr      = color( random(255), random(255), random(255) );
@@ -40,7 +40,6 @@ function Vehicle(x,y,r) {
         push();
         fill(this.clr);
         noStroke();
-        strokeWeight(2);
         translate(this.pos.x, this.pos.y);
         ellipse(0, 0, this.r*2, this.r*2);
         pop();
