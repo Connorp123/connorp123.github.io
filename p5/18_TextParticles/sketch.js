@@ -2,6 +2,7 @@ let redraw      = true;
 let reset       = true;
 let repel       = true;
 let radiate     = false;
+let debug       = false;
 let displayMode = 0;
 let bgColor     = 0;
 let vehicles    = [];
@@ -25,7 +26,9 @@ function setup() {
     myCanvas.parent('canvas');
     console.log(width + ", " + height);
 
-    fontSize = width / 4.5;
+    // Calculate the font size
+    fontSize = floor(width / 4.5);
+    console.log("Font size: " + fontSize);
 
      // Create the html elements
     createElements();
@@ -36,6 +39,7 @@ function setup() {
 
 function draw() {
     if (redraw) background(bgColor);
+    if (debug)  drawDebug();
     mouse = createVector(mouseX, mouseY);
 
     // Applies behaviors to the vehicles
@@ -49,12 +53,13 @@ function draw() {
 
 // Key-binds
 function keyPressed() {
-    if(key === "1") { reset   = !reset; }
-    if(key === "R") { repel   = !repel; }
-    if(key === "B") { redraw  = !redraw; }
+    if(key === "1") { reset   = !reset;   }
+    if(key === "R") { repel   = !repel;   }
+    if(key === "B") { redraw  = !redraw;  }
     if(key === "F") { radiate = !radiate; }
-    if(keyCode === UP_ARROW)    { changeFontSize(5); }
-    if(keyCode ===  DOWN_ARROW) { changeFontSize(-5); }
+    if(key === " ") { debug   = !debug;   }
+    if(keyCode === UP_ARROW)    { changeFontSize(25); }
+    if(keyCode ===  DOWN_ARROW) { changeFontSize(-25); }
 }//-------------------------------------------------------------------------------------------------
 
 function changeFontSize(amount) {
@@ -67,7 +72,7 @@ function updateText() {
 
     let text = textBox1.value();
     let xPos = 25;
-    let yPos = (height + fontSize) / 2;
+    let yPos = height/2 + fontSize/3;
 
     // Gets a list of points from the borders of the text
     let points = font.textToPoints(text, xPos, yPos, fontSize, {
@@ -117,8 +122,7 @@ function createElements() {
     // textBox1.parent('textInput1');
     // fontButton.parent('fontButton');
     // displayModeButton.parent('displayModeButton');
-}
-
+}//-------------------------------------------------------------------------------------------------
 
 // From http://stackoverflow.com/questions/8237780/javascript-read-variable-value-from-url
 function getURLValues() {
@@ -142,4 +146,11 @@ function changeDisplayMode() {
     displayMode++;
     displayMode = displayMode % 2;
     updateText();
+}//-------------------------------------------------------------------------------------------------
+
+function drawDebug() {
+    stroke(255);
+    line(0, height/2, width, height/2);
+    line(0, height/2 + fontSize/2, width, height/2 + fontSize/2);
+    line(0, height/2 - fontSize/2, width, height/2 - fontSize/2);
 }//-------------------------------------------------------------------------------------------------
