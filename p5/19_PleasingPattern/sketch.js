@@ -21,7 +21,7 @@ function preload() {
 
 function setup() {
     // Creates the canvas
-    let myCanvas = createCanvas(windowWidth, windowHeight);
+    let myCanvas = createCanvas(windowWidth-20, windowHeight-20);
     myCanvas.parent('canvas');
     frameRate(60);
 
@@ -80,8 +80,8 @@ function keyPressed() {
     if(key === "P") { pause(); }
     if(keyCode === UP_ARROW)    { STROKE_WEIGHT += 1; }
     if(keyCode === DOWN_ARROW)  { if(STROKE_WEIGHT > 1) STROKE_WEIGHT -= 1; }
-    if(keyCode === RIGHT_ARROW) { ROTATION_SPEED += 0.1; }
-    if(keyCode === LEFT_ARROW)  { ROTATION_SPEED -= 0.1; }
+    if(keyCode === RIGHT_ARROW) { ROTATION_SPEED += 1; }
+    if(keyCode === LEFT_ARROW)  { ROTATION_SPEED -= 1; }
 }//-------------------------------------------------------------------------------------------------
 
 function pause() {
@@ -94,7 +94,9 @@ function pause() {
 
 function drawDebug() {
     fill(0);
-    text("FPS: " + floor(frameRate()), width-100, 20);
+    textSize(20);
+    text("FPS: " + floor(frameRate()), width-80, 20);
+    text("Rotation Speed: " + ROTATION_SPEED, width-177, 40);
 }//-------------------------------------------------------------------------------------------------
 
 function setRainbow(value, low, height) {
