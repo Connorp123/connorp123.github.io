@@ -11,6 +11,7 @@ let ROTATION_SPEED = 3;
 let song;
 let amp;
 let vol;
+let rainbow;
 //--------------------------------------------------------------------------------------------------
 
 function preload() {
@@ -49,23 +50,24 @@ function draw() {
 
 function createVehicles() {
     vehicles = [];
-    let i = 1;
-    let x = width/2;
-    let y = height/2;
-    let separation = SEPARATION;
-    let speed = 1;
 
     // Draw a particle in the center
-    vehicles.push( new Vehicle(x, y, speed) );
+    let x = width/2;
+    let y = height/2;
+    let speed = 1;
+    let newVehicle = new Vehicle(x, y, speed);
+    newVehicle.clr = setRainbow(y, height/2, 0);
+    vehicles.push( newVehicle );
 
     // Draw particles until they reach the top of the screen
-    while(y - separation > 0) {
+    while(y > 0) {
         // Draw a particle above the starting value
-        vehicles.push( new Vehicle(x, y - separation, speed) );
+        newVehicle = new Vehicle(x, y, speed);
+        newVehicle.clr = setRainbow(y, height/2, 0);
+        vehicles.push( newVehicle );
 
         // Increment i & adjust separation
-        i++;
-        separation = SEPARATION * i;
+        y -= SEPARATION;
         speed += SPEED_STEP;
     }
 }//-------------------------------------------------------------------------------------------------
@@ -93,4 +95,36 @@ function pause() {
 function drawDebug() {
     fill(0);
     text("FPS: " + floor(frameRate()), width-100, 20);
+}//-------------------------------------------------------------------------------------------------
+
+function setRainbow(value, low, height) {
+    let rainbow = [
+        color(255,0,0),       // Red
+        color(255,65,0),
+        color(255,130,0),     // Orange
+        color(255,195,0),
+        color(255,255,0),     // Yellow
+        color(195,255,0),
+        color(130,255,0),
+        color(65,255,0),
+        color(0,255,0),       // Green
+        color(0,255,65),
+        color(0,255,130),
+        color(0,255,195),
+        color(0,255,255),
+        color(0,195,255),
+        color(0,130,255),
+        color(0,65,255),
+        color(0,0,255),       // Blue
+        color(65,0,255),
+        color(130,0,255),     // Indigo
+        color(195,0,255),
+        color(255,0,255),      // Violet
+    ];
+    let i = floor( map(value, low, height, 0, rainbow.length) );
+    if(i < 0) {
+        i = 0;
+    }
+    console.log(i);
+    return rainbow[i];
 }//-------------------------------------------------------------------------------------------------

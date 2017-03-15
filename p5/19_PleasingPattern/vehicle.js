@@ -36,8 +36,8 @@ function Vehicle(x,y,s) {
             fill(this.clr);
 
         } else {
-            stroke(0, 0, 255);
-            fill(0, 0, 255);
+            stroke(0, 200, 255);
+            fill  (0, 200, 255);
         }
         strokeWeight(STROKE_WEIGHT);
         line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
