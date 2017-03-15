@@ -26,7 +26,7 @@ function setup() {
 
 function loaded() {
   button = createButton("play");
-  button.mousePressed(togglePlaying);
+  button.mouseClicked(togglePlaying);
 }
 
 function draw() {
