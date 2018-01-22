@@ -1,0 +1,84 @@
+body, html {
+  width: 100%;
+  height: 100%;
+  background-color: #ECECEA;
+}
+canvas {
+  width: 100%;
+  z-index: 1;
+}
+
+#content{
+  width: 80vw;
+  margin: auto;
+  margin-top: 20px;
+}
+
+#title{
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Oleo Script', cursive;
+  font-size: 50px;
+}
+
+#takePhotoBtn{
+  height: 40px;
+  width: 175px;
+  border-radius: 20px;
+  border: solid 1px #0099ff;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
+}
+#takePhotoBtn:hover {
+  background-color: #0099ff;
+}
+#btn-text:hover {
+  color: #fff;
+}
+#btn-text{
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-align: center;
+  color: #0099ff;
+  text-transform: uppercase;
+  padding: 11px 20px;
+  font-family: 'Work Sans', sans-serif;
+}
+
+#main-camera{
+  width: calc(100vw*.4);
+  height: calc(100vw*.4 / 1.333);
+  margin: auto;
+  margin-bottom: 30px;
+  box-shadow: 0px 5px 25px 5px rgba(0, 0, 0, 0.15);
+}
+
+#preview-container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.preview-camera:hover{
+  box-shadow: 0px 5px 25px 5px rgba(0, 0, 0, 0.15);
+}
+.preview-camera{
+  width: 160px;
+  height: 120px;
+  margin: 20px 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.preview-label::after {
+  content: attr(data-content);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Work Sans', sans-serif;
+}
+.preview-label{
+  text-align: center;
+}

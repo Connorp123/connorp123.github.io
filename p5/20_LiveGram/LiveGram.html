@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>LiveGram</title>
+  <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
+  <link href="https://fonts.googleapis.com/css?family=Oleo+Script|Work+Sans" rel="stylesheet">
+
+  <!-- p5 Libraries -->
+  <script src="../libraries/p5.js" type="text/javascript"></script>
+  <script src="../libraries/p5.dom.js" type="text/javascript"></script>
+  <script src="../libraries/p5.sound.js" type="text/javascript"></script>
+
+  <!-- jQuery -->
+  <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+
+  <!-- CCapture -->
+  <script src="./lib/CCapture.js"></script>
+  <script src="./lib/gif.js"></script>
+  <script src="./lib/download.js"></script>
+
+  <!-- HTML 2 Canvas -->
+  <script src="./lib/html2canvas.min.js"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
+  <link rel="stylesheet" href="./main.css">
+
+  <!-- Javascript -->
+  <script src="./events.js" type="text/javascript"></script>
+  <script src="./filters.js" type="text/javascript"></script>
+  <script src="./sketch.js" type="text/javascript"></script>
+  <script src="./createSketch.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+  <div id="content">
+
+    <div id="title">
+      LiveGram
+    </div>
+
+    <figure id="main-camera" class="no-filter" >
+      <div id="main-canvas"></div>
+    </figure>
+
+    <!-- <div id="takePhotoBtn">
+      <div id="btn-text">
+        Record gif
+      </div>
+    </div> -->
+
+    <div id="preview-container">
+    </div>
+
+  </div>
+
+</body>
+
+</html>
