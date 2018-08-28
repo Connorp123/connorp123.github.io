@@ -188,7 +188,7 @@ function keyTyped() {
     }
 }
 
-function touchMoved() {
+function mousePressed() {
     STEP_FAST = !STEP_FAST;
     return false;
 }
