@@ -187,3 +187,8 @@ function keyTyped() {
 
     }
 }
+
+function touchMoved() {
+    STEP_FAST = !STEP_FAST;
+    return false;
+}
