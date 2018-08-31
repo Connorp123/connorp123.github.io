@@ -16,9 +16,14 @@ let I = 0;
 let J = 0;
 
 
+let SWAPPING = -1;
+
+
 // To track operations
 let NUM_ASSIGNS = 0;
 let NUM_COMPARES = 0;
+
+let COLUMN_WIDTH = 10;
 
 /***********************************************************************************************************************
  *  Future Options
@@ -40,7 +45,7 @@ function setup() {
     textSize(14);
     textAlign(CENTER, TOP);
 
-    LIST_SIZE = ceil(DISPLAY_WIDTH / 5);
+    LIST_SIZE = ceil(DISPLAY_WIDTH / COLUMN_WIDTH);
     indexWidth = DISPLAY_WIDTH/LIST_SIZE;
 
     // Initialize List
@@ -84,8 +89,14 @@ function swap(list, index1, index2) {
 function displayList(list) {
     for(let i = 0; i < list.length; i++) {
         noStroke();
-        let shade = (list[i]/height) * 255;
-        fill(shade, 0, 50);
+
+        if((SWAPPING === i || SWAPPING === i+1) && !STEP_FAST){
+            fill(0, 255, 0);
+        } else {
+            let shade = (list[i]/height) * 255;
+            fill(shade, 0, 50);
+        }
+
         rect(indexWidth*i, height, (indexWidth*i) + indexWidth, height-list[i]);
     }
 }
@@ -131,6 +142,9 @@ function stepFast() {
                 NUM_COMPARES++;
 
                 swap(List, j, j + 1);
+                SWAPPING = j;
+            } else {
+                SWAPPING = -1;
             }
         }
         I++;
@@ -152,6 +166,9 @@ function stepSlow() {
         NUM_COMPARES++;
 
         swap(List, J, J + 1);
+        SWAPPING = J;
+    } else {
+        SWAPPING = -1;
     }
 
     if(I < LIST_SIZE) {
