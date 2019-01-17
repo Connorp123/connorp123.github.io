@@ -42,6 +42,11 @@ function keyPressed() {
     }
 }//------------------------------------------------------------------------------------------------
 
+function mouseClicked() {
+    num_dots *= 10;
+    redrawDots();
+}
+
 function redrawDots() {
 
     // Paint over old dots
