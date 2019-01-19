@@ -74,6 +74,15 @@ function keyPressed() {
     }
 }//------------------------------------------------------------------------------------------------
 
+// Controls for touchscreen devices
+function mouseClicked() {
+    if (num_dots > dots_per_frame) {
+        recalculateDotsPerFrame(10);
+    }
+    num_dots *= 10;
+    redrawDots();
+}//------------------------------------------------------------------------------------------------
+
 // "Refresh" the canvas, update the displayed number, and display (num_dots) on the canvas
 function redrawDots() {
 
@@ -113,7 +122,7 @@ function displayDotsPerFrame(isOn) {
 
     textSize(50);
     textAlign(LEFT, BOTTOM);
-    text(str(dots_per_frame), 20, height-20);
+    text(dots_per_frame.toLocaleString(), 20, height-20);
     strokeWeight(0);
 }//------------------------------------------------------------------------------------------------
 
@@ -128,7 +137,14 @@ function displayDots(n) {
 function recalculateDotsPerFrame(dpfMultiplier) {
     if ((dots_per_frame >= 10 && dpfMultiplier < 1)
       || (dots_per_frame <= 1000 && dpfMultiplier > 1 && dots_per_frame < num_dots)) {
+
+        // Clear old text
+        displayDotsPerFrame(0);
+
         // update dots per frame
         dots_per_frame *= dpfMultiplier;
+
+        // Write new text
+        displayDotsPerFrame(1);
     }
 }//------------------------------------------------------------------------------------------------
