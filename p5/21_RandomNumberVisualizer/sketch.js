@@ -1,16 +1,6 @@
-/*
-    Notes
-
-    - Only need to redraw when decrementing
-    - When incrementing, only need to display the difference between the old & new number
-        of dots
-    - In the draw loop, display dots until dots_left_to_display === 0
-
- */
-
 var FRAME_RATE = 60;
 
-var num_dots = 1
+var num_dots = 1;
 var dots_left_to_display = num_dots;
 var dots_per_frame;
 
