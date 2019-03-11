@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- Google Analytics connorpeace.com -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-88684457-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-88684457-1');
+  </script>
+
+  <!-- Setup -->
   <meta charset="UTF-8">
   <title>LiveGram</title>
   <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
   <link href="https://fonts.googleapis.com/css?family=Oleo+Script|Work+Sans" rel="stylesheet">
 
   <!-- p5 Libraries -->
-  <script src="../libraries/p5.js" type="text/javascript"></script>
-  <script src="../libraries/p5.dom.js" type="text/javascript"></script>
-  <script src="../libraries/p5.sound.js" type="text/javascript"></script>
+  <script src="../libraries/p5.min.js" type="text/javascript"></script>
+  <script src="../libraries/p5.dom.min.js" type="text/javascript"></script>
+  <script src="../libraries/p5.sound.min.js" type="text/javascript"></script>
 
   <!-- jQuery -->
   <script
@@ -34,15 +44,6 @@
   <script src="./filters.js" type="text/javascript"></script>
   <script src="./sketch.js" type="text/javascript"></script>
   <script src="./createSketch.js" type="text/javascript"></script>
-
-  <!--GA Google Analytics connorpeace.com -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-88684457-1"></script>
-  <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-88684457-1');
-  </script>
 </head>
 
 <body>

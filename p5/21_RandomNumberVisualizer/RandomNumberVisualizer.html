@@ -1,16 +1,22 @@
 <html>
 <head>
+  <!-- Google Analytics connorpeace.com -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-88684457-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-88684457-1');
+  </script>
   <meta charset="UTF-8">
-  <script language="javascript" type="text/javascript" src="../libraries/p5.js"></script>
+  <script language="javascript" type="text/javascript" src="../libraries/p5.min.js"></script>
   <script language="javascript" type="text/javascript" src="sketch.js"></script>
   <script language="javascript" type="text/javascript" src="dot.js"></script>
   <!-- this line removes any default padding and style. you might only need one of these values set. -->
   <style> body {padding: 0; margin: 0;} </style>
   <title>Random Number Visualizer - Dots Overlap</title>
 </head>
-
 <body>
-  <!--Draws the image with the id 'canvas'-->
   <div id='canvas'></div>
 </body>
 </html>
