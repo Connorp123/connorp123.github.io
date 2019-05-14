@@ -1,4 +1,4 @@
-var debug = true;   // Draw the flow field 
+var debug = false;   // Draw the flow field 
 var redrawBackground = true; // Re-draw the background every frame
 var flowField;      // flowField object
 var vehicles = [];  // List of Vehicle objects
@@ -11,7 +11,7 @@ function setup() {
   myCanvas.parent('canvas');
 
   // Makes a new flowField
-  flowField = new FlowField(30);
+  flowField = new FlowField(30 );
 
   // Makes a bunch of vehicles with random values
   for (var i = 0; i < NUM_VEHICLES; i++) {
