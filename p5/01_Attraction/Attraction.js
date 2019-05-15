@@ -4,8 +4,8 @@ var redraw = true;
 var myCanvas;
 
 function setup() {
-    myCanvas = createCanvas(windowWidth-20, windowHeight);
-    myCanvas.parent('myContainer');
+    myCanvas = createCanvas(windowWidth, windowHeight);
+    myCanvas.parent('canvas');
 
 }
 
@@ -78,22 +78,14 @@ function Walker(x, y, r) {
 
         // Controls the max size of the acceleration
         this.acc.limit(this.maxAcc);
-        // this.acc.normalize();
-
-        // this.acc.mult(.5);
-        // this.acc.setMag(0.1);
-
-        // Create a vector from an angle
-        // this.acc = p5.Vector.fromAngle(3*PI/2);
-
-        // Rotates the velocity
-        // this.vel.rotate(0.1);
 
         // Acceleration changes velocity
         this.vel.add(this.acc);
         this.vel.limit(this.maxVel);
+
         // Velocity changes position
         this.pos.add(this.vel);
+
         // Checks for collisions
         this.checkEdgeCollide();
     }
@@ -107,16 +99,21 @@ function Walker(x, y, r) {
 
 
 function keyPressed() {
-    if(key === "F") {
+    if(key === "p" || key === "P") {
+        alert(
+              "Controls:\n"
+            + "F to place a ball\n"
+            + "C to clear all balls\n"
+            + "B to turn off background re-draw\n"
+            + "S to screenshot\n"
+        );
+    } else if(key === "f" || key === "F") {
         walkers.push(new Walker(mouseX, mouseY, 20));
-    }
-    if(key === "C") {
+    } else if(key === "c" || key === "C") {
         walkers = [];
-    }
-    if(key === "B") {
+    } else if(key === "b" || key === "B") {
         redraw = !redraw;
-    }
-    if(key === "S") {
+    } else if(key === "s" || key === "S") {
         saveCanvas(myCanvas, 'p5_Attraction', 'png');
     }
 }
