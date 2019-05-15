@@ -4,8 +4,8 @@ var target;
 var redraw = true;
 
 function setup() {
-    var myCanvas = createCanvas(windowWidth-20, windowHeight);
-    myCanvas.parent('myContainer');
+    var myCanvas = createCanvas(windowWidth, windowHeight);
+    myCanvas.parent('canvas');
 
     target = createVector(width/2, height/2);
 }
@@ -27,20 +27,29 @@ function draw() {
 
 // Creates key-binds
 function keyPressed() {
+    // "P" - Pause
+    if (key === "p" || key === "P") {
+        alert(
+              "Controls:\n"
+            + "F to create a vehicle\n"
+            + "C to clear all balls\n"
+            + "B to turn off background re-draw\n"
+        );
+    }
     // "F" - Create a new vehicle
-    if (key === "F") {
+    else if (key === "f" || key === "F") {
         vehicles.push(new Vehicle(random(0, width), random(0, height)));
     }
     // "C" - Clear all vehicles
-    if (key === "C") {
+    else if (key === "c" || key === "C") {
         vehicles = [];
     }
     // "B" - Toggle background re-draw
-    if(key === "B") {
+    else if(key === "b" || key === "B") {
         redraw = !redraw;
     }
     // "R" - Remove all vehicles @ the mouse location
-    if (key === "R") {
+    else if (key === "r" || key === "R") {
         for(var i = 0; i < vehicles.length; ++i){
             if (dist(vehicles[i].pos.x, vehicles[i].pos.y, mouseX, mouseY) < vehicles[i].r) {
                 vehicles.splice(i, 1);
