@@ -46,30 +46,42 @@ function mouseDragged() {
 
 // Key-binds
 function keyPressed() {
+    if (key === 'p' || key === 'P') {
+        alert(
+          "Controls:\n"
+          + "Drag to spawn new balls\n"
+          + "C - Clear all balls\n"
+          + "F - Toggle flow field\n"
+          + "A - Toggle attraction to the mouse\n"
+          + "S - Toggle separation of the balls\n"
+          + "B - Toggle background re-draw\n"
+          + "SPACE - Toggle debug mode\n"
+        );
+    }
     // "F" - Toggles the flow field
-    if(key === "F") {
+    else if(key === "f" || key === "F") {
         // Create a new flow field
         flow = !flow;
         if(flow) flowField.init();
     }
     // "A" - Toggles the attraction to the mouse
-    if(key === "A") {
+    else if(key === "a" || key === "A") {
         attract = !attract;
     }
     // "S" - Toggles the separation of the vehicles
-    if(key === "S") {
+    else if(key === "s" || key === "S") {
         separate = !separate;
     }
     // "B" - Toggles background re-draw
-    if(key === "B") {
+    else if(key === "b" || key === "B") {
         redraw = !redraw;
     }
     // "C" - Clears the vehicles
-    if(key === "C") {
+    else if(key === "c" || key === "C") {
         vehicles = [];
     }
     // SPACE - Toggles debug
-    if (key === ' ') {
+    else if (key === ' ') {
         debug = !debug;
     }
 }
