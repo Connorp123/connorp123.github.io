@@ -4,7 +4,7 @@ var target;
 var redraw = true;
 
 function setup() {
-    var myCanvas = createCanvas(windowWidth, windowHeight);
+    var myCanvas = createCanvas(960, 520);
     myCanvas.parent('canvas');
 
     target = createVector(width/2, height/2);

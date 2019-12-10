@@ -4,7 +4,7 @@ var balls = [];     // List of Ball objects
 
 function setup() {
     // Creates the canvas
-    var myCanvas = createCanvas(windowWidth-400, windowHeight-100);
+    var myCanvas = createCanvas(960, 520);
     myCanvas.parent('canvas');
 
     // Creates a ball

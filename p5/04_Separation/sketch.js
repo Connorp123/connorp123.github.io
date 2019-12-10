@@ -9,7 +9,7 @@ var vehicles = [];  // List of Vehicle objects
 
 function setup() {
     // Creates the canvas
-    var myCanvas = createCanvas(windowWidth, windowHeight);
+    var myCanvas = createCanvas(960, 520);
     myCanvas.parent('canvas');
 
     // Makes a new flowField

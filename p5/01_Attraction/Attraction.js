@@ -1,10 +1,9 @@
 var w;
 var walkers = [];
 var redraw = true;
-var myCanvas;
 
 function setup() {
-    myCanvas = createCanvas(windowWidth, windowHeight);
+    var myCanvas = createCanvas(960, 520);
     myCanvas.parent('canvas');
 
 }

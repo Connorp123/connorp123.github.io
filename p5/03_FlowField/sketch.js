@@ -7,7 +7,6 @@ var NUM_VEHICLES = 100;
 function setup() {
   // Creates the canvas
   var myCanvas = createCanvas(960, 520);
-  // var myCanvas = createCanvas(windowWidth, windowHeight);
   myCanvas.parent('canvas');
 
   // Makes a new flowField
