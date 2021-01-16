@@ -3,6 +3,9 @@ var walkers = [];
 var bgRedraw = true;
 let mic;
 let NUM_WALKERS = 50;
+let maxAcc = 10;
+let maxVel = 20;
+let vol;
 //------------------------------------------------------------------------------------
 
 function setup() {
@@ -17,21 +20,20 @@ function setup() {
   mic.start();
 
   for(let i = 0; i < NUM_WALKERS; i++) {
-    walkers.push(new Walker(random(0, width), random(0, height), 20));
+    walkers.push(new Walker(random(0, width), random(0, height), 25));
   }
 }
 
 function draw() {
   if (bgRedraw) background(51);
 
-  let vol = mic.getLevel();
+  vol = mic.getLevel();
+  maxAcc = map(vol, 0, .1, 2, 0);
+  maxVel = map(vol, 0, .1, 40, 0);
 
   // Shows the walker
   for(var i = 0; i < walkers.length; ++i) {
-    walkers[i].updateMic(vol);
-    walkers[i].attractMiddle();
-    walkers[i].update();
-    walkers[i].display();
+    walkers[i].run();
   }
 }
 //------------------------------------------------------------------------------------

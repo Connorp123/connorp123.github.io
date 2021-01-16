@@ -8,77 +8,33 @@ function Walker(x, y, r) {
   this.vel = createVector(random(-10, 10),random(-10, 10));
   this.acc = createVector(0,0);
   this.r = r;                     // Radius
-  this.maxVel = 40;
-  this.maxAcc = 3;
   this.R = random(0,255);
   this.G = random(0,255);
   this.B = random(0,255);
-  this.mass = 100000000;
-  this.g = 6.67;
 
-  // Check if the ball is colliding with another object
-  this.checkEdgeCollide = function() {
-    // If the ball is hitting the left side of the screen
-    if (this.pos.x < this.r) {
-      // Places the ball at the border
-      this.pos.x = this.r;
-      // Makes the ball bounce off @ 80% velocity
-      this.vel.x *= -0.8;
-    }
-    // If the ball is hitting the right side of the screen
-    if (this.pos.x > width-this.r) {
-      // Places the ball at the border
-      this.pos.x = width-this.r;
-      // Makes the ball bounce off @ 80% velocity
-      this.vel.x *= -0.8;
-    }
-    // If the ball is hitting the top of the screen
-    if (this.pos.y < this.r) {
-      // Places the ball at the border
-      this.pos.y = this.r;
-      // Makes the ball bounce off @ 80% velocity
-      this.vel.y *= -0.8;
-    }
-    // If the ball is hitting the bottom of the screen
-    if (this.pos.y > height-this.r) {
-      // Places the ball at the border
-      this.pos.y = height-this.r;
-      // Makes the ball bounce off @ 80% velocity
-      this.vel.y *= -0.8;
-    }
-  }//----------------------------------------------------------------------------------
-
-  this.applyForce = function(force) {
-    this.acc.add(force);
+  this.run = function() {
+    this.update();
+    this.display();
   }
 
   this.attractMiddle = function() {
-
-    let force = p5.Vector.sub(this.mid, this.pos);
-    force.limit(10);
-
-    this.applyForce(force);
+    this.acc.add(p5.Vector.sub(this.mid, this.pos));
   }//----------------------------------------------------------------------------------
-
-  this.updateMic = function(vol) {
-    this.maxAcc = map(vol, 0, .1, 2, 0);
-    this.maxVel = map(vol, 0, .1, 40, 0);
-  }
 
   // Makes it walk randomly around the screen
   this.update = function () {
 
     // Force changes acceleration
-    this.acc.limit(this.maxAcc);
+    this.attractMiddle();
+    this.acc.limit(maxAcc);
 
     // Acceleration changes velocity
     this.vel.add(this.acc);
-    this.vel.limit(this.maxVel);
+    this.vel.limit(maxVel);
 
     // Velocity changes position
     this.pos.add(this.vel);
 
-    // this.checkEdgeCollide();
   }//----------------------------------------------------------------------------------
 
   // Draws the walker
