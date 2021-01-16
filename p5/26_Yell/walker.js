@@ -5,15 +5,16 @@ function Walker(x, y, r) {
   this.mid = createVector(width/2, height/2);
 
   // Initializes the velocity
-  this.vel = createVector(0,0);
+  this.vel = createVector(random(-10, 10),random(-10, 10));
   this.acc = createVector(0,0);
   this.r = r;                     // Radius
-  this.maxVel = 50;
-  this.maxAcc = 5;
+  this.maxVel = 40;
+  this.maxAcc = 3;
   this.R = random(0,255);
   this.G = random(0,255);
   this.B = random(0,255);
   this.mass = 100000000;
+  this.g = 6.67;
 
   // Check if the ball is colliding with another object
   this.checkEdgeCollide = function() {
@@ -52,19 +53,16 @@ function Walker(x, y, r) {
   }
 
   this.attractMiddle = function() {
-    let G = 6.67;
-    let M = this.mass;
-    let r = p5.Vector.sub(this.mid, this.pos);
 
-    let fGravity = r.normalize();
-    fGravity.mag((G * M) / (r * r));
+    let force = p5.Vector.sub(this.mid, this.pos);
+    force.limit(10);
 
-    this.applyForce(fGravity);
+    this.applyForce(force);
   }//----------------------------------------------------------------------------------
 
   this.updateMic = function(vol) {
-    this.maxAcc = map(vol, 0, .1, 5, 0);
-    this.maxVel = map(vol, 0, .1, 50, 0);
+    this.maxAcc = map(vol, 0, .1, 2, 0);
+    this.maxVel = map(vol, 0, .1, 40, 0);
   }
 
   // Makes it walk randomly around the screen
@@ -80,8 +78,7 @@ function Walker(x, y, r) {
     // Velocity changes position
     this.pos.add(this.vel);
 
-    // Checks for collisions
-    this.checkEdgeCollide();
+    // this.checkEdgeCollide();
   }//----------------------------------------------------------------------------------
 
   // Draws the walker
