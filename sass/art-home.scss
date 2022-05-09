@@ -1,0 +1,26 @@
+@import "./_variables.scss";
+
+body {
+  background: $bg-color;
+}
+
+h1 {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.project-block {
+  width: 100%;
+
+  .project {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+
+    @media only screen and (max-width: 480px) {
+      width: auto;
+    }
+  }
+}

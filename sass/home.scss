@@ -1,0 +1,73 @@
+@import "./_variables.scss";
+
+body {
+  //background-color: $white;
+  background: #FAFAF8;
+}
+
+#home-sketch {
+  position: fixed !important;
+  z-index: -1;
+}
+
+.body-wrapper {
+  margin-left: 50px;
+  margin-right: 50px;
+  padding-top: 40px;
+
+  @media only screen and (min-width: $bp-desktop) {
+    margin-left: 200px;
+    margin-right: 200px;
+  }
+}
+
+.intro {
+  margin-bottom: 60px;
+
+  .img-container {
+    display: flex;
+    justify-content: center;
+    img {
+      width: 300px;
+      height: 300px;
+    }
+  }
+}
+
+.projects {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+
+  .mini-sketch-container {
+    margin-bottom: 30px;
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .icon {
+      align-self: center;
+      width: 15px;
+      height: 40px;
+    }
+
+    a {
+      font-family: $font-regular;
+      font-size: 36px;
+      text-decoration: underline;
+      text-underline-offset: 7px;
+      text-decoration-thickness: 1px;
+      padding-bottom: 5px;
+    }
+
+    .sketch {
+      width: 400px;
+      height: 400px;
+      canvas {
+        border: 1px solid $bg-color-dark-grey;
+      }
+    }
+  }
+}

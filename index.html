@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-88684457-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-88684457-1');
+  </script>
+
+  <!-- SEO -->
+  <meta charset="UTF-8">
+  <title>Connor Peace's Personal Website</title>
+  <link href="https://connorpeace.com" rel="canonical">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"></script>
+
+  <!-- p5 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.min.js"
+          integrity="sha512-gQVBYBvfC+uyor5Teonjr9nmY1bN+DlOCezkhzg4ShpC5q81ogvFsr5IV4xXAj6HEtG7M1Pb2JCha97tVFItYQ=="
+          crossorigin="anonymous"></script>
+
+  <!-- Helpers -->
+  <script src="/helpers/home-helpers.js"></script>
+
+  <!-- p5 Instances -->
+  <script src="/sketch/instance/home.js"></script>
+  <script src="/sketch/instance/cursor-v1.js"></script>
+  <script src="/sketch/instance/cursor-v2.js"></script>
+  <script src="/sketch/instance/whitney.js"></script>
+  <script src="/sketch/instance/rapid-bubbles.js"></script>
+  <script src="/sketch/instance/tiles.js"></script>
+  <script src="/sketch/instance/random-number-visualizer.js"></script>
+  <script src="/sketch/instance/snake-game.js"></script>
+
+  <!-- Render all sketches -->
+  <script src="/sketch/instance/home-render-sketches.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./css/global.css">
+  <link rel="stylesheet" href="./css/home.css">
+</head>
+
+<!--Background Sketch-->
+<div id="home-sketch"></div>
+<div class="body-wrapper">
+  <!-- Intro Block -->
+  <div class="intro">
+    <div class="img-container">
+      <img src="./img/profile.png" alt="picture of me"/>
+    </div>
+    <h1>Hi! I'm Connor Peace</h1>
+    <p>
+      Welcome to my site! It's written in HTML with Bootstrap and Sass for styling, and the majority of my site contains
+      p5.js sketches that I made for fun. I originally wanted to use a modern stack, but chose this stack specifically
+      for SEO and ease of updating because I wanted people to find my art, and I wanted to be able to push up art with
+      as few barriers as possible :)
+    </p>
+    <h2>You can find my resume <a href="./resume.html">here</a></h2>
+  </div>
+  <!-- Mini Sketches -->
+  <div class="projects">
+    <!-- Sketch 6 -->
+    <div class="mini-sketch-container">
+      <div class="title">
+        <a href="./art/easiest-snake-game.html">EZ Snake</a>
+      </div>
+      <div class="sketch" id="sketch6"></div>
+    </div>
+    <!-- Sketch 5 -->
+    <div class="mini-sketch-container">
+      <div class="title">
+        <a href="./art/cursor-v1.html">Following Cursor v1</a>
+      </div>
+      <div class="sketch" id="sketch5"></div>
+    </div>
+    <!-- Sketch 4 -->
+    <div class="mini-sketch-container">
+      <div class="title">
+        <a href="./art/cursor-v2.html">Following Cursor v2</a>
+      </div>
+      <div class="sketch" id="sketch4"></div>
+    </div>
+    <!-- Sketch 3 -->
+    <div class="mini-sketch-container">
+      <div class="title">
+        <a href="./art/whitney.html">Whitney Inspired</a>
+        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up"/>
+      </div>
+      <div class="sketch" id="sketch3"></div>
+    </div>
+    <!-- Sketch 2 -->
+    <div class="mini-sketch-container">
+      <div class="title">
+        <a href="./art/rapid-bubbles.html">Rapid Bubbles</a>
+        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up"/>
+      </div>
+      <div class="sketch" id="sketch2"></div>
+    </div>
+    <!-- Sketch 1 -->
+    <div class="mini-sketch-container">
+      <div class="title">
+        <a href="./art/tiles.html">Just Tiles</a>
+      </div>
+      <div class="sketch" id="sketch1"></div>
+    </div>
+    <!-- Sketch 0 -->
+    <div class="mini-sketch-container">
+      <div class="title">
+        <a href="./art/random-number-visualizer.html">Number Visualizer</a>
+        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up"/>
+      </div>
+      <div class="sketch" id="sketch0"></div>
+    </div>
+  </div>
+</div>
+</html>

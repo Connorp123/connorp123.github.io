@@ -1,0 +1,85 @@
+@import "./_variables.scss";
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #333333;
+}
+
+canvas {
+  vertical-align: top;
+}
+
+.art-wrapper {
+  display: flex;
+}
+
+.back-button {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  user-select: none;
+
+  a {
+    color: #333333;
+    font-size: 46px;
+    text-decoration: none;
+  }
+}
+
+.sidebar, p, p:hover {
+  color: white;
+}
+
+.sidebar {
+  min-width: 300px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: $font-regular;
+  letter-spacing: 1px;
+
+  h1 {
+    font-family: $font-light;
+  }
+
+  p {
+    font-size: 20px;
+  }
+
+  .control {
+    display: flex;
+    margin-bottom: 5px;
+    justify-content: space-between;
+
+    .key {
+      width: 20%;
+    }
+
+    .action {
+      width: 80%;
+      text-align: right;
+    }
+  }
+}
+
+#p5_loading {
+  width: 100%;
+  //height: 100%;
+  //margin-left: auto;
+  //margin-right: auto;
+  color: white;
+  text-align: center;
+  margin-top: 200px;
+  font-family: $font-regular;
+  font-size: 48px;
+}
+
+@media only screen and (min-width: 20px) and (max-width: 1080px - 1px) {
+  .art-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    padding: 0 20px 20px;
+  }
+}
