@@ -12,6 +12,16 @@ let hand_attraction = (p) => {
   let video
   let videoReady = false
   let videoElement
+  let constraints = {
+    video: {
+      // mandatory: {
+      //   minWidth: 1280,
+      //   minHeight: 720
+      // },
+      optional: [{ maxFrameRate: 15 }]
+    },
+    audio: false
+  };
 
   // For tensorflow
   let model
@@ -52,12 +62,12 @@ let hand_attraction = (p) => {
         p.image(video, 0, 0)
 
         // Update and draw walkers
-        for (const walker of walkers) {
+        for (let i = 0; i < walkers.length; i++ ) {
           if (handCenter) {
-            walker.attract(handCenter[0], handCenter[1])
+            walkers[i].attract(handCenter[0], handCenter[1])
           }
-          walker.update();
-          walker.display();
+          walkers[i].update();
+          walkers[i].display();
         }
       })
     }
@@ -69,7 +79,7 @@ let hand_attraction = (p) => {
       started = true
 
       // Set up video
-      video = p.createCapture(p.VIDEO, () => {
+      video = p.createCapture(constraints, p.width, p.width * 0.75, () => {
         videoReady = true
         videoElement = document.querySelector("video")
       })
@@ -97,8 +107,10 @@ let hand_attraction = (p) => {
   }
 
   let getPredictions = async () => {
-    const predictions = await model.estimateHands(videoElement)
-    onPredict(predictions)
+    // if (p.frameCount % 15 === 0) {
+      const predictions = await model.estimateHands(videoElement)
+      onPredict(predictions)
+    // }
   }
 
   let onPredict = (hands) => {
@@ -131,8 +143,8 @@ let hand_attraction = (p) => {
     this.vel = p.createVector(20, 20);
     this.acc = p.createVector(0, 0);
     this.r = p.randomGaussian(10, 2);                     // Radius
-    this.maxVel = p.randomGaussian(15, 2);
-    this.maxAcc = p.randomGaussian(2, 0.5);
+    this.maxVel = p.randomGaussian(30, 4);
+    this.maxAcc = p.randomGaussian(10, 2);
     this.R = p.random(0, 255);
     this.G = p.random(0, 255);
     this.B = p.random(0, 255);
@@ -146,14 +158,16 @@ let hand_attraction = (p) => {
     this.update = function () {
 
       // Controls the max size of the acceleration
-      this.acc.limit(this.maxAcc);
+      this.acc.limit(this.maxAcc)
 
       // Acceleration changes velocity
-      this.vel.add(this.acc);
-      this.vel.limit(this.maxVel);
+      this.vel.x += this.acc.x
+      this.vel.y += this.acc.y
+      this.vel.limit(this.maxVel)
 
       // Velocity changes position
-      this.pos.add(this.vel);
+      this.pos.x += this.vel.x
+      this.pos.y += this.vel.y
     }
 
     // Draws the walker
