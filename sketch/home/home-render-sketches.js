@@ -8,7 +8,7 @@ sketches.push(new p5(whitney, 'sketch3'))
 sketches.push(new p5(cursor_v2, 'sketch4'))
 sketches.push(new p5(cursor_v1, 'sketch5'))
 sketches.push(new p5(snake_game, 'sketch6'))
-sketches.push(new p5(hand_attraction, 'sketch7'))
+sketches.push(new p5(face_attraction, 'sketch7'))
 
 // Home background sketch
 sketches.push(new p5(flow_field, 'home-sketch'))
