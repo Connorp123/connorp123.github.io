@@ -4,3 +4,4 @@
 *.scss.map
 .DS_Store
 .idea/**
+*Zone.Identifier
