@@ -5,39 +5,47 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-88684457-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
     gtag('js', new Date());
     gtag('config', 'UA-88684457-1');
   </script>
 
+  <!-- SEO -->
   <meta charset="UTF-8">
-  <title>Dijkstra's Shortest Path Visualization</title>
-  <link href="https://connorpeace.com/art/dijkstras.html" rel="canonical">
-  <meta property="og:image" content="./../img/profile.png" />
+  <title>Daily Code for 2022-06-17</title>
+  <link href="https://connorpeace.com/dailies/2022-06-17/index.html" rel="canonical">
+  <meta property="og:image" content="./../../img/profile.png"/>
   <meta name="viewport" content="width=device-width">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="./../css/art.css">
+  <link rel="stylesheet" href="./../../css/art.css">
 
   <!-- p5 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.min.js"
           integrity="sha512-gQVBYBvfC+uyor5Teonjr9nmY1bN+DlOCezkhzg4ShpC5q81ogvFsr5IV4xXAj6HEtG7M1Pb2JCha97tVFItYQ=="
           crossorigin="anonymous"></script>
 
+  <!-- Helpers -->
+  <script src="./../../helpers/display-helpers.js"></script>
+
   <!-- Sketch -->
-  <script src="../classes/Graph.js" type="text/javascript"></script>
-  <script src="../sketch/dijkstras.js" type="text/javascript"></script>
+  <script src="sketch.js" type="text/javascript"></script>
+  <script type="text/javascript">new p5(sketch, 'sketch')</script>
 </head>
 
 <body>
 <div class="art-wrapper">
   <div class="back-button">
-    <a href="../index.html"><=</a>
+    <a href="../../index.html"><=</a>
   </div>
   <div class="sketch" id="sketch"></div>
   <div class="sidebar">
-    <h1>Dijkstra's Shortest Path Visualization</h1>
-    <p>Visualizing Dijkstra's Shortest Path, a common data structures algorithm to find the shortest path in a graph.</p>
+    <h1>Sketch_Name</h1>
+    <p>Sketch_Description</p>
     <h2>Controls</h2>
     <div class="controls-container">
       <div class="control">
@@ -48,6 +56,7 @@
     </div>
   </div>
 </div>
+
 
 </body>
 </html>
