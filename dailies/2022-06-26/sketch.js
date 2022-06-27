@@ -1,150 +1,65 @@
 let sketch = (p) => {
   let canvas;
+  let scale = 100;
+  let items = [];
+  let reference = [0, 0];
 
-  let input;
-  let tempData;
-  let years = [];
-  let numYears = 0;
-
-  let maxTemp = 140;
-  let minTemp = -15;
-  let border;
-
-  let allAtOnce = false;
-
-  p.preload = () => {
-    input = p.loadStrings("./../../resources/boeing_temps_1948_2022.csv");
-  };
+  // For dragging
+  let lastTouch;
 
   p.setup = async () => {
     canvas = createInstanceCanvas(p);
-    canvas.mouseClicked(() => allAtOnce = !allAtOnce);
-    tempData = splitIntoYears(input);
-    console.log(tempData);
-
-    border = {
-      top: 100,
-      left: 50,
-      bottom: p.height - 50,
-      right: p.width - 50,
-    };
-
-    p.strokeWeight(2);
-    p.noFill();
-    p.frameRate(2);
-    p.textAlign(p.RIGHT, p.TOP);
+    for(let i = 0; i < 15; i++)  {
+      items.push(new Item(p.random(p.width), p.random(p.height), p.random(40)));
+    }
   };
 
   p.draw = () => {
     redrawBackground(p);
-    // drawTodayLine();
-    drawBorder();
 
-    // Draw lines for each year
-    if(allAtOnce) {
-      for (let y in tempData) {
-        drawLines(tempData[y]);
-      }
-    } else {
-      let year = years[p.frameCount % years.length];
-      drawLines(tempData[year]);
+    // Translate
+    p.translate(reference[0], reference[1]);
 
-      // Write the year at the top
-      p.stroke(255);
-      p.fill(255);
-      p.textSize(64);
-      p.text(year, border.right, border.top);
-      p.noFill();
-    }
-  };
-
-  let drawBorder = () => {
-    p.stroke(150);
-    p.line(border.left, border.top, border.left, border.bottom);
-    p.line(border.left, border.bottom, border.right, border.bottom);
-  };
-
-  let drawTodayLine = () => {
-    let today = new Date();
-    let dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
-    let x = p.map(dayOfYear - 1, 0, 364, border.left, border.right);
-
-    p.stroke(0, 255, 0);
-    p.line(x, border.top, x, border.bottom);
-  };
-
-  let drawLines = (yearData) => {
-    let x;
-    let y;
-
-    // Draw high --
-    p.stroke(255, 0, 0);
-    p.beginShape();
-    yearData.forEach((day, index) => {
-
-      if (day[0]) {
-
-        // Calc x position
-        x = p.map(index, 0, 364, border.left, border.right);
-
-        // Calc y position
-        y = p.map(day[0], minTemp, maxTemp, border.bottom, border.top);
-
-        // Draw vertex
-        p.vertex(x, y);
-      }
+    items.forEach(item => {
+      item.draw();
     });
-    p.endShape();
-
-    // Draw low --
-    p.stroke(0, 0, 255);
-    p.beginShape();
-    yearData.forEach((day, index) => {
-      if (day[1]) {
-        // Calc x position
-        x = p.map(index, 0, 364, border.left, border.right);
-
-        // Calc y position
-        y = p.map(day[1], minTemp, maxTemp, border.bottom, border.top);
-
-        // Draw vertex
-        p.vertex(x, y);
-      }
-    });
-    p.endShape();
   };
 
-  let splitIntoYears = (twoDimensionalArray) => {
-    let result = {};
-    twoDimensionalArray.forEach(row => {
-      row = row.split(",");
-      let date = row[0].split("-");
-      if (date.length === 3) {
-        let year = date[0];
+  p.mouseWheel = (e) => {
+    scale -= (e.delta / 10);
+    scale = p.max(10, scale);
+    console.log(scale);
+    return false;
+  };
 
-        // Create year if it doesn't exists
-        if (!result[year]) {
-          result[year] = [];
-        }
+  p.touchStarted = () => {
+    // Record initial pos
+    lastTouch = [p.mouseX, p.mouseY];
+    console.log(`Touch started at: ${lastTouch[0]}, ${lastTouch[1]}`);
+  };
 
-        // Add the high/low to the year
-        result[year].push([row[1], row[2]]);
-      }
-    });
+  p.touchMoved = () => {
+    // Calculate direction
 
-    // Remove all years with less than 365 days
-    for (let key in result) {
-      if (result[key].length < 364) {
-        console.log(`Dropping ${key}, only ${result[key].length} days found`);
-        delete result[key];
-      } else {
-        numYears += 1;
-        years.push(key);
-      }
+    reference = [
+      reference[0] + (p.mouseX - lastTouch[0]),
+      reference[1] + (p.mouseY - lastTouch[1]),
+    ]
+
+    lastTouch = [p.mouseX, p.mouseY]
+  };
+
+
+  class Item {
+    constructor(x, y, size) {
+      this.pos = [x, y];
+      this.size = size;
+      this.color = [p.random(255), p.random(255), p.random(255)];
     }
 
-    console.log(years);
-
-    return result;
-  };
+    draw() {
+      p.fill(this.color[0], this.color[1], this.color[2]);
+      p.circle(this.pos[0], this.pos[1], this.size * (scale / 100));
+    }
+  }
 };
