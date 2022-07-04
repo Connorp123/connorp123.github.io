@@ -5,9 +5,13 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-88684457-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-88684457-1');
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+    gtag("config", "UA-88684457-1");
   </script>
 
   <!-- SEO -->
@@ -28,6 +32,7 @@
 
   <!-- Helpers -->
   <script src="/helpers/home-helpers.js"></script>
+  <script src="/helpers/pan-zoom-helpers.js"></script>
 
   <!-- p5 Instances -->
   <script src="/sketch/home/home.js"></script>
@@ -55,7 +60,7 @@
   <!-- Intro Block -->
   <div class="intro">
     <div class="img-container">
-      <img src="./img/profile.png" alt="picture of me"/>
+      <img src="./img/profile.png" alt="picture of me" />
     </div>
     <h1>Hi! I'm Connor Peace</h1>
     <p>
@@ -68,7 +73,15 @@
   </div>
   <!-- Mini Sketches -->
   <div class="projects">
-    <!-- Sketch 7 -->
+    <!-- Sketch 9 -->
+    <div class="mini-sketch-container">
+      <div class="title">
+        <a href="./art/random-number-visualizer.html">Big Number Visualizer</a>
+        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up" />
+      </div>
+      <div class="sketch" id="sketch9"></div>
+    </div>
+    <!-- Sketch 8 -->
     <div class="mini-sketch-container">
       <div class="title">
         <a href="./art/seattle-temp-viz.html">Seattle Temps</a>
@@ -107,7 +120,7 @@
     <div class="mini-sketch-container">
       <div class="title">
         <a href="./art/whitney.html">Whitney Inspired</a>
-        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up"/>
+        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up" />
       </div>
       <div class="sketch" id="sketch3"></div>
     </div>
@@ -115,7 +128,7 @@
     <div class="mini-sketch-container">
       <div class="title">
         <a href="./art/rapid-bubbles.html">Rapid Bubbles</a>
-        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up"/>
+        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up" />
       </div>
       <div class="sketch" id="sketch2"></div>
     </div>
@@ -125,14 +138,6 @@
         <a href="./art/tiles.html">Just Tiles</a>
       </div>
       <div class="sketch" id="sketch1"></div>
-    </div>
-    <!-- Sketch 0 -->
-    <div class="mini-sketch-container">
-      <div class="title">
-        <a href="./art/random-number-visualizer.html">Number Visualizer</a>
-        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up"/>
-      </div>
-      <div class="sketch" id="sketch0"></div>
     </div>
   </div>
 </div>

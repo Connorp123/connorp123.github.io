@@ -107,6 +107,13 @@ let onMouseWheel = (p, e) => {
   return false;
 };
 
+let setScale = (x, y) => {
+  scale = [
+    x,
+    y ?? x,
+  ];
+};
+
 /*********
  * Debug *
  *********/
@@ -124,3 +131,42 @@ let drawScreenBorder = (p) => {
  * World <-> Screen Controls
  * Thanks to https://www.youtube.com/watch?v=ZQ8qtAizis4
  ********************************************************************************************************************/
+
+/*
+
+p.draw = () => {
+  debugCount = 0;
+  redrawBackground(p);
+
+  // Set world border
+  setWorldBorder(p);
+
+  // Draw screen border
+  drawScreenBorder(p);
+};
+
+
+p.mouseWheel = (e) => {
+  return onMouseWheel(p, e);
+};
+
+p.touchStarted = () => {
+  return onTouchStarted(p);
+};
+p.touchMoved = () => {
+  return onTouchMoved(p);
+};
+
+class Item {
+  constructor(x, y) {
+    this.pos = screenToWorld([x, y]);
+  }
+  draw() {
+    if (isInScreen(this.pos)) {
+      let screenPos = worldToScreen(this.pos);
+      p.circle(screenPos[0], screenPos[1], this.size * scale[0]);
+    }
+  }
+}
+
+ */
