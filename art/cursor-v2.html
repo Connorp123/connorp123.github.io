@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-88684457-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-88684457-1');
-  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({
+      "gtm.start":
+        new Date().getTime(), event: "gtm.js",
+    });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
+    j.async = true;
+    j.src =
+      "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, "script", "dataLayer", "GTM-5WT2CP6");</script>
 
   <!-- SEO -->
   <meta charset="UTF-8">
@@ -30,10 +36,15 @@
 
   <!-- Sketch -->
   <script src="../sketch/home/cursor-v2.js" type="text/javascript"></script>
-  <script type="text/javascript">let sketch = new p5(cursor_v2, 'sketch')</script>
+  <script type="text/javascript">let sketch = new p5(cursor_v2, "sketch");</script>
 </head>
 
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WT2CP6"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
 <div class="art-wrapper">
   <div class="back-button">
     <a href="../index.html"><=</a>
@@ -41,11 +52,10 @@
   <div class="sketch" id="sketch"></div>
   <div class="sidebar">
     <h1>Following Cursor v2</h1>
-    <p>This is just a crude modification of an older sketch (Attraction) in an attempt to make a more complex "cursor."</p>
+    <p>This is just a crude modification of an older sketch (Attraction) in an attempt to make a more complex
+      "cursor."</p>
     <p>Following Cursor v1 is much better, you should go check that one out :)</p>
   </div>
 </div>
-
-
 </body>
 </html>
