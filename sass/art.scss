@@ -14,19 +14,6 @@ canvas {
   display: flex;
 }
 
-.back-button {
-  position: absolute;
-  left: 30px;
-  top: 30px;
-  user-select: none;
-
-  a {
-    color: #333333;
-    font-size: 46px;
-    text-decoration: none;
-  }
-}
-
 .sidebar, p, p:hover {
   color: white;
 }

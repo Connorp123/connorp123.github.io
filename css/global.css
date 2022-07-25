@@ -77,4 +77,16 @@ p {
   font-size: 30px;
 }
 
+.back-button {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  user-select: none;
+}
+.back-button a {
+  color: #333333;
+  font-size: 46px;
+  text-decoration: none;
+}
+
 /*# sourceMappingURL=global.css.map */
