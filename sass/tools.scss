@@ -1,0 +1,29 @@
+@import "./_variables.scss";
+
+.top, .bottom {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+
+  h2 {
+    margin-bottom: 10px;
+  }
+}
+
+.top {
+  text-align: left;
+
+  button {
+    width: 200px;
+  }
+}
+
+.bottom {
+  code {
+    background-color: $bg-color-3-black;
+    border: 1px solid $bg-color-3-black;
+    color: $white;
+    padding: 20px;
+  }
+}
+

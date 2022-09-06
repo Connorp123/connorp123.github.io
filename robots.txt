@@ -4,3 +4,4 @@ Disallow: /dailies/
 Disallow: /art/_template
 Disallow: /archive/
 Disallow: /_template
+Disallow: /tools

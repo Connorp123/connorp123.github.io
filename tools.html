@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({
+      "gtm.start":
+        new Date().getTime(), event: "gtm.js",
+    });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
+    j.async = true;
+    j.src =
+      "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, "script", "dataLayer", "GTM-5WT2CP6");</script>
+
+  <!-- SEO -->
+  <meta charset="UTF-8">
+  <title>Connor's CLI Tools and Scripts</title>
+  <link href="https://connorpeace.com/tools.html" rel="canonical">
+  <meta property="og:image" content="./img/profile.png" />
+  <meta name="viewport" content="width=device-width">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./css/global.css">
+  <link rel="stylesheet" href="./css/tools.css">
+
+  <!-- Scripts -->
+  <script src="tools.js"></script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WT2CP6"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<div class="top">
+  <h2>Select the tool and click submit</h2>
+  <label>
+    <input type="radio" id="1" name="command" value="leetcode_starter.py">
+    leetcode_starter.py
+  </label>
+  <label>
+    <input type="radio" id="2" name="command" value="top_disco_songs.py">
+    top_disco_songs.py
+  </label><br>
+  <button onclick="onSubmit()">Submit</button>
+</div>
+<div class="bottom">
+  <h2>Output</h2>
+  <code id="output">
+    Hello World!
+  </code>
+</div>
+</body>
+</html>
