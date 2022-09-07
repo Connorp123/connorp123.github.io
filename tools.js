@@ -23,7 +23,7 @@ let onSubmit = async () => {
   outputContainer.innerText = `Running the selected command... ${command}`;
 
   // Get the response
-  const response = await fetch(`http://tools.connorpeace.com:8080/run/${command}`, {
+  const response = await fetch(`https://tools.connorpeace.com/run/${command}`, {
     method: "GET",
   });
   output = await response.text();
