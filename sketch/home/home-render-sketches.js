@@ -11,6 +11,7 @@ sketches.push(new p5(snake_game, "sketch6"));
 sketches.push(new p5(face_attraction, "sketch7"));
 sketches.push(new p5(temp_viz, "sketch8"));
 sketches.push(new p5(random_number_visualizer, "sketch9"));
+sketches.push(new p5(color_layers, "sketch10"));
 
 // Home background sketch
 sketches.push(new p5(flow_field, "home-sketch"));
