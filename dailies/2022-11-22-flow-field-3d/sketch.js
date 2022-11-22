@@ -13,135 +13,7 @@
  */
 import * as THREE from "https://threejs.org/build/three.module.js";
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
-
-/***
- *
- *    88888888888  88           ,ad8888ba,   I8,        8        ,8I     88888888888  88  88888888888  88           88888888ba,
- *    88           88          d8"'    `"8b  `8b       d8b       d8'     88           88  88           88           88      `"8b
- *    88           88         d8'        `8b  "8,     ,8"8,     ,8"      88           88  88           88           88        `8b
- *    88aaaaa      88         88          88   Y8     8P Y8     8P       88aaaaa      88  88aaaaa      88           88         88
- *    88"""""      88         88          88   `8b   d8' `8b   d8'       88"""""      88  88"""""      88           88         88
- *    88           88         Y8,        ,8P    `8a a8'   `8a a8'        88           88  88           88           88         8P
- *    88           88          Y8a.    .a8P      `8a8'     `8a8'         88           88  88           88           88      .a8P
- *    88           88888888888  `"Y8888Y"'        `8'       `8'          88           88  88888888888  88888888888  88888888Y"'
- *
- *
- */
-class FlowField {
-
-  constructor({res, width, height}) {
-    this.resolution = res || 100;
-    this.cols       = width / this.resolution;
-    this.rows       = height / this.resolution;
-    this.field      = this.make2Darray(this.cols);
-    this.init();
-  }
-
-  make2Darray(n) {
-    let array = [];
-    for (let i = 0; i < n; i++) {
-      array[i] = [];
-    }
-    return array;
-  }
-
-  init() {
-    noiseSeed(100);
-
-    let xoff = 0;
-    for (let i = 0; i < this.cols; i++) {
-
-      let yoff = 0;
-      for (let j = 0; j < this.rows; j++) {
-
-        let theta = map(noise(xoff, yoff), 0, 1, 1, Math.PI * 2);
-
-        // Polar to cartesian coordinate transformation to get x and y components of the vector
-        this.field[i][j] = new THREE.Vector3(Math.cos(theta), Math.sin(theta), 0);
-
-        // Increment yoff
-        yoff += 0.1;
-      }
-
-      // Increment xoff
-      xoff += 0.1;
-    }
-  }
-
-  lookup(lookup) {
-    let column = Math.floor(constrain(lookup.x / this.resolution, 0, this.cols - 1));
-    let row    = Math.floor(constrain(lookup.y / this.resolution, 0, this.rows - 1));
-    return this.field[column][row];
-  }
-}
-
-/**
- *
- * 88888888ba                                    88              88
- * 88      "8b                            ,d     ""              88
- * 88      ,8P                            88                     88
- * 88aaaaaa8P'  ,adPPYYba,  8b,dPPYba,  MM88MMM  88   ,adPPYba,  88   ,adPPYba,
- * 88""""""'    ""     `Y8  88P'   "Y8    88     88  a8"     ""  88  a8P_____88
- * 88           ,adPPPPP88  88            88     88  8b          88  8PP"""""""
- * 88           88,    ,88  88            88,    88  "8a,   ,aa  88  "8b,   ,aa
- * 88           `"8bbdP"Y8  88            "Y888  88   `"Ybbd8"'  88   `"Ybbd8"'
- *
- */
-class Particle {
-  constructor({scene, geometry, x, y, ms, mf}) {
-    this.acceleration = new THREE.Vector3();
-    this.velocity     = new THREE.Vector3();
-    this.r            = 4;
-    this.maxSpeed     = ms || 4;
-    this.maxForce     = mf || 0.1;
-
-    // Create mesh
-    this.color    = new THREE.Color(Math.random(), Math.random(), Math.random());
-    this.material = new THREE.MeshBasicMaterial({color: this.color});
-    this.mesh     = new THREE.Mesh(geometry, this.material);
-    this.mesh.position.copy(new THREE.Vector3(x, y, 0));
-    scene.add(this.mesh);
-  }
-
-  follow(flow) {
-    let desired = flow.lookup(this.mesh.position);
-    desired.multiplyScalar(this.maxSpeed);
-    desired.sub(this.velocity);
-    desired.clampLength(0, this.maxForce);
-    this.acceleration.add(desired);
-  }
-
-  update() {
-    this.velocity.add(this.acceleration);
-    this.velocity.clampLength(0, this.maxSpeed);
-
-    this.mesh.position.add(this.velocity);
-
-    this.acceleration.multiplyScalar(0);
-  }
-
-  borders({xmin, xmax, ymin, ymax}) {
-    if (this.mesh.position.x < xmin) this.mesh.position.x = xmax;
-    if (this.mesh.position.y < ymin) this.mesh.position.y = ymax;
-    if (this.mesh.position.x > xmax) this.mesh.position.x = xmin;
-    if (this.mesh.position.y > ymax) this.mesh.position.y = ymin;
-  }
-}
-
-
-/***
- *
- *    88b           d88         db         88  888b      88
- *    888b         d888        d88b        88  8888b     88
- *    88`8b       d8'88       d8'`8b       88  88 `8b    88
- *    88 `8b     d8' 88      d8'  `8b      88  88  `8b   88
- *    88  `8b   d8'  88     d8YaaaaY8b     88  88   `8b  88
- *    88   `8b d8'   88    d8""""""""8b    88  88    `8b 88
- *    88    `888'    88   d8'        `8b   88  88     `8888
- *    88     `8'     88  d8'          `8b  88  88      `888
- *
- *
- */
+import { FlowField, Particle } from "./FlowField.js";
 
 function main() {
 
@@ -169,15 +41,26 @@ function main() {
 
   // Frame
   let X_MIN = 0;
-  let X_MAX = 500;
+  let X_MAX = 100;
   let Y_MIN = 0;
-  let Y_MAX = 500;
+  let Y_MAX = 100;
   let Z_MIN = 0;
-  let Z_MAX = 500;
+  let Z_MAX = 100;
 
   // Light
   const lightColor     = 0xFFFFFF;
-  const lightIntensity = 1;
+  const lightIntensity = 0.8;
+
+  // Scene
+  const RANDOM_COLORS  = true;
+  const PARTICLE_COLOR = 0xFFFFFF;
+  const PARTICLE_SIZE  = 1;
+  const FIELD_RES      = 1;
+  const MIN_SPEED      = 0.1;
+  const MAX_SPEED      = 0.5;
+  const MIN_FORCE      = 0.01;
+  const MAX_FORCE      = 0.1;
+  const DRAW_FRAME     = true;
 
   /***
    *
@@ -256,11 +139,7 @@ function main() {
     geometry: new THREE.BufferGeometry().setFromPoints(points)
   };
   frame.object = new THREE.Line(frame.geometry);
-  // scene.add(frame.object);
-
-  const circle = {
-    geometry: new THREE.SphereGeometry(2, 16, 16),
-  };
+  if (DRAW_FRAME) scene.add(frame.object);
 
   /***
    *
@@ -275,25 +154,30 @@ function main() {
    *
    *
    */
+  const circle = {
+    geometry: new THREE.SphereGeometry(PARTICLE_SIZE, 64, 64),
+  };
+
   let field = new FlowField({
-    res   : 0.1,
+    res   : FIELD_RES,
     width : X_MAX,
     height: Y_MAX,
+    depth : Z_MAX,
   });
 
-
   let particles = [];
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 1000; i++) {
     particles.push(new Particle({
       scene   : scene,
       geometry: circle.geometry,
       x       : map(Math.random(), 0, 1, X_MIN, X_MAX),
       y       : map(Math.random(), 0, 1, Y_MIN, Y_MAX),
-      ms      : map(Math.random(), 0, 1, 2, 8),
-      mf      : map(Math.random(), 0, 1, 0.1, 1),
+      z       : map(Math.random(), 0, 1, Z_MIN, Z_MAX),
+      ms      : map(Math.random(), 0, 1, MIN_SPEED, MAX_SPEED),
+      mf      : map(Math.random(), 0, 1, MIN_FORCE, MAX_FORCE),
+      color   : RANDOM_COLORS ? null : PARTICLE_COLOR
     }));
   }
-
 
   /***
    *
@@ -317,6 +201,8 @@ function main() {
         xmax: X_MAX,
         ymin: Y_MIN,
         ymax: Y_MAX,
+        zmin: Z_MIN,
+        zmax: Z_MAX,
       });
     });
 
