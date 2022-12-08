@@ -1,12 +1,14 @@
 let sketches = [];
-let isHome = true;
+let isHome   = true;
+
+import { home_cursor_v1 } from "./cursor-v1.js";
 
 // Mini sketches
 sketches.push(new p5(tiles, "sketch1"));
 sketches.push(new p5(rapid_bubbles, "sketch2"));
 sketches.push(new p5(whitney, "sketch3"));
 sketches.push(new p5(cursor_v2, "sketch4"));
-sketches.push(new p5(cursor_v1, "sketch5"));
+sketches.push(new p5(home_cursor_v1, "sketch5"));
 sketches.push(new p5(snake_game, "sketch6"));
 sketches.push(new p5(face_attraction, "sketch7"));
 sketches.push(new p5(temp_viz, "sketch8"));

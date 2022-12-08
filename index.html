@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
   <!-- Google Tag Manager -->
-  <script>(function(w, d, s, l, i) {
+  <script>(function (w, d, s, l, i) {
     w[l] = w[l] || [];
     w[l].push({
-      "gtm.start":
+      "gtm.start"                  :
         new Date().getTime(), event: "gtm.js",
     });
-    var f = d.getElementsByTagName(s)[0],
-      j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
-    j.async = true;
-    j.src =
+    var f                          = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
+    j.async                        = true;
+    j.src                          =
       "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
     f.parentNode.insertBefore(j, f);
   })(window, document, "script", "dataLayer", "GTM-5WT2CP6");</script>
@@ -20,7 +20,7 @@
   <meta charset="UTF-8">
   <title>Connor Peace's Personal Website</title>
   <link href="https://connorpeace.com/" rel="canonical">
-  <meta property="og:image" content="./img/profile.png" />
+  <meta property="og:image" content="./img/profile.png"/>
   <meta name="viewport" content="width=device-width">
 
   <!-- p5 -->
@@ -33,24 +33,24 @@
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
 
   <!-- Helpers -->
-  <script src="./helpers/home-helpers.js"></script>
-  <script src="./helpers/pan-zoom-helpers.js"></script>
+  <script src="./helpers/home-helpers.js" async></script>
+  <script src="./helpers/pan-zoom-helpers.js" async></script>
 
   <!-- p5 Instances -->
-  <script src="./sketch/home/home.js"></script>
-  <script src="./sketch/home/cursor-v1.js"></script>
-  <script src="./sketch/home/cursor-v2.js"></script>
-  <script src="./sketch/home/whitney.js"></script>
-  <script src="./sketch/home/rapid-bubbles.js"></script>
-  <script src="./sketch/home/tiles.js"></script>
-  <script src="./sketch/home/random-number-visualizer.js"></script>
-  <script src="./sketch/home/snake-game.js"></script>
-  <script src="./sketch/home/face-attraction.js"></script>
-  <script src="./sketch/home/temp-viz.js"></script>
-  <script src="./sketch/home/primary-layers.js"></script>
+  <script src="./sketch/home/home.js" async></script>
+  <!--  <script src="./sketch/home/cursor-v1.js" type="module"></script>-->
+  <script src="./sketch/home/cursor-v2.js" async></script>
+  <script src="./sketch/home/whitney.js" async></script>
+  <script src="./sketch/home/rapid-bubbles.js" async></script>
+  <script src="./sketch/home/tiles.js" async></script>
+  <script src="./sketch/home/random-number-visualizer.js" async></script>
+  <script src="./sketch/home/snake-game.js" async></script>
+  <script src="./sketch/home/face-attraction.js" async></script>
+  <script src="./sketch/home/temp-viz.js" async></script>
+  <script src="./sketch/home/primary-layers.js" async></script>
 
   <!-- Render all sketches -->
-  <script src="./sketch/home/home-render-sketches.js"></script>
+  <script src="./sketch/home/home-render-sketches.js" type="module"></script>
 
   <!-- Styles -->
   <link rel="stylesheet" href="./css/global.css">
@@ -68,7 +68,7 @@
   <!-- Intro Block -->
   <div class="intro">
     <div class="img-container">
-      <img src="./img/profile.png" alt="picture of me" />
+      <img src="./img/profile.png" alt="picture of me"/>
     </div>
     <h1>Hi! I'm Connor Peace</h1>
     <p>
@@ -92,7 +92,7 @@
     <div class="mini-sketch-container">
       <div class="title">
         <a href="./art/random-number-visualizer.html">Big Number Visualizer</a>
-        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up" />
+        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up"/>
       </div>
       <div class="sketch" id="sketch9"></div>
     </div>
@@ -135,7 +135,7 @@
     <div class="mini-sketch-container">
       <div class="title">
         <a href="./art/whitney.html">Whitney Inspired</a>
-        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up" />
+        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up"/>
       </div>
       <div class="sketch" id="sketch3"></div>
     </div>
@@ -143,7 +143,7 @@
     <div class="mini-sketch-container">
       <div class="title">
         <a href="./art/rapid-bubbles.html">Rapid Bubbles</a>
-        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up" />
+        <img class="icon" src="./resources/arrow-pointer-solid.svg" alt="hand pointing up"/>
       </div>
       <div class="sketch" id="sketch2"></div>
     </div>

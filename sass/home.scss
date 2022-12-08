@@ -1,7 +1,9 @@
 @import "./_variables.scss";
 
-body {
-  //background-color: $white;
+$body-width: 1350px;
+$body-margins: 50px;
+
+body{
   background: #FAFAF8;
 }
 
@@ -11,13 +13,14 @@ body {
 }
 
 .body-wrapper {
-  margin-left: 50px;
-  margin-right: 50px;
+  margin-left: $body-margins;
+  margin-right: $body-margins;
   padding-top: 40px;
+  max-width: $body-width;
 
-  @media only screen and (min-width: $bp-desktop) {
-    margin-left: 200px;
-    margin-right: 200px;
+  @media only screen and (min-width: $body-width + (2 * $body-margins)) {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -27,6 +30,7 @@ body {
   .img-container {
     display: flex;
     justify-content: center;
+
     img {
       width: 300px;
       height: 300px;
@@ -38,6 +42,10 @@ body {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+
+  @media only screen and (min-width: $bp-desktop) {
+    gap: 40px;
+  }
 
   .mini-sketch-container {
     margin-bottom: 30px;
@@ -65,6 +73,7 @@ body {
     .sketch {
       width: 400px;
       height: 400px;
+
       canvas {
         border: 1px solid $bg-color-dark-grey;
       }

@@ -42,10 +42,6 @@ body {
   background: #fafaf8;
 }
 
-canvas {
-  position: fixed !important;
-}
-
 h1 {
   width: fit-content;
   margin-left: auto;
