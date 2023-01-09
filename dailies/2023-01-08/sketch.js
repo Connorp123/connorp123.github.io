@@ -17,16 +17,11 @@ export const sketch = (p) => {
    */
   let canvas;
   let circles = [];
-  let SIZE    = 10;
+  let SIZE    = 80;
   let RADIUS  = 40;
-  let t       = 0;
   let GIF_SEC = 5;
-  // let TSTEP   = p.TWO_PI / (60 * GIF_SEC);
 
-  let gifNumber = 0;
-  let gifFrame = 0;
-  let GIFS = 5;
-  let capturing = false;
+  let T_STEP = 1 / (GIF_SEC * 60);
 
   let SPEED_STEP = 0.0003;
   let COLORS = [
@@ -54,17 +49,17 @@ export const sketch = (p) => {
     canvas = p.createCanvas(800, 800);
     p.noStroke();
 
-    let o = SPEED_STEP;
-    let c = 0;
+    let o = 0;
+    let n = 0;
     for (let y = 0 - RADIUS; y < p.height + RADIUS; y += RADIUS) {
       for (let x = 0 - RADIUS; x < p.width + RADIUS; x += RADIUS) {
         o += SPEED_STEP;
-        c += 1;
+        n += 1;
         circles.push(new Circle({
           x    : x,
           y    : y,
           speed: o,
-          _color: COLORS[c % COLORS.length]
+          _color: COLORS[n % COLORS.length]
         }));
       }
     }
@@ -101,25 +96,6 @@ export const sketch = (p) => {
     circles.forEach(circle => {
       circle.render();
     });
-
-    // Start capturing a new gif if not capturing and not max gifs
-    if(t > 1 && !capturing && gifNumber < GIFS) {
-      sleep(1000)
-      p.saveGif(getGifName(), GIF_SEC);
-      gifFrame = 0;
-      capturing = true;
-    }
-
-    else if (capturing) {
-      gifFrame += 1;
-
-      if(gifFrame > (GIF_SEC * 60)) {
-        capturing = false;
-        gifNumber += 1;
-      }
-    }
-
-    t += 1;
   };
 
   /***
@@ -165,12 +141,15 @@ export const sketch = (p) => {
       this.speed  = speed || 0;
       this.d      = SIZE;
       this.t      = 0;
-      this.color  = p.color(_color);
+      this.color  = _color ?
+        p.color(_color) :
+        p.color(p.random(0,255), p.random(0,255), p.random(0,255));
     }
 
     update() {
       // Move in circle based on offset
       this.t += this.speed;
+
 
       this.pos = [
         this.center[0] + (p.cos(this.t) * RADIUS),
