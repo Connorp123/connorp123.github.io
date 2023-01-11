@@ -23,14 +23,13 @@ export const dfs = (p) => {
         p.frameRate(FRAME_RATE);
         originalMaze = new Maze({
             _p: p,
-            _x: 100,
-            _y: 100,
         })
 
         displayMaze = new Maze({
-            _p: p,
-            _x: 100,
-            _y: 100,
+            _p:    p,
+            _x:    100,
+            _y:    100,
+            _size: 20,
         })
 
         dfs = new DFS({
@@ -166,10 +165,10 @@ class DFS {
 }
 
 class Maze {
-    constructor({_p, _x, _y}) {
+    constructor({_p, _size, _x, _y}) {
         this.p = _p;
 
-        this.cellSize    = 20;
+        this.cellSize    = _size || 20;
         this.cellPadding = 5;
         this.x           = _x || 10;
         this.y           = _y || 10;
@@ -329,14 +328,38 @@ class Maze {
  */
 export const home_dfs = (p) => {
     let canvas;
+    let originalMaze;
+    let displayMaze;
+    let dfs;
+    let FRAME_RATE = 1;
 
     p.setup = () => {
         canvas = createInstanceCanvas(p);
+        p.frameRate(FRAME_RATE);
+        originalMaze = new Maze({
+            _p: p,
+        })
+
+        displayMaze = new Maze({
+            _p:    p,
+            _size: 10,
+        })
+
+        dfs = new DFS({
+            _p:    p,
+            _maze: displayMaze,
+        })
+        dfs.init();
     };
 
     p.draw = () => {
-        redrawBackground(p);
+        dfs.display();
+
+        if (dfs.nextMove()) {
+            redrawBackground(p);
+            dfs.display();
+        } else {
+            p.noLoop();
+        }
     };
 };
-
-
