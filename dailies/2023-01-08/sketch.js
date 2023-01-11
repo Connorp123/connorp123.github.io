@@ -88,8 +88,7 @@ export const sketch = (p) => {
             currentDate = Date.now();
         } while (currentDate - date < milliseconds);
     }
-
-
+    
     p.draw = () => {
         redrawBackground(p);
 
