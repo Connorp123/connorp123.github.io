@@ -21,6 +21,26 @@ export const dfs = (p) => {
     p.setup = () => {
         canvas = createInstanceCanvas(p);
         p.frameRate(FRAME_RATE);
+        init();
+        p.noLoop();
+    };
+
+    p.draw = () => {
+        dfs.display();
+
+        if (dfs.nextMove()) {
+            redrawBackground(p);
+            dfs.display();
+        } else {
+            init();
+        }
+    };
+
+    p.mousePressed = () => {
+        p.redraw();
+    }
+
+    const init = () => {
         originalMaze = new Maze({
             _p: p,
         })
@@ -31,24 +51,15 @@ export const dfs = (p) => {
             _y:    100,
             _size: 20,
         })
+        displayMaze.randomizePacman();
 
         dfs = new DFS({
             _p:    p,
             _maze: displayMaze,
         })
         dfs.init();
-    };
-
-    p.draw = () => {
         dfs.display();
-
-        if (dfs.nextMove()) {
-            redrawBackground(p);
-            dfs.display();
-        } else {
-            p.noLoop();
-        }
-    };
+    }
 };
 
 /**
@@ -77,7 +88,6 @@ class DFS {
     }
 
     init() {
-
         // stack = [start_node]
         let start = this.maze.getPacman();
         if (!start) {
@@ -151,7 +161,7 @@ class DFS {
         this.p.textWrap(this.p.CHAR);
 
         // Display movement order
-        this.p.text(`Movement order: left, right, up, down`, this.x, this.y, 800);
+        this.p.text(`Movement order: right, left, down, up`, this.x, this.y, 800);
 
         // Display current
         this.p.text(`Current: [${this.current.toString()}]`, this.x, this.y + 40, 800);
@@ -208,24 +218,28 @@ class Maze {
         let r;
         let c;
 
+        // Check up
         r = row - 1;
         c = col;
         if (this.isValidPos(r, c)) {
             neighbors.push([r, c])
         }
 
+        // Check down
         r = row + 1;
         c = col;
         if (this.isValidPos(r, c)) {
             neighbors.push([r, c])
         }
 
+        // Check left
         r = row;
         c = col - 1;
         if (this.isValidPos(r, c)) {
             neighbors.push([r, c])
         }
 
+        // Check right
         r = row;
         c = col + 1;
         if (this.isValidPos(r, c)) {
@@ -304,12 +318,34 @@ class Maze {
         }
     }
 
+    markPath(row, col) {
+        this.grid[row][col] = this.path;
+    }
+
     markVisited(row, col) {
         this.grid[row][col] = this.visited;
     }
 
     movePacman(row, col) {
         this.grid[row][col] = this.pacman;
+    }
+
+    randomizePacman() {
+
+        // Delete old pacman
+        let pac = this.getPacman();
+        this.markPath(...pac);
+
+        // Find new location
+        let randomX = Math.round(this.p.random(0, this.grid.length));
+        let randomY = Math.round(this.p.random(0, this.grid.length));
+        while (!this.isValidPos(randomX, randomY)) {
+            randomX = Math.round(this.p.random(0, this.grid.length));
+            randomY = Math.round(this.p.random(0, this.grid[0].length));
+        }
+
+        // Save pacman in the grid
+        this.movePacman(randomX, randomY);
     }
 }
 
