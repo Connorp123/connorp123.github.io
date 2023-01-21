@@ -8,18 +8,18 @@
           "gtm.start":
               new Date().getTime(), event: "gtm.js",
       });
-      var f = d.getElementsByTagName(s)[0],
+      var f                          = d.getElementsByTagName(s)[0],
           j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src =
+      j.async                        = true;
+      j.src                          =
           "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
       f.parentNode.insertBefore(j, f);
   })(window, document, "script", "dataLayer", "GTM-5WT2CP6");</script>
 
   <!-- SEO -->
   <meta charset="UTF-8">
-  <title>Title</title>
-  <link href="https://connorpeace.com/art/whitney.html" rel="canonical">
+  <title>DFS Visualization</title>
+  <link href="https://connorpeace.com/art/dfs.html" rel="canonical">
   <meta property="og:image" content="./../img/profile.png"/>
   <meta name="viewport" content="width=device-width">
 
@@ -38,11 +38,11 @@
   <script src="./../helpers/display-helpers.js"></script>
 
   <!-- Sketch -->
-  <!--  <script src="../sketch/text-particles.js" type="module"></script>-->
+  <!--    <script src="../sketch/home/cursor-v1.js" type="module"></script>-->
   <script type="module">
-      import {text_particles} from "/sketch/text-particles.js";
+      import {dfs} from "/sketch/dfs.js";
 
-      let sketch = new p5(text_particles, "sketch");
+      let sketch = new p5(dfs, "sketch");
   </script>
 </head>
 
@@ -58,19 +58,9 @@
   </div>
   <div class="sketch" id="sketch"></div>
   <div class="sidebar">
-    <h1>Sketch_Name</h1>
-    <p>Sketch_Description</p>
-    <h2>Controls</h2>
-    <div class="controls-container">
-      <div class="control">
-        <div class="key">Space</div>
-        <div class="separator">-</div>
-        <div class="action">Toggle debug</div>
-      </div>
-    </div>
+    <h1>Depth-First Search Visualization</h1>
+    <p>Credit to <a href="http://ai.berkeley.edu/project_overview.html">UC Berkely</a> for the Pacman maze</p>
   </div>
 </div>
-
-
 </body>
 </html>

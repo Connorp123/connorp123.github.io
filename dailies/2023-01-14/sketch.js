@@ -16,14 +16,15 @@ export const sketch = (p) => {
      *
      */
     let canvas;
-    let circles = [];
-    let SIZE = 10;
-    let RADIUS = 40;
-    let GIF_SEC = 1;
-    let T_START = 0;
+    let circles    = [];
+    let SIZE       = 60;
+    let RADIUS     = 30;
+    let GIF_SEC    = 6;
+    let FRAME_RATE = 30;
+    let T_START    = 0;
 
     let SPEED_STEP = 0.0003;
-    let COLORS = [
+    let COLORS     = [
         '#043448',
         '#1D7964',
         '#DFD79E',
@@ -45,8 +46,9 @@ export const sketch = (p) => {
      *
      */
     p.setup = () => {
-        canvas = p.createCanvas(800, 800);
+        canvas = p.createCanvas(450, 800);
         p.noStroke();
+        p.frameRate(FRAME_RATE);
 
         let o = SPEED_STEP;
         let c = 0;
@@ -55,9 +57,9 @@ export const sketch = (p) => {
                 o += SPEED_STEP;
                 c += 1;
                 circles.push(new Circle({
-                    _x: x,
-                    _y: y,
-                    _t: T_START,
+                    _x:     x,
+                    _y:     y,
+                    _t:     T_START,
                     _speed: o,
                     _color: COLORS[c % COLORS.length]
                 }));
@@ -82,13 +84,13 @@ export const sketch = (p) => {
 
 
     function sleep(milliseconds) {
-        const date = Date.now();
+        const date      = Date.now();
         let currentDate = null;
         do {
             currentDate = Date.now();
         } while (currentDate - date < milliseconds);
     }
-    
+
     p.draw = () => {
         redrawBackground(p);
 
@@ -124,6 +126,10 @@ export const sketch = (p) => {
         }
     };
 
+    p.mouseClicked = () => {
+        p.saveGif(getGifName(), GIF_SEC);
+    }
+
     /***
      *
      *      ,ad8888ba,   88  88888888ba     ,ad8888ba,   88           88888888888
@@ -141,11 +147,11 @@ export const sketch = (p) => {
 
         constructor({_x, _y, _speed, _t, _color}) {
             this.center = [_x, _y];
-            this.pos = [_x, _y];
-            this.speed = _speed || 0;
-            this.d = SIZE;
-            this.t = _t;
-            this.color = p.color(_color);
+            this.pos    = [_x, _y];
+            this.speed  = _speed || 0;
+            this.d      = SIZE;
+            this.t      = _t;
+            this.color  = p.color(_color);
         }
 
         update() {

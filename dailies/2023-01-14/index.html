@@ -8,24 +8,24 @@
           "gtm.start":
               new Date().getTime(), event: "gtm.js",
       });
-      var f = d.getElementsByTagName(s)[0],
+      var f                          = d.getElementsByTagName(s)[0],
           j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src =
+      j.async                        = true;
+      j.src                          =
           "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
       f.parentNode.insertBefore(j, f);
   })(window, document, "script", "dataLayer", "GTM-5WT2CP6");</script>
 
   <!-- SEO -->
   <meta charset="UTF-8">
-  <title>Title</title>
-  <link href="https://connorpeace.com/art/whitney.html" rel="canonical">
-  <meta property="og:image" content="./../img/profile.png"/>
+  <title>Daily Code for 2023-01-14</title>
+  <link href="https://connorpeace.com/dailies/2023-01-14/index.html" rel="canonical">
+  <meta property="og:image" content="./../../img/profile.png"/>
   <meta name="viewport" content="width=device-width">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="./../css/global.css">
-  <link rel="stylesheet" href="./../css/art.css">
+  <link rel="stylesheet" href="./../../css/global.css">
+  <link rel="stylesheet" href="./../../css/art.css">
 
   <!-- p5 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.min.js"
@@ -35,14 +35,15 @@
   ></script>
 
   <!-- Helpers -->
-  <script src="./../helpers/display-helpers.js"></script>
+  <script src="./../../helpers/display-helpers.js" async></script>
+  <script src="./../../helpers/pan-zoom-helpers.js" async></script>
 
   <!-- Sketch -->
-  <!--  <script src="../sketch/text-particles.js" type="module"></script>-->
-  <script type="module">
-      import {text_particles} from "/sketch/text-particles.js";
+  <script src="sketch.js" type="module" async></script>
+  <script type="module" async>
+      import {sketch} from "./sketch.js";
 
-      let sketch = new p5(text_particles, "sketch");
+      new p5(sketch, "sketch");
   </script>
 </head>
 
@@ -54,7 +55,7 @@
 </noscript>
 <div class="art-wrapper">
   <div class="back-button">
-    <a href="../index.html"><=</a>
+    <a href="../../index.html"><=</a>
   </div>
   <div class="sketch" id="sketch"></div>
   <div class="sidebar">
@@ -70,7 +71,5 @@
     </div>
   </div>
 </div>
-
-
 </body>
 </html>
