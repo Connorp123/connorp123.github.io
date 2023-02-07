@@ -38,6 +38,57 @@
   font-style: normal;
   font-display: swap;
 }
+h1 {
+  font-family: "Rubik-Medium";
+  font-size: 50px;
+}
+
+h2 {
+  font-family: "Rubik-Light";
+  font-size: 42px;
+}
+
+h3 {
+  font-family: "Rubik-Bold";
+  font-size: 36px;
+}
+
+body, p, li, a {
+  font-family: "Rubik-Regular";
+  color: black;
+  text-decoration: none;
+  text-underline: none;
+}
+body:visited, p:visited, li:visited, a:visited {
+  color: black;
+}
+body:hover, p:hover, li:hover, a:hover {
+  color: black;
+}
+
+a {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 1px;
+  padding-bottom: 5px;
+}
+
+p {
+  font-size: 30px;
+}
+
+.back-button {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  user-select: none;
+}
+.back-button a {
+  color: #333333;
+  font-size: 46px;
+  text-decoration: none;
+}
+
 body {
   padding: 0;
   margin: 0;
