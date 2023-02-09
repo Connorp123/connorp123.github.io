@@ -142,13 +142,26 @@ canvas {
   font-size: 48px;
 }
 
-@media only screen and (min-width: 20px) and (max-width: 1079px) {
+@media only screen and (min-width: 20px) and (max-width: 999px) {
   .art-wrapper {
     flex-direction: column;
   }
 
   .sidebar {
     padding: 0 20px 20px;
+  }
+}
+@media only screen and (min-width: 1000px) and (max-width: 1025px) {
+  .back-button {
+    display: none;
+  }
+
+  .art-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    display: none;
   }
 }
 

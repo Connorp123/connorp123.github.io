@@ -61,12 +61,27 @@ canvas {
   font-size: 48px;
 }
 
-@media only screen and (min-width: 20px) and (max-width: 1080px - 1px) {
+@media only screen and (min-width: 20px) and (max-width: 1000px - 1px) {
   .art-wrapper {
     flex-direction: column;
   }
 
   .sidebar {
     padding: 0 20px 20px;
+  }
+}
+
+// Just to make my life ez on windows
+@media only screen and (min-width: 1000px) and (max-width: 1025px) {
+  .back-button {
+    display: none;
+  }
+
+  .art-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    display: none;
   }
 }
