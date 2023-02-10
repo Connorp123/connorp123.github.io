@@ -1,3 +1,17 @@
+/***
+ * Useful info:
+ *
+ *     const NUM_CUBES   = 27;
+ *     const NUM_CENTERS = 6;
+ *     const NUM_EDGES   = 12;
+ *     const NUM_CORNERS = 8;
+ *
+ *
+ *         Possible validations
+ *             Edge can't have two colors next to each other
+ *             Only 9 of each color
+ */
+
 /*** Comments are Univers ASCII art
  *
  *    88  88b           d88  88888888ba     ,ad8888ba,    88888888ba  888888888888  ad88888ba
@@ -14,6 +28,7 @@
 
 import * as THREE from "https://threejs.org/build/three.module.js";
 import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
+import {Cube} from "./Cube.js";
 
 
 /**
@@ -29,49 +44,6 @@ import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples
  *
  */
 
-class Particle {
-
-    constructor({scene, geometry, x = 0, y = 0, z = 0, color, mesh}) {
-
-        // Physical properties
-        this.pos      = [x, y, z];
-        this.color    = color || 0xFFFFFF;
-        this.material = mesh || new THREE.MeshBasicMaterial({color: this.color});
-        this.mesh     = new THREE.Mesh(geometry, this.material);
-        this.setMeshPos();
-        scene.add(this.mesh);
-
-        // Physics properties
-        this.vel    = [0, 0, 0];
-        this.acc    = [0, 0, 0];
-        this.maxVel = 3;
-        this.maxAcc = 0.01;
-    }
-
-    update() {
-
-        // Attraction point
-        // let attractionPoint = [0, 0, 0];
-        //
-        // // Point acceleration
-        // this.acc = vectorLimit(vectorSub(attractionPoint, this.pos), this.maxAcc);
-        // // this.acc = vectorLimit(this.acc, this.maxAcc);
-        //
-        // // Update vel
-        // this.vel = vectorLimit(vectorAdd(this.vel, this.acc), this.maxVel);
-        // // this.vel = vectorLimit(this.vel, this.maxVel);
-        //
-        // // Update position
-        // this.pos = vectorAdd(this.pos, this.vel);
-        this.setMeshPos();
-    }
-
-    setMeshPos() {
-        this.mesh.position.x = this.pos[0];
-        this.mesh.position.y = this.pos[1];
-        this.mesh.position.z = this.pos[2];
-    }
-}
 
 /***
  *
@@ -112,58 +84,24 @@ function main() {
      */
 
           // Camera
-    const fov            = 50;
-    const aspect         = window.innerWidth / window.innerHeight;
-    const near           = 0.1;
-    const far            = 10000;
-    const cameraDistance = 100;
+    const fov          = 75;
+    const aspect       = window.innerWidth / window.innerHeight;
+    const near         = 0.1;
+    const far          = 10000;
+    const CAMERA_START = {
+        x: -80,
+        y: 30,
+        z: -10
+    };
 
     // Geometry
     const boxWidth  = 10;
     const boxHeight = 10;
     const boxDepth  = 10;
 
-    // Mesh
-    // const materialColor = 0x44aa88;
-
     // Light
     const lightColor     = 0xFFFFFF;
     const lightIntensity = 1;
-
-    // Rubix
-    const B = 0;
-    const R = 1;
-    const W = 2;
-    const O = 3;
-    const Y = 4;
-    const G = 5;
-
-    const FRONT = 0;
-    const LEFT  = 1;
-    const UP    = 2;
-    const RIGHT = 3;
-    const DOWN  = 4;
-    const BACK  = 5;
-
-    const COLORS = new Array(6);
-    COLORS[Y]    = new THREE.Color(0xFFFF00);
-    COLORS[B]    = new THREE.Color(0x0000FF);
-    COLORS[R]    = new THREE.Color(0xFF0000);
-    COLORS[G]    = new THREE.Color(0x00FF00);
-    COLORS[O]    = new THREE.Color(0xFF6600);
-    COLORS[W]    = new THREE.Color(0xFFFFFF);
-
-    const NUM_CUBES   = 27;
-    const NUM_CENTERS = 6;
-    const NUM_EDGES   = 12;
-    const NUM_CORNERS = 8;
-
-    /*
-        Side:
-            Corner  Edge    Corner
-            Edge    Center  Edge
-            Corner  Edge    Corner
-     */
 
     /***
      *
@@ -179,29 +117,14 @@ function main() {
      *
      */
 
-          // Read JSON
-    let runs         = [];
-    let states       = [];
-    let currentState = 0;
-    fetch("./states.json")
-        .then(res => res.json())
-        .then(data => {
-            runs   = data["runs"];
-            states = runs[0];
-            console.log(states[currentState]);
-        }).catch(err => {
-        alert(err);
-    });
-
-
-    // Create canvas
+          // Create canvas
     const renderer = createRenderer({THREE: THREE, canvas: canvas});
 
     // Create camera and move it back slightly
     const camera      = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.x = -65;
-    camera.position.y = 80;
-    camera.position.z = -65;
+    camera.position.x = CAMERA_START.x;
+    camera.position.y = CAMERA_START.y;
+    camera.position.z = CAMERA_START.z;
 
     // Create controls
     const controls = new OrbitControls(camera, canvas);
@@ -209,127 +132,49 @@ function main() {
     // Create a Geometry
     const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 
-    // Create a mesh
-    const cubes = [];
-
-    // For each layer
-
-    let OFFSET_1 = 0;
-    let OFFSET_2 = 11;
-    let OFFSET_3 = 22;
-
-    let locations = [
-
-        // Layer 1
-        [OFFSET_1, OFFSET_1, OFFSET_1],
-        [OFFSET_1, OFFSET_2, OFFSET_1],
-        [OFFSET_1, OFFSET_3, OFFSET_1],
-        [OFFSET_1, OFFSET_1, OFFSET_2],
-        [OFFSET_1, OFFSET_2, OFFSET_2],
-        [OFFSET_1, OFFSET_3, OFFSET_2],
-        [OFFSET_1, OFFSET_1, OFFSET_3],
-        [OFFSET_1, OFFSET_2, OFFSET_3],
-        [OFFSET_1, OFFSET_3, OFFSET_3],
-
-        // Layer 2
-        [OFFSET_2, OFFSET_1, OFFSET_1],
-        [OFFSET_2, OFFSET_2, OFFSET_1],
-        [OFFSET_2, OFFSET_3, OFFSET_1],
-        [OFFSET_2, OFFSET_1, OFFSET_2],
-        [OFFSET_2, OFFSET_2, OFFSET_2],
-        [OFFSET_2, OFFSET_3, OFFSET_2],
-        [OFFSET_2, OFFSET_1, OFFSET_3],
-        [OFFSET_2, OFFSET_2, OFFSET_3],
-        [OFFSET_2, OFFSET_3, OFFSET_3],
-
-        // Layer 3
-        [OFFSET_3, OFFSET_1, OFFSET_1],
-        [OFFSET_3, OFFSET_2, OFFSET_1],
-        [OFFSET_3, OFFSET_3, OFFSET_1],
-        [OFFSET_3, OFFSET_1, OFFSET_2],
-        [OFFSET_3, OFFSET_2, OFFSET_2],
-        [OFFSET_3, OFFSET_3, OFFSET_2],
-        [OFFSET_3, OFFSET_1, OFFSET_3],
-        [OFFSET_3, OFFSET_2, OFFSET_3],
-        [OFFSET_3, OFFSET_3, OFFSET_3],
-    ];
-
-
-    // Center = (# - 4) % 9 == 0
-    let isCenterSquare = (n) => (n - 4) % 9 === 0;
-
-    let CENTER_CUBES = new Set([4, 10, 12, 14, 16, 22]);
-    let EDGE_CUBES   = new Set([1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25]);
-    let CORNER_CUBES = new Set([0, 2, 6, 8, 18, 20, 24, 26]);
-
-    let getMaterialsForCube = (cubeIndex) => {
-
-        let sideIndex = Math.floor(cubeIndex / 9);
-
-
-        if (sideIndex === 0) {
-
-            // Square 0 size 0
-            if (cubeIndex % 9 === 3) {
-
-                // Need to set side 0,1,2
-
-                return [
-                    new THREE.MeshBasicMaterial({color: 0x000000}), // Side 5
-                    new THREE.MeshBasicMaterial({color: 0xffffff}), // Side 0
-                    new THREE.MeshBasicMaterial({color: 0xffffff}), // Side 2
-                    new THREE.MeshBasicMaterial({color: 0x000000}), // Side 4
-                    new THREE.MeshBasicMaterial({color: 0x000000}), // Side 3
-                    new THREE.MeshBasicMaterial({color: 0xffffff}), // Side 1
-                ];
-            }
-        }
-
-        return [
-            new THREE.MeshBasicMaterial({color: 0x000000}),
-            new THREE.MeshBasicMaterial({color: 0xffffff}),
-            new THREE.MeshBasicMaterial({color: 0x000000}),
-            new THREE.MeshBasicMaterial({color: 0x000000}),
-            new THREE.MeshBasicMaterial({color: 0x000000}),
-            new THREE.MeshBasicMaterial({color: 0x000000}),
-        ];
-    }
-
-    let color, materials;
-
-    // Draw each cube
-    for (let c = 0; c < locations.length; c++) {
-
-        let sideIndex = Math.floor(c / 9);
-        materials     = getMaterialsForCube(c);
-
-        if (sideIndex === 0) {
-
-            cubes.push(new Particle({
-                scene:    scene,
-                geometry: geometry,
-                x:        locations[c][0],
-                y:        locations[c][1],
-                z:        locations[c][2],
-                mesh:     materials,
-            }));
-
-        } else {
-
-            cubes.push(new Particle({
-                scene:    scene,
-                geometry: geometry,
-                x:        locations[c][0],
-                y:        locations[c][1],
-                z:        locations[c][2],
-                color:    color,
-            }));
-        }
-    }
-
     // Create a light
     const light = new THREE.AmbientLight(lightColor, lightIntensity);
     scene.add(light);
+
+    // Axis help
+    // const axesHelper = new THREE.AxesHelper(500);
+    // scene.add(axesHelper);
+
+
+    /***
+     *
+     *    88           ,ad8888ba,         db         88888888ba,
+     *    88          d8"'    `"8b       d88b        88      `"8b
+     *    88         d8'        `8b     d8'`8b       88        `8b
+     *    88         88          88    d8'  `8b      88         88
+     *    88         88          88   d8YaaaaY8b     88         88
+     *    88         Y8,        ,8P  d8""""""""8b    88         8P
+     *    88          Y8a.    .a8P  d8'        `8b   88      .a8P
+     *    88888888888  `"Y8888Y"'  d8'          `8b  88888888Y"'
+     *
+     *
+     */
+
+          // Read JSON
+    let runs              = [];
+    let states            = [];
+    let currentStateIndex = 0;
+    let cube;
+    fetch("./states.json")
+        .then(res => res.json())
+        .then(data => {
+            runs   = data["runs"];
+            states = runs[0];
+            console.log(states[0]);
+            cube = new Cube({
+                state:    states[0],
+                scene:    scene,
+                geometry: geometry
+            });
+        }).catch(err => {
+        alert(err);
+    });
+
 
     /***
      *
@@ -373,13 +218,15 @@ function main() {
         time *= 0.001;
 
         // Set the cube rotation to the time in seconds
-        cubes.forEach(cube => {
+        if (cube) {
             cube.update();
-        });
 
-        // myDelay.Timeout(() => {
-        //     console.log('Orbit changed');
-        // }, 1000);
+            if (Math.round(time * 100) % 500 === 0) {
+                console.log(time);
+                cube.randomizeCube();
+                // cube.recreateCube();
+            }
+        }
 
         // Update the scene
         renderer.render(scene, camera);
