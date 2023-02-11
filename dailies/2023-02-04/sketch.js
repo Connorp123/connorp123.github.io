@@ -31,20 +31,6 @@ import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples
 import {Cube} from "./Cube.js";
 
 
-/**
- *
- * 88888888ba                                    88              88
- * 88      "8b                            ,d     ""              88
- * 88      ,8P                            88                     88
- * 88aaaaaa8P'  ,adPPYYba,  8b,dPPYba,  MM88MMM  88   ,adPPYba,  88   ,adPPYba,
- * 88""""""'    ""     `Y8  88P'   "Y8    88     88  a8"     ""  88  a8P_____88
- * 88           ,adPPPPP88  88            88     88  8b          88  8PP"""""""
- * 88           88,    ,88  88            88,    88  "8a,   ,aa  88  "8b,   ,aa
- * 88           `"8bbdP"Y8  88            "Y888  88   `"Ybbd8"'  88   `"Ybbd8"'
- *
- */
-
-
 /***
  *
  *    88b           d88         db         88  888b      88
@@ -207,6 +193,10 @@ function main() {
                 console.log(time);
                 // cube.randomizeCube();
                 // cube.recreateCube();
+                cube.rotate({
+                    side: 1,
+                    numRotations: 1,
+                })
             }
         }
 
