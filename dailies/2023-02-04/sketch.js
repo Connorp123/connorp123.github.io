@@ -84,7 +84,7 @@ function main() {
      */
 
           // Camera
-    const fov          = 75;
+    const fov          = 50;
     const aspect       = window.innerWidth / window.innerHeight;
     const near         = 0.1;
     const far          = 10000;
@@ -102,6 +102,8 @@ function main() {
     // Light
     const lightColor     = 0xFFFFFF;
     const lightIntensity = 1;
+
+    const DEBUG = true;
 
     /***
      *
@@ -137,8 +139,10 @@ function main() {
     scene.add(light);
 
     // Axis help
-    // const axesHelper = new THREE.AxesHelper(500);
-    // scene.add(axesHelper);
+    if(DEBUG){
+        const axesHelper = new THREE.AxesHelper(500);
+        scene.add(axesHelper);
+    }
 
 
     /***
@@ -189,28 +193,6 @@ function main() {
      *
      *
      */
-    class CustomDelay {
-        constructor() {
-            this.timer = null;
-        }
-
-        Timeout(fun = () => {
-        }, ms) {
-            clearTimeout(this.timer);
-            this.timer = setTimeout(() => {
-                fun();
-            }, ms);
-        }
-    }
-
-    const myDelay = new CustomDelay();
-    window.addEventListener("click", function () {
-        console.log("Clicked");
-        myDelay.Timeout(() => {
-            console.log("DELAY");
-            console.log(camera.position);
-        }, 1000);
-    });
 
     function render(time) {
 
@@ -223,7 +205,7 @@ function main() {
 
             if (Math.round(time * 100) % 500 === 0) {
                 console.log(time);
-                cube.randomizeCube();
+                // cube.randomizeCube();
                 // cube.recreateCube();
             }
         }

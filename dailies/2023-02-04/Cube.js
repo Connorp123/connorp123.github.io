@@ -32,14 +32,13 @@ const OFFSETS = [0, 11, 22];
 export class Cube {
 
     constructor({scene, geometry, state}) {
-        console.log(state);
         if (!state) alert("Cube initialized with no state");
 
-        this.pieces     = [];
         this.numSquares = NUM_SQUARES;
         this.state      = state;
         this.scene      = scene;
         this.geometry   = geometry;
+        this.pieces     = [[], [], []];
 
         this.recreateCube();
     }
@@ -55,10 +54,8 @@ export class Cube {
         return new THREE.MeshBasicMaterial({color: new THREE.Color(0x000000)});
     };
 
-    getMaterialsForCube = (cubeIndex) => {
+    getMaterialsForPiece = ({layerIndex, sqNumber}) => {
 
-        let layerIndex = Math.floor(cubeIndex / 9);
-        let sqNumber   = cubeIndex % 9;
         let mats       = [
             this.stringToMaterial(""),
             this.stringToMaterial(""),
@@ -73,33 +70,66 @@ export class Cube {
         let RIGHT_SQUARES = new Set([6, 7, 8]);
         let DOWN_SQUARES  = new Set([0, 3, 6]);
 
-        // Set materials for the "sides"
-        if (LEFT_SQUARES.has(sqNumber)) {
-            mats[LEFT] = this.stringToMaterial(this.state[LEFT][sqNumber]);
-        }
-        if (UP_SQUARES.has(sqNumber)) {
-            mats[UP] = this.stringToMaterial(this.state[UP][sqNumber]);
-        }
-        if (RIGHT_SQUARES.has(sqNumber)) {
-            mats[RIGHT] = this.stringToMaterial(this.state[RIGHT][sqNumber]);
-        }
-        if (DOWN_SQUARES.has(sqNumber)) {
-            mats[DOWN] = this.stringToMaterial(this.state[DOWN][sqNumber]);
+        // let
+        //
+        // switch (layerIndex) {
+        //
+        //     case 0:
+        //
+        // }
+
+        if(layerIndex === 0) {
+
+            mats[FRONT] = this.stringToMaterial(this.state[FRONT][sqNumber]);
+
+            if (LEFT_SQUARES.has(sqNumber)) {
+                mats[LEFT] = this.stringToMaterial(this.state[LEFT][sqNumber]);
+            }
+            if (UP_SQUARES.has(sqNumber)) {
+                mats[UP] = this.stringToMaterial(this.state[UP][sqNumber - 2]);
+            }
+            if (RIGHT_SQUARES.has(sqNumber)) {
+                mats[RIGHT] = this.stringToMaterial(this.state[RIGHT][sqNumber - 6]);
+            }
+            if (DOWN_SQUARES.has(sqNumber)) {
+                mats[DOWN] = this.stringToMaterial(this.state[DOWN][sqNumber]);
+            }
         }
 
-        // Set materials for the "faces"
-        if (layerIndex === 0) {
-            mats[FRONT] = this.stringToMaterial(this.state[FRONT][sqNumber]);
-        } else if (layerIndex === 2) {
+        else if (layerIndex === 1) {
+            if (LEFT_SQUARES.has(sqNumber)) {
+                mats[LEFT] = this.stringToMaterial(this.state[LEFT][sqNumber + 3]);
+            }
+            if (UP_SQUARES.has(sqNumber)) {
+                mats[UP] = this.stringToMaterial(this.state[UP][sqNumber - 1]);
+            }
+            if (RIGHT_SQUARES.has(sqNumber)) {
+                mats[RIGHT] = this.stringToMaterial(this.state[RIGHT][sqNumber - 3]);
+            }
+            if (DOWN_SQUARES.has(sqNumber)) {
+                mats[DOWN] = this.stringToMaterial(this.state[DOWN][sqNumber + 1]);
+            }
+        }
+
+        else if (layerIndex === 2) {
             mats[BACK] = this.stringToMaterial(this.state[BACK][sqNumber]);
+
+            if (LEFT_SQUARES.has(sqNumber)) {
+                mats[LEFT] = this.stringToMaterial(this.state[LEFT][sqNumber + 6]);
+            }
+            if (UP_SQUARES.has(sqNumber)) {
+                mats[UP] = this.stringToMaterial(this.state[UP][sqNumber]);
+            }
+            if (RIGHT_SQUARES.has(sqNumber)) {
+                mats[RIGHT] = this.stringToMaterial(this.state[RIGHT][sqNumber]);
+            }
+            if (DOWN_SQUARES.has(sqNumber)) {
+                mats[DOWN] = this.stringToMaterial(this.state[DOWN][sqNumber + 2]);
+            }
         }
 
         return mats;
     };
-
-    changeState(state) {
-        this.state = state;
-    }
 
     randomizeCube() {
         let squares = [
@@ -124,7 +154,6 @@ export class Cube {
         // For each side
         for (let c = 0; c < 6; c++) {
 
-
             // Get a random color
             for (let i = 0; i < 9; i++) {
                 let nextIndex = Math.floor(Math.random() * squares.length);
@@ -132,43 +161,48 @@ export class Cube {
                 squares.splice(nextIndex, 1);
                 this.state[c].push(next);
                 this.numSquares++;
-                console.log(this.numSquares);
             }
-
         }
-
-        console.log(this.state);
 
         this.recreateCube();
     }
 
     recreateCube() {
         if (this.numSquares !== NUM_SQUARES) return;
-        this.pieces     = [];
+        this.pieces     = [[],[],[]];
         let pieceNumber = 0;
+        let layerIndex = 0;
         OFFSETS.forEach(x => {
             OFFSETS.forEach(z => {
                 OFFSETS.forEach(y => {
-                    this.pieces.push(new Particle({
+                    this.pieces[layerIndex].push(new Piece({
                         scene:    this.scene,
                         geometry: this.geometry,
                         x:        x,
                         y:        y,
                         z:        z,
-                        mesh:     this.getMaterialsForCube(pieceNumber)
+                        mesh:     this.getMaterialsForPiece({
+                            layerIndex: layerIndex,
+                            sqNumber: pieceNumber % 9,
+                        })
                     }));
                     pieceNumber++;
                 });
             });
+            layerIndex++;
         });
     }
 
     update() {
-        return null;
+        this.pieces.forEach(layer => {
+            layer.forEach(piece => {
+                piece.update();
+            })
+        })
     }
 }
 
-export class Particle {
+export class Piece {
 
     constructor({scene, geometry, x = 0, y = 0, z = 0, color, mesh}) {
 
@@ -188,20 +222,6 @@ export class Particle {
     }
 
     update() {
-
-        // Attraction point
-        // let attractionPoint = [0, 0, 0];
-        //
-        // // Point acceleration
-        // this.acc = vectorLimit(vectorSub(attractionPoint, this.pos), this.maxAcc);
-        // // this.acc = vectorLimit(this.acc, this.maxAcc);
-        //
-        // // Update vel
-        // this.vel = vectorLimit(vectorAdd(this.vel, this.acc), this.maxVel);
-        // // this.vel = vectorLimit(this.vel, this.maxVel);
-        //
-        // // Update position
-        // this.pos = vectorAdd(this.pos, this.vel);
         this.setMeshPos();
     }
 
