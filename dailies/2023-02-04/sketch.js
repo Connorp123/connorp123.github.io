@@ -28,7 +28,7 @@
 
 import * as THREE from "https://threejs.org/build/three.module.js";
 import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
-import {Cube} from "./Cube.js";
+import {Cube} from "../../classes/Cube.js";
 
 
 /***
@@ -189,15 +189,15 @@ function main() {
         if (cube) {
             cube.update();
 
-            if (Math.round(time * 100) % 500 === 0) {
-                console.log(time);
-                // cube.randomizeCube();
-                // cube.recreateCube();
+            // if (Math.round(time * 100) % 500 === 0) {
+            //     console.log(time);
+            //     // cube.randomizeCube();
+            //     // cube.recreateCube();
                 cube.rotate({
                     side: 1,
                     numRotations: 1,
                 })
-            }
+            // }
         }
 
         // Update the scene

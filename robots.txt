@@ -2,6 +2,7 @@ Sitemap: https://connorpeace.com/sitemap.xml
 User-agent: *
 Disallow: /dailies/
 Disallow: /art/_template
+Disallow: /art/rubiks-cube
 Disallow: /archive/
 Disallow: /_template
 Disallow: /tools

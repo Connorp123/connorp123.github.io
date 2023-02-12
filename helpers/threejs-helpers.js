@@ -12,7 +12,7 @@
  *
  */
 
-function createRenderer({THREE, canvas, AA}) {
+function createRenderer({THREE, canvas, AA=true}) {
   const renderer = new THREE.WebGLRenderer({canvas, antialias: AA});
 
   if (isMobile()) {

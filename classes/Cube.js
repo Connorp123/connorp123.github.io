@@ -1,4 +1,5 @@
-import * as THREE from "https://threejs.org/build/three.module.js";
+// import * as THREE from "https://threejs.org/build/three.module.js";
+import * as THREE from "./../lib/three.module.js";
 
 const FRONT_LAYER = 0;
 const MID_LAYER = 1;
@@ -22,7 +23,7 @@ const NUM_SQUARES = 54;
 
 const P = 6;
 
-let ROTATION_STEP = 0.05;
+let ROTATION_STEP = 0.1;
 
 const COLORS = new Array(7);
 COLORS[Y] = new THREE.Color(0xFFFF00);
@@ -33,7 +34,18 @@ COLORS[O] = new THREE.Color(0xFF6600);
 COLORS[W] = new THREE.Color(0xFFFFFF);
 COLORS[P] = new THREE.Color(0xFFC0CB);
 
-const OFFSETS = [0, 11, 22];
+const OFFSETS = [-11, 0, 11];
+
+let stringToMaterial = (str) => {
+  if (str.toUpperCase() === "B") return new THREE.MeshBasicMaterial({ color: COLORS[B] });
+  if (str.toUpperCase() === "G") return new THREE.MeshBasicMaterial({ color: COLORS[G] });
+  if (str.toUpperCase() === "W") return new THREE.MeshBasicMaterial({ color: COLORS[W] });
+  if (str.toUpperCase() === "Y") return new THREE.MeshBasicMaterial({ color: COLORS[Y] });
+  if (str.toUpperCase() === "O") return new THREE.MeshBasicMaterial({ color: COLORS[O] });
+  if (str.toUpperCase() === "R") return new THREE.MeshBasicMaterial({ color: COLORS[R] });
+  if (str.toUpperCase() === "P") return new THREE.MeshBasicMaterial({ color: COLORS[P] });
+  return new THREE.MeshBasicMaterial({ color: new THREE.Color(0x000000) });
+};
 
 export class Cube {
 
@@ -53,26 +65,15 @@ export class Cube {
     this.recreateCube();
   }
 
-  stringToMaterial = (str) => {
-    if (str.toUpperCase() === "B") return new THREE.MeshBasicMaterial({ color: COLORS[B] });
-    if (str.toUpperCase() === "G") return new THREE.MeshBasicMaterial({ color: COLORS[G] });
-    if (str.toUpperCase() === "W") return new THREE.MeshBasicMaterial({ color: COLORS[W] });
-    if (str.toUpperCase() === "Y") return new THREE.MeshBasicMaterial({ color: COLORS[Y] });
-    if (str.toUpperCase() === "O") return new THREE.MeshBasicMaterial({ color: COLORS[O] });
-    if (str.toUpperCase() === "R") return new THREE.MeshBasicMaterial({ color: COLORS[R] });
-    if (str.toUpperCase() === "P") return new THREE.MeshBasicMaterial({ color: COLORS[P] });
-    return new THREE.MeshBasicMaterial({ color: new THREE.Color(0x000000) });
-  };
-
   getMaterialsForPiece = ({ layerIndex, sqNumber }) => {
 
     let mats = [
-      this.stringToMaterial(""),
-      this.stringToMaterial(""),
-      this.stringToMaterial(""),
-      this.stringToMaterial(""),
-      this.stringToMaterial(""),
-      this.stringToMaterial(""),
+      stringToMaterial(""),
+      stringToMaterial(""),
+      stringToMaterial(""),
+      stringToMaterial(""),
+      stringToMaterial(""),
+      stringToMaterial(""),
     ];
 
     let LEFT_SQUARES = new Set([0, 1, 2]);
@@ -90,47 +91,47 @@ export class Cube {
 
     if (layerIndex === 0) {
 
-      mats[FRONT_SIDE] = this.stringToMaterial(this.state[FRONT_SIDE][sqNumber]);
+      mats[FRONT_SIDE] = stringToMaterial(this.state[FRONT_SIDE][sqNumber]);
 
       if (LEFT_SQUARES.has(sqNumber)) {
-        mats[LEFT_SIDE] = this.stringToMaterial(this.state[LEFT_SIDE][sqNumber]);
+        mats[LEFT_SIDE] = stringToMaterial(this.state[LEFT_SIDE][sqNumber]);
       }
       if (UP_SQUARES.has(sqNumber)) {
-        mats[UP_SIDE] = this.stringToMaterial(this.state[UP_SIDE][sqNumber - 2]);
+        mats[UP_SIDE] = stringToMaterial(this.state[UP_SIDE][sqNumber - 2]);
       }
       if (RIGHT_SQUARES.has(sqNumber)) {
-        mats[RIGHT_SIDE] = this.stringToMaterial(this.state[RIGHT_SIDE][sqNumber - 6]);
+        mats[RIGHT_SIDE] = stringToMaterial(this.state[RIGHT_SIDE][sqNumber - 6]);
       }
       if (DOWN_SQUARES.has(sqNumber)) {
-        mats[DOWN_SIDE] = this.stringToMaterial(this.state[DOWN_SIDE][sqNumber]);
+        mats[DOWN_SIDE] = stringToMaterial(this.state[DOWN_SIDE][sqNumber]);
       }
     } else if (layerIndex === 1) {
       if (LEFT_SQUARES.has(sqNumber)) {
-        mats[LEFT_SIDE] = this.stringToMaterial(this.state[LEFT_SIDE][sqNumber + 3]);
+        mats[LEFT_SIDE] = stringToMaterial(this.state[LEFT_SIDE][sqNumber + 3]);
       }
       if (UP_SQUARES.has(sqNumber)) {
-        mats[UP_SIDE] = this.stringToMaterial(this.state[UP_SIDE][sqNumber - 1]);
+        mats[UP_SIDE] = stringToMaterial(this.state[UP_SIDE][sqNumber - 1]);
       }
       if (RIGHT_SQUARES.has(sqNumber)) {
-        mats[RIGHT_SIDE] = this.stringToMaterial(this.state[RIGHT_SIDE][sqNumber - 3]);
+        mats[RIGHT_SIDE] = stringToMaterial(this.state[RIGHT_SIDE][sqNumber - 3]);
       }
       if (DOWN_SQUARES.has(sqNumber)) {
-        mats[DOWN_SIDE] = this.stringToMaterial(this.state[DOWN_SIDE][sqNumber + 1]);
+        mats[DOWN_SIDE] = stringToMaterial(this.state[DOWN_SIDE][sqNumber + 1]);
       }
     } else if (layerIndex === 2) {
-      mats[BACK_SIDE] = this.stringToMaterial(this.state[BACK_SIDE][sqNumber]);
+      mats[BACK_SIDE] = stringToMaterial(this.state[BACK_SIDE][sqNumber]);
 
       if (LEFT_SQUARES.has(sqNumber)) {
-        mats[LEFT_SIDE] = this.stringToMaterial(this.state[LEFT_SIDE][sqNumber + 6]);
+        mats[LEFT_SIDE] = stringToMaterial(this.state[LEFT_SIDE][sqNumber + 6]);
       }
       if (UP_SQUARES.has(sqNumber)) {
-        mats[UP_SIDE] = this.stringToMaterial(this.state[UP_SIDE][sqNumber]);
+        mats[UP_SIDE] = stringToMaterial(this.state[UP_SIDE][sqNumber]);
       }
       if (RIGHT_SQUARES.has(sqNumber)) {
-        mats[RIGHT_SIDE] = this.stringToMaterial(this.state[RIGHT_SIDE][sqNumber]);
+        mats[RIGHT_SIDE] = stringToMaterial(this.state[RIGHT_SIDE][sqNumber]);
       }
       if (DOWN_SQUARES.has(sqNumber)) {
-        mats[DOWN_SIDE] = this.stringToMaterial(this.state[DOWN_SIDE][sqNumber + 2]);
+        mats[DOWN_SIDE] = stringToMaterial(this.state[DOWN_SIDE][sqNumber + 2]);
       }
     }
 
@@ -260,60 +261,90 @@ export class Cube {
     return sidePieces;
   }
 
-  rotate({ side, numRotations }) {
+  // getRotationVectorForSide({side, numRotations}) {
+  //
+  // }
+
+  startRotation({ side, numRotations }) {
 
     if (this.rotating.active || side < 0 || side > 5 || numRotations % 4 === 0) {
       return;
     }
 
+    // Find the center piece for the side
+    let centerPieceMesh;
+    if(side === FRONT_SIDE) {
+      centerPieceMesh = this.pieces[FRONT_LAYER][4].mesh;
+    }
+
+    console.log(centerPieceMesh);
+
+    // Find other 8 pieces for that side and attach them as children to the center
+    if(side === FRONT_SIDE) {
+      centerPieceMesh.add(this.pieces[FRONT_LAYER][0].mesh);
+      centerPieceMesh.add(this.pieces[FRONT_LAYER][1].mesh);
+      centerPieceMesh.add(this.pieces[FRONT_LAYER][2].mesh);
+      centerPieceMesh.add(this.pieces[FRONT_LAYER][3].mesh);
+      centerPieceMesh.add(this.pieces[FRONT_LAYER][5].mesh);
+      centerPieceMesh.add(this.pieces[FRONT_LAYER][6].mesh);
+      centerPieceMesh.add(this.pieces[FRONT_LAYER][7].mesh);
+      centerPieceMesh.add(this.pieces[FRONT_LAYER][8].mesh);
+    }
+
+    // Get the right axis
     let axis;
-    // if (xRad > 0) {
-    //   axis = new THREE.Vector3(1, 0, 0);
-    // } else if (xRad < 0) {
-    //   axis = new THREE.Vector3(-1, 0, 0);
-    // }
-    // else if (yRad > 0) {
-    //   axis = new THREE.Vector3(0, 1, 0);
-    // }else if (yRad < 0) {
-    //   axis = new THREE.Vector3(0, -1, 0);
-    // }else
     if (side === FRONT_SIDE) {
-      axis = new THREE.Vector3(0, 0, 1);
+      axis = new THREE.Vector3(1, 0, 0);
     } else if (side === BACK_SIDE) {
       axis = new THREE.Vector3(0, 0, -1);
     }
 
+    // Start rotating the center
     this.rotating = {
       active: true,
-      pieces: this.getPiecesForSide(side),
-      totalRad: (numRotations * (Math.PI / 2)),
+      center: centerPieceMesh,
       axis: axis,
-      progress: 0,
-    };
-
-    console.log(this.rotating);
+    }
+    //
+    // this.rotating = {
+    //   active: true,
+    //   center: centerPiece,
+    //   // pieces: this.getPiecesForSide(side),
+    //   // totalRad: (numRotations * (Math.PI / 2)),
+    //   // axis: axis,
+    //   // progress: 0,
+    // };
+    //
+    // console.log(this.rotating);
   }
 
   update() {
     if (this.rotating.active) {
 
-      // Rotate the piece
-      this.rotating.pieces.forEach(piece => {
-        piece.rotate({
-          axis: this.rotating.axis,
-          rad: this.rotating.totalRad,
-          progress: this.rotating.progress,
-        });
-      });
+      // Rotate the center by 1 tick
+      let center = this.rotating.center;
+      let axis = this.rotating.axis;
+      let rad = ROTATION_STEP;
+      center.rotateOnAxis(axis, rad);
 
-      this.rotating.progress += ROTATION_STEP;
-      if(this.rotating.progress >= 1) {
-        this.rotating = {
-          active: false,
-          totalRad: 0,
-          progress: 0,
-        };
-      }
+      // Rotate the piece
+      // this.rotating.pieces.forEach(piece => {
+      //   piece.rotate({
+      //     // axis: this.rotating.axis,
+      //     axis: this.pieces[BACK_LAYER][5].getPosAsVector(),
+      //     rad: this.rotating.totalRad,
+      //     progress: this.rotating.progress,
+      //   });
+      // });
+      //
+      // this.rotating.progress += ROTATION_STEP;
+      // if(this.rotating.progress >= 1) {
+      //   this.rotating = {
+      //     active: false,
+      //     totalRad: 0,
+      //     progress: 0,
+      //   };
+      // }
     }
 
 
@@ -343,38 +374,42 @@ export class Piece {
   constructor({ scene, geometry, x = 0, y = 0, z = 0, color, mesh }) {
 
     // Physical properties
-    this.pos = [x, y, z];
+    this.initPos = [x, y, z];
     this.color = color || 0xFFFFFF;
     this.material = mesh || new THREE.MeshBasicMaterial({ color: this.color });
     this.mesh = new THREE.Mesh(geometry, this.material);
-    this.setMeshPos();
+    this.setMeshPos({x,y,z});
     scene.add(this.mesh);
-
-    // Physics properties
-    this.vel = [0, 0, 0];
-    this.acc = [0, 0, 0];
-    this.maxVel = 3;
-    this.maxAcc = 0.01;
   }
 
-  rotate({axis, rad, progress}) {
-    this.rotateSlerp(this.mesh, rad, axis, progress)
+  rotate({axis, rad}) {
+    this.mesh.rotateOnAxis(axis, rad);
   }
 
-  rotateSlerp( object, rad, axis, progress ) {
-    let q = new THREE.Quaternion();
-    q.setFromAxisAngle( axis, rad );
-    q.normalize();
-    object.quaternion.slerp( q, progress );
-  }
+  // rotate({axis, rad, progress}) {
+  //   this.rotateSlerp(this.mesh, rad, axis, progress)
+  // }
+  //
+  // rotateSlerp( object, rad, axis, progress ) {
+  //   let q = new THREE.Quaternion();
+  //   console.log(rad);
+  //   console.log(progress);
+  //   q.setFromAxisAngle(axis, rad );
+  //   // q.normalize();
+  //   object.quaternion.slerp( q, progress );
+  // }
 
   update() {
-    // this.setMeshPos();
+    this.setMeshPos({});
   }
 
-  setMeshPos() {
-    this.mesh.position.x = this.pos[0];
-    this.mesh.position.y = this.pos[1];
-    this.mesh.position.z = this.pos[2];
+  getPosAsVector() {
+    return this.mesh.position;
+  }
+
+  setMeshPos({x,y,z}) {
+    if(x) this.mesh.position.x = x;
+    if(y) this.mesh.position.y = y;
+    if(z) this.mesh.position.z = z;
   }
 }
