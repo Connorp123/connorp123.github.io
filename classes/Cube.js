@@ -1,5 +1,5 @@
 // import * as THREE from "https://threejs.org/build/three.module.js";
-import * as THREE from "./../lib/three.module.js";
+import * as THREE from "https://threejs.org/build/three.module.js";
 
 const FRONT_LAYER = 0;
 const MID_LAYER = 1;
