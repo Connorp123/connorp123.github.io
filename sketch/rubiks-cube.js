@@ -26,11 +26,11 @@
  *
  */
 
-import * as THREE from "https://threejs.org/build/three.module.js";
-import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
-// import * as THREE from "./../lib/three.module.js"
-// import {OrbitControls} from "../lib/OrbitControls.js"
-import {Cube} from "../classes/Cube.js";
+// import * as THREE from "https://threejs.org/build/three.module.js";
+// import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
+import * as THREE from "./../lib/three.module.js";
+import { OrbitControls } from "../lib/OrbitControls.js";
+import { Cube } from "../classes/Cube.js";
 
 /***
  *
@@ -154,13 +154,16 @@ function main() {
   fetch("./../resources/rubiks-states.json")
     .then(res => res.json())
     .then(data => {
-      runs   = data["runs"];
+      runs = data["runs"];
       states = runs[0];
-      console.log(states[0]);
       cube = new Cube({
-        state:    states[0],
-        scene:    scene,
-        geometry: geometry
+        state: states[0],
+        scene: scene,
+        geometry: geometry,
+      });
+      cube.startRotation({
+        side: 1,
+        numRotations: 3,
       });
     }).catch(err => {
     alert(err);
@@ -189,16 +192,6 @@ function main() {
     // Set the cube rotation to the time in seconds
     if (cube) {
       cube.update();
-
-      // if (Math.round(time * 100) % 500 === 0) {
-      //     console.log(time);
-      //     // cube.randomizeCube();
-      //     // cube.recreateCube();
-      cube.startRotation({
-        side: 1,
-        numRotations: 1,
-      })
-      // }
     }
 
     // Update the scene

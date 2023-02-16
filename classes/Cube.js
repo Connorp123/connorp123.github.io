@@ -1,5 +1,6 @@
 // import * as THREE from "https://threejs.org/build/three.module.js";
-import * as THREE from "https://threejs.org/build/three.module.js";
+// import * as THREE from "https://threejs.org/build/three.module.js";
+import * as THREE from "./../lib/three.module.js";
 
 const FRONT_LAYER = 0;
 const MID_LAYER = 1;
@@ -21,9 +22,13 @@ const R = LEFT_SIDE;
 
 const NUM_SQUARES = 54;
 
-const P = 6;
+const FRONT_SIDE_CENTER_INDEX = 4;
+
+const PINK = 6;
+const GREY = 7;
 
 let ROTATION_STEP = 0.1;
+let FRAMES_PER_ROTATION = 30 * 2;
 
 const COLORS = new Array(7);
 COLORS[Y] = new THREE.Color(0xFFFF00);
@@ -32,7 +37,8 @@ COLORS[R] = new THREE.Color(0xFF0000);
 COLORS[G] = new THREE.Color(0x00FF00);
 COLORS[O] = new THREE.Color(0xFF6600);
 COLORS[W] = new THREE.Color(0xFFFFFF);
-COLORS[P] = new THREE.Color(0xFFC0CB);
+COLORS[PINK] = new THREE.Color(0xFFC0CB);
+COLORS[GREY] = new THREE.Color(0x111111);
 
 const OFFSETS = [-11, 0, 11];
 
@@ -43,8 +49,8 @@ let stringToMaterial = (str) => {
   if (str.toUpperCase() === "Y") return new THREE.MeshBasicMaterial({ color: COLORS[Y] });
   if (str.toUpperCase() === "O") return new THREE.MeshBasicMaterial({ color: COLORS[O] });
   if (str.toUpperCase() === "R") return new THREE.MeshBasicMaterial({ color: COLORS[R] });
-  if (str.toUpperCase() === "P") return new THREE.MeshBasicMaterial({ color: COLORS[P] });
-  return new THREE.MeshBasicMaterial({ color: new THREE.Color(0x000000) });
+  if (str.toUpperCase() === "P") return new THREE.MeshBasicMaterial({ color: COLORS[PINK] });
+  return new THREE.MeshBasicMaterial({ color: COLORS[GREY] });
 };
 
 export class Cube {
@@ -57,12 +63,59 @@ export class Cube {
     this.scene = scene;
     this.geometry = geometry;
     this.pieces = [[], [], []];
+    this.centers = [];
 
     this.rotating = {
       active: false,
     };
 
-    this.recreateCube();
+    this.createCube();
+  }
+
+  createCube() {
+    if (this.numSquares !== NUM_SQUARES) return;
+    this.pieces = [[], [], []];
+    let pieceNumber = 0;
+    let layerIndex = 0;
+    let newPiece;
+    OFFSETS.forEach(x => {
+      OFFSETS.forEach(z => {
+        OFFSETS.forEach(y => {
+          newPiece = new Piece({
+            scene: this.scene,
+            geometry: this.geometry,
+            x: x,
+            y: y,
+            z: z,
+            mesh: this.getMaterialsForPiece({
+              layerIndex: layerIndex,
+              sqNumber: pieceNumber % 9,
+            }),
+          });
+          this.pieces[layerIndex].push(newPiece);
+          pieceNumber++;
+        });
+      });
+      layerIndex++;
+    });
+    this.initCenters();
+  }
+
+  initCenters() {
+    this.centers = new Map();
+    this.centers.set(`${FRONT_LAYER},${4}`, this.pieces[FRONT_LAYER][4]);
+    this.centers.set(`${MID_LAYER},${1}`, this.pieces[MID_LAYER][1]);
+    this.centers.set(`${MID_LAYER},${3}`, this.pieces[MID_LAYER][3]);
+    this.centers.set(`${MID_LAYER},${5}`, this.pieces[MID_LAYER][5]);
+    this.centers.set(`${MID_LAYER},${7}`, this.pieces[MID_LAYER][7]);
+    this.centers.set(`${BACK_LAYER},${4}`, this.pieces[BACK_LAYER][4]);
+
+    this.pieces[FRONT_LAYER][4] = null;
+    this.pieces[MID_LAYER][1] = null;
+    this.pieces[MID_LAYER][3] = null;
+    this.pieces[MID_LAYER][5] = null;
+    this.pieces[MID_LAYER][7] = null;
+    this.pieces[BACK_LAYER][4] = null;
   }
 
   getMaterialsForPiece = ({ layerIndex, sqNumber }) => {
@@ -80,14 +133,6 @@ export class Cube {
     let UP_SQUARES = new Set([2, 5, 8]);
     let RIGHT_SQUARES = new Set([6, 7, 8]);
     let DOWN_SQUARES = new Set([0, 3, 6]);
-
-    // let
-    //
-    // switch (layerIndex) {
-    //
-    //     case 0:
-    //
-    // }
 
     if (layerIndex === 0) {
 
@@ -171,33 +216,7 @@ export class Cube {
       }
     }
 
-    this.recreateCube();
-  }
-
-  recreateCube() {
-    if (this.numSquares !== NUM_SQUARES) return;
-    this.pieces = [[], [], []];
-    let pieceNumber = 0;
-    let layerIndex = 0;
-    OFFSETS.forEach(x => {
-      OFFSETS.forEach(z => {
-        OFFSETS.forEach(y => {
-          this.pieces[layerIndex].push(new Piece({
-            scene: this.scene,
-            geometry: this.geometry,
-            x: x,
-            y: y,
-            z: z,
-            mesh: this.getMaterialsForPiece({
-              layerIndex: layerIndex,
-              sqNumber: pieceNumber % 9,
-            }),
-          }));
-          pieceNumber++;
-        });
-      });
-      layerIndex++;
-    });
+    this.createCube();
   }
 
   getPiecesForSide(side) {
@@ -261,9 +280,22 @@ export class Cube {
     return sidePieces;
   }
 
-  // getRotationVectorForSide({side, numRotations}) {
-  //
-  // }
+  linkPieceBackToScene({ child }) {
+    // Temp save current position
+    let pos = child.getWorldPosition();
+    pos.x = Math.round(pos.x);
+    pos.y = Math.round(pos.y);
+    pos.z = Math.round(pos.z);
+
+    // Add this piece back to the scene
+    this.scene.add(child);
+
+    // Update the position and rotation
+    child.position.x = pos.x;
+    child.position.y = pos.y;
+    child.position.z = pos.z;
+    child.rotateOnAxis(this.rotating.axis, this.rotating.toRotate);
+  }
 
   startRotation({ side, numRotations }) {
 
@@ -273,30 +305,21 @@ export class Cube {
 
     // Find the center piece for the side
     let centerPieceMesh;
-    if(side === FRONT_SIDE) {
-      centerPieceMesh = this.pieces[FRONT_LAYER][4].mesh;
-    }
-
-    console.log(centerPieceMesh);
-
-    // Find other 8 pieces for that side and attach them as children to the center
-    if(side === FRONT_SIDE) {
-      centerPieceMesh.add(this.pieces[FRONT_LAYER][0].mesh);
-      centerPieceMesh.add(this.pieces[FRONT_LAYER][1].mesh);
-      centerPieceMesh.add(this.pieces[FRONT_LAYER][2].mesh);
-      centerPieceMesh.add(this.pieces[FRONT_LAYER][3].mesh);
-      centerPieceMesh.add(this.pieces[FRONT_LAYER][5].mesh);
-      centerPieceMesh.add(this.pieces[FRONT_LAYER][6].mesh);
-      centerPieceMesh.add(this.pieces[FRONT_LAYER][7].mesh);
-      centerPieceMesh.add(this.pieces[FRONT_LAYER][8].mesh);
-    }
-
-    // Get the right axis
     let axis;
     if (side === FRONT_SIDE) {
+      centerPieceMesh = this.centers.get(`${FRONT_LAYER},${4}`)?.mesh;
+    }
+
+    // Find other 8 pieces for that side and attach them as children to the center
+    if (side === FRONT_SIDE) {
+      let sidePieces = this.pieces[FRONT_LAYER];
+      for (let pieceIndex = 0; pieceIndex < 9; pieceIndex++) {
+        if (pieceIndex !== FRONT_SIDE_CENTER_INDEX) {
+          sidePieces[pieceIndex].mesh.position.x -= OFFSETS[0];
+          centerPieceMesh.add(sidePieces[pieceIndex].mesh);
+        }
+      }
       axis = new THREE.Vector3(1, 0, 0);
-    } else if (side === BACK_SIDE) {
-      axis = new THREE.Vector3(0, 0, -1);
     }
 
     // Start rotating the center
@@ -304,53 +327,55 @@ export class Cube {
       active: true,
       center: centerPieceMesh,
       axis: axis,
+      numRotations: numRotations,
+      toRotate: (numRotations / 4) * Math.PI * 2,
+      rotated: 0,
+    };
+  }
+
+  stopRotation({ center }) {
+
+    // Ungroup all the pieces from the center
+    const children = Array.from(center.children);
+    children.forEach(child => {
+      this.linkPieceBackToScene({ child });
+    });
+
+    // Reset rotation object
+    this.rotating = {
+      active: false,
+      center: null,
+      axis: null,
+      numRotations: 0,
+      toRotate: 0,
+      rotated: 0,
+    };
+  }
+
+  rotateStep({ center, axis, toRotate, rotated, numRotations }) {
+
+    // Rotate
+    let rad = toRotate / FRAMES_PER_ROTATION / numRotations;
+    if (rad + rotated > toRotate) {
+      rad = toRotate - rotated;
     }
-    //
-    // this.rotating = {
-    //   active: true,
-    //   center: centerPiece,
-    //   // pieces: this.getPiecesForSide(side),
-    //   // totalRad: (numRotations * (Math.PI / 2)),
-    //   // axis: axis,
-    //   // progress: 0,
-    // };
-    //
-    // console.log(this.rotating);
+    center.rotateOnAxis(axis, rad);
+
+    // Update progress
+    return rotated + rad;
   }
 
   update() {
     if (this.rotating.active) {
-
-      // Rotate the center by 1 tick
-      let center = this.rotating.center;
-      let axis = this.rotating.axis;
-      let rad = ROTATION_STEP;
-      center.rotateOnAxis(axis, rad);
-
-      // Rotate the piece
-      // this.rotating.pieces.forEach(piece => {
-      //   piece.rotate({
-      //     // axis: this.rotating.axis,
-      //     axis: this.pieces[BACK_LAYER][5].getPosAsVector(),
-      //     rad: this.rotating.totalRad,
-      //     progress: this.rotating.progress,
-      //   });
-      // });
-      //
-      // this.rotating.progress += ROTATION_STEP;
-      // if(this.rotating.progress >= 1) {
-      //   this.rotating = {
-      //     active: false,
-      //     totalRad: 0,
-      //     progress: 0,
-      //   };
-      // }
+      this.rotating.rotated = this.rotateStep(this.rotating);
+      if (this.rotating.rotated === this.rotating.toRotate) {
+        this.stopRotation(this.rotating);
+      }
     }
-
 
     this.pieces.forEach(layer => {
       layer.forEach(piece => {
-        piece.update();
+        if (piece) piece.update();
       });
     });
   }
@@ -378,26 +403,13 @@ export class Piece {
     this.color = color || 0xFFFFFF;
     this.material = mesh || new THREE.MeshBasicMaterial({ color: this.color });
     this.mesh = new THREE.Mesh(geometry, this.material);
-    this.setMeshPos({x,y,z});
+    this.setMeshPos({ x, y, z });
     scene.add(this.mesh);
   }
 
-  rotate({axis, rad}) {
+  rotate({ axis, rad }) {
     this.mesh.rotateOnAxis(axis, rad);
   }
-
-  // rotate({axis, rad, progress}) {
-  //   this.rotateSlerp(this.mesh, rad, axis, progress)
-  // }
-  //
-  // rotateSlerp( object, rad, axis, progress ) {
-  //   let q = new THREE.Quaternion();
-  //   console.log(rad);
-  //   console.log(progress);
-  //   q.setFromAxisAngle(axis, rad );
-  //   // q.normalize();
-  //   object.quaternion.slerp( q, progress );
-  // }
 
   update() {
     this.setMeshPos({});
@@ -407,9 +419,9 @@ export class Piece {
     return this.mesh.position;
   }
 
-  setMeshPos({x,y,z}) {
-    if(x) this.mesh.position.x = x;
-    if(y) this.mesh.position.y = y;
-    if(z) this.mesh.position.z = z;
+  setMeshPos({ x, y, z }) {
+    if (x) this.mesh.position.x = x;
+    if (y) this.mesh.position.y = y;
+    if (z) this.mesh.position.z = z;
   }
 }
