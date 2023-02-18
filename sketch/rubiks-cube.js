@@ -1,17 +1,3 @@
-/***
- * Useful info:
- *
- *     const NUM_CUBES   = 27;
- *     const NUM_CENTERS = 6;
- *     const NUM_EDGES   = 12;
- *     const NUM_CORNERS = 8;
- *
- *
- *         Possible validations
- *             Edge can't have two colors next to each other
- *             Only 9 of each color
- */
-
 /*** Comments are Univers ASCII art
  *
  *    88  88b           d88  88888888ba     ,ad8888ba,    88888888ba  888888888888  ad88888ba
@@ -25,9 +11,6 @@
  *
  *
  */
-
-// import * as THREE from "https://threejs.org/build/three.module.js";
-// import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
 import * as THREE from "./../lib/three.module.js";
 import {OrbitControls} from "../lib/OrbitControls.js";
 import {RubiksCube} from "../classes/RubiksCube.js";
@@ -45,11 +28,6 @@ import {RubiksCube} from "../classes/RubiksCube.js";
  *
  *
  */
-
-// Read Run
-
-// F
-
 function main() {
 
     // Start by creating a scene
@@ -71,7 +49,7 @@ function main() {
      */
 
           // Camera
-    const fov          = 50;
+    const fov          = 75;
     const aspect       = window.innerWidth / window.innerHeight;
     const near         = 0.1;
     const far          = 10000;
@@ -81,15 +59,11 @@ function main() {
         z: -10
     };
 
-    // Geometry
-    const boxWidth  = 10;
-    const boxHeight = 10;
-    const boxDepth  = 10;
-
     // Light
     const lightColor     = 0xFFFFFF;
     const lightIntensity = 1;
 
+    // Debug
     const DEBUG = false;
 
     /***
@@ -118,9 +92,6 @@ function main() {
     // Create controls
     const controls = new OrbitControls(camera, canvas);
 
-    // Create a Geometry
-    const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
-
     // Create a light
     const light = new THREE.AmbientLight(lightColor, lightIntensity);
     scene.add(light);
@@ -147,27 +118,20 @@ function main() {
      */
 
           // Read JSON
-    let runs              = [];
-    let states            = [];
-    let currentStateIndex = 0;
+    let initialState;
+    let actions;
     let cube;
     fetch("./../resources/rubiks-states.json")
         .then(res => res.json())
         .then(data => {
-            runs   = data["runs"];
-            states = runs[0];
-            cube   = new RubiksCube({
-                state:    states[0],
-                scene:    scene,
-                geometry: geometry
+            initialState = data["initial_state"];
+            actions      = data["actions"];
+            cube         = new RubiksCube({
+                state: initialState,
+                scene: scene
             });
-            cube.startRotation({
-                side:         1,
-                numRotations: 3
-            });
-        }).catch(err => {
-        alert(err);
-    });
+        })
+        .catch(err => console.log(err));
 
 
     /***
@@ -189,16 +153,14 @@ function main() {
         // Get the time in seconds
         time *= 0.001;
 
-        // Set the cube rotation to the time in seconds
-        if (cube ) {
+        // Update the cube
+        if (cube) {
             cube.update();
-            if(Math.round(time) % 1 === 0) {
+
+            // Randomly rotate the cube
+            if (Math.round(time) % 1 === 0) {
                 cube.randomRotation();
             }
-            // cube.startRotation({
-            //     side:         1,
-            //     numRotations: 3
-            // });
         }
 
         // Update the scene
