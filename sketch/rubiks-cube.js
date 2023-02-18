@@ -30,7 +30,7 @@
 // import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
 import * as THREE from "./../lib/three.module.js";
 import {OrbitControls} from "../lib/OrbitControls.js";
-import {Cube} from "../classes/Cube.js";
+import {RubiksCube} from "../classes/RubiksCube.js";
 
 /***
  *
@@ -156,7 +156,7 @@ function main() {
         .then(data => {
             runs   = data["runs"];
             states = runs[0];
-            cube   = new Cube({
+            cube   = new RubiksCube({
                 state:    states[0],
                 scene:    scene,
                 geometry: geometry
@@ -165,7 +165,6 @@ function main() {
                 side:         1,
                 numRotations: 3
             });
-            cube.getPiecesForSide({sideNumber: 1});
         }).catch(err => {
         alert(err);
     });
@@ -191,8 +190,15 @@ function main() {
         time *= 0.001;
 
         // Set the cube rotation to the time in seconds
-        if (cube) {
+        if (cube ) {
             cube.update();
+            if(Math.round(time) % 1 === 0) {
+                cube.randomRotation();
+            }
+            // cube.startRotation({
+            //     side:         1,
+            //     numRotations: 3
+            // });
         }
 
         // Update the scene

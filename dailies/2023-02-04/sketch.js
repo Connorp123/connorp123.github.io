@@ -28,7 +28,7 @@
 
 import * as THREE from "https://threejs.org/build/three.module.js";
 import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
-import {Cube} from "../../classes/Cube.js";
+import {RubiksCube} from "../../classes/RubiksCube.js";
 
 
 /***
@@ -156,7 +156,7 @@ function main() {
             runs   = data["runs"];
             states = runs[0];
             console.log(states[0]);
-            cube = new Cube({
+            cube = new RubiksCube({
                 state:    states[0],
                 scene:    scene,
                 geometry: geometry
