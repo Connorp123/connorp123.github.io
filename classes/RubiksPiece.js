@@ -23,6 +23,7 @@ export class RubiksPiece {
     }
 
     update() {
+        this.mesh.updateMatrix();
     }
 
     rotate({axis, rad}) {

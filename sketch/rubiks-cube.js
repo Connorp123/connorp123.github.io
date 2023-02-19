@@ -14,6 +14,7 @@
 import * as THREE from "./../lib/three.module.js";
 import {OrbitControls} from "../lib/OrbitControls.js";
 import {RubiksCube} from "../classes/RubiksCube.js";
+import * as lilGui from "https://esm.run/lil-gui";
 
 /***
  *
@@ -68,6 +69,45 @@ function main() {
 
     /***
      *
+     *      ,ad8888ba,   88        88  88
+     *     d8"'    `"8b  88        88  88
+     *    d8'            88        88  88
+     *    88             88        88  88
+     *    88      88888  88        88  88
+     *    Y8,        88  88        88  88
+     *     Y8a.    .a88  Y8a.    .a8P  88
+     *      `"Y88888P"    `"Y8888Y"'   88
+     *
+     *
+     */
+
+    const gui = new lilGui.GUI();
+
+    const guiControlString = localStorage.getItem("guiControls");
+    let preset             = JSON.parse(guiControlString);
+    const guiControls      = {
+        debug:             false,
+        random:            false,
+        fileName:          "vertical-stripes.json",
+        framesPerRotation: 60,
+        saveControls() {
+            // save current values to an object
+            preset = gui.save();
+            let s  = JSON.stringify(preset);
+            localStorage.setItem("guiControls", s);
+        }
+    };
+    gui.add(guiControls, "debug");
+    gui.add(guiControls, "random");
+    gui.add(guiControls, "fileName");
+    gui.add(guiControls, "framesPerRotation", 0, 120, 1);
+    gui.add(guiControls, "saveControls");
+    if (preset) {
+        gui.load(preset);
+    }
+
+    /***
+     *
      *     ad88888ba   88888888888  888888888888  88        88  88888888ba
      *    d8"     "8b  88                88       88        88  88      "8b
      *    Y8,          88                88       88        88  88      ,8P
@@ -97,7 +137,7 @@ function main() {
     scene.add(light);
 
     // Axis help
-    if (DEBUG) {
+    if (guiControls.debug) {
         const axesHelper = new THREE.AxesHelper(500);
         scene.add(axesHelper);
     }
@@ -121,14 +161,16 @@ function main() {
     let initialState;
     let actions;
     let cube;
-    fetch("./../resources/rubiks-states.json")
+    fetch(`./../resources/rubiks/${guiControls.fileName}`)
         .then(res => res.json())
         .then(data => {
             initialState = data["initial_state"];
             actions      = data["actions"];
             cube         = new RubiksCube({
-                state: initialState,
-                scene: scene
+                state:    initialState,
+                scene:    scene,
+                controls: guiControls,
+                actions:  actions
             });
         })
         .catch(err => console.log(err));
@@ -159,7 +201,12 @@ function main() {
 
             // Randomly rotate the cube
             if (Math.round(time) % 1 === 0) {
-                cube.randomRotation();
+                if (guiControls.random) {
+                    cube.randomRotation();
+                } else {
+                    cube.doNextAction();
+                }
+                gui.save();
             }
         }
 

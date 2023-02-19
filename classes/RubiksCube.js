@@ -5,7 +5,7 @@ import {RubiksPiece} from "./RubiksPiece.js";
 const PIECE_SIZE          = 10.0;
 const GAP                 = 1.0;
 const OFFSET              = PIECE_SIZE + GAP;
-const FRAMES_PER_ROTATION = 60;
+const FRAMES_PER_ROTATION = 10;
 
 // Cube constants
 const BACK_SIDE  = 0;
@@ -53,17 +53,19 @@ const OFFSETS = [-OFFSET, 0, OFFSET];
 
 export class RubiksCube {
 
-    constructor({scene, state}) {
+    constructor({scene, state, actions, controls}) {
         if (!state) alert("RubiksCube initialized with no state");
 
-
-        this.numSquares = NUM_SQUARES;
-        this.state      = state;
-        this.scene      = scene;
-        this.geometry   = new THREE.BoxGeometry(PIECE_SIZE, PIECE_SIZE, PIECE_SIZE);
-        this.pieces     = [];
-        this.core       = null;
-        this.rotating   = {
+        this.numSquares  = NUM_SQUARES;
+        this.state       = state;
+        this.scene       = scene;
+        this.geometry    = new THREE.BoxGeometry(PIECE_SIZE, PIECE_SIZE, PIECE_SIZE);
+        this.pieces      = [];
+        this.core        = null;
+        this.actions     = actions || [];
+        this.actionIndex = 0;
+        this.controls    = controls;
+        this.rotating    = {
             active: false
         };
 
@@ -179,8 +181,28 @@ export class RubiksCube {
         }
         let side         = Math.round(Math.random() * 100) % 6;
         let numRotations = Math.round(Math.random() * 100) % 3 + 1;
-        console.log(numRotations);
         this.startRotation({side, numRotations});
+    }
+
+    /**
+     * Single rotation actions can be: U,D,R,L,F,B
+     * Multiple rotation actions can be: U2, U3, D2, D3, R2, R3, ...
+     */
+    doNextAction() {
+        if (this.rotating.active || this.actionIndex >= this.actions.length) {
+            return undefined;
+        }
+        let action = this.actions[this.actionIndex];
+        this.actionIndex++;
+        if (this.controls.debug) console.log(action);
+        if (action?.length < 1 || action?.length > 2) {
+            console.log("Error, skipping action:", action);
+        }
+
+        this.startRotation({
+            side:         charToSide(action.charAt(0)),
+            numRotations: action.length > 1 ? parseInt(action.charAt(1)) : 1
+        });
     }
 
     /***
@@ -251,7 +273,7 @@ export class RubiksCube {
 
     rotateStep({center, axis, toRotate, rotated, numRotations}) {
         // Rotate
-        let rad = toRotate / FRAMES_PER_ROTATION / numRotations;
+        let rad = toRotate / this.controls.framesPerRotation / numRotations;
         if (rad + rotated > toRotate) {
             rad = toRotate - rotated;
         }
@@ -308,11 +330,8 @@ export class RubiksCube {
     }
 
     saveAndUngroup({child}) {
-        let pos = child.getWorldPosition();
-        let rot = child.getWorldQuaternion();
-        pos.x   = Math.round(pos.x);
-        pos.y   = Math.round(pos.y);
-        pos.z   = Math.round(pos.z);
+        let pos = child.getWorldPosition().round();
+        let rot = child.getWorldQuaternion().normalize();
 
         // Remove the child from the parent
         child.detachSelf();
@@ -339,6 +358,25 @@ export class RubiksCube {
  *
  *
  */
+
+const charToSide = (char) => {
+    switch (char) {
+        case "U":
+            return UP_SIDE;
+        case "D":
+            return DOWN_SIDE;
+        case "R":
+            return RIGHT_SIDE;
+        case "L":
+            return LEFT_SIDE;
+        case "F":
+            return FRONT_SIDE;
+        case "B":
+            return BACK_SIDE;
+        default:
+            return undefined;
+    }
+};
 
 const stringToMaterial = (str) => {
     if (str.toUpperCase() === "B") return new THREE.MeshBasicMaterial({color: COLORS[B]});
