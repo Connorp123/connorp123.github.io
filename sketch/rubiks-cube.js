@@ -11,9 +11,7 @@
  *
  *
  */
-import * as THREE from "./../lib/three.module.js";
-import {OrbitControls} from "../lib/OrbitControls.js";
-import {RubiksCube} from "../classes/RubiksCube.js";
+
 import {CubeVisualizer} from "../classes/CubeVisualizer.js";
 
 /***
@@ -30,11 +28,6 @@ import {CubeVisualizer} from "../classes/CubeVisualizer.js";
  *
  */
 function main() {
-
-    // Start by creating a scene
-    const scene  = new THREE.Scene();
-    const canvas = document.querySelector("#canvas");
-
     /***
      *
      *      ,ad8888ba,    ,ad8888ba,    888b      88   ad88888ba  888888888888    db         888b      88  888888888888  ad88888ba
@@ -64,7 +57,7 @@ function main() {
      *
      */
 
-          // Create the cube visualizer
+        // Create the cube visualizer
     const visualizer = new CubeVisualizer();
 
     /***
@@ -83,7 +76,6 @@ function main() {
 
     function render(time) {
         visualizer.render(time);
-
         requestAnimationFrame(render);
     }
 

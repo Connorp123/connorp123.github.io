@@ -1,6 +1,6 @@
 import * as lilGui from "https://esm.run/lil-gui";
-import {OrbitControls} from "../lib/OrbitControls";
-import * as THREE from "../lib/three.module";
+import * as THREE from "./../lib/three.module.js";
+import {OrbitControls} from "../lib/OrbitControls.js";
 import {RubiksCube} from "./RubiksCube.js";
 
 export class CubeVisualizer {
@@ -9,6 +9,7 @@ export class CubeVisualizer {
     constructor() {
         this.cubes = [];
         this.setupGui();
+        this.basicSetup();
         this.loadCubeData();
     }
 
@@ -48,22 +49,22 @@ export class CubeVisualizer {
         this.renderer = createRenderer({THREE: THREE, canvas: canvas, AA: true});
 
         // Create camera and move it back slightly
-        this.camera       = new THREE.PerspectiveCamera(fov, aspect, near, far);
-        camera.position.x = CAMERA_START.x;
-        camera.position.y = CAMERA_START.y;
-        camera.position.z = CAMERA_START.z;
+        this.camera            = new THREE.PerspectiveCamera(fov, aspect, near, far);
+        this.camera.position.x = CAMERA_START.x;
+        this.camera.position.y = CAMERA_START.y;
+        this.camera.position.z = CAMERA_START.z;
 
         // Create controls
-        this.controls = new OrbitControls(camera, canvas);
+        this.controls = new OrbitControls(this.camera, this.canvas);
 
         // Create a light
         const light = new THREE.AmbientLight(lightColor, lightIntensity);
-        scene.add(light);
+        this.scene.add(light);
 
         // Axis help
         if (this.guiControls.debug) {
             const axesHelper = new THREE.AxesHelper(500);
-            scene.add(axesHelper);
+            this.scene.add(axesHelper);
         }
     }
 
