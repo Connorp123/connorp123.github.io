@@ -5,7 +5,12 @@ function main() {
     // Create the cube visualizer
     const visualizer = new CubeVisualizer({
         numCubes:     10,
-        showControls: false
+        showControls: false,
+        cameraStart:  {
+            x: -300,
+            y: 30,
+            z: -10
+        }
     });
 
     function render(time) {

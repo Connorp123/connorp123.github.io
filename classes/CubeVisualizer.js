@@ -6,10 +6,15 @@ import {RubiksCube} from "./RubiksCube.js";
 export class CubeVisualizer {
 
 
-    constructor({numCubes, showControls}) {
+    constructor({numCubes, showControls, cameraStart}) {
         this.cubesToCreate = numCubes || 1;
         this.cubes         = [];
         this.showControls  = showControls || false;
+        this.cameraStart   = cameraStart || {
+            x: -70,
+            y: 30,
+            z: -10
+        };
         this.setupGui();
         this.basicSetup();
         this.loadCubeDataFromFile();
@@ -33,15 +38,10 @@ export class CubeVisualizer {
         this.scene  = new THREE.Scene();
         this.canvas = document.querySelector("#canvas");
 
-        const fov          = 75;
-        const aspect       = window.innerWidth / window.innerHeight;
-        const near         = 0.1;
-        const far          = 10000;
-        const CAMERA_START = {
-            x: -300,
-            y: 30,
-            z: -10
-        };
+        const fov    = 75;
+        const aspect = window.innerWidth / window.innerHeight;
+        const near   = 0.1;
+        const far    = 10000;
 
         // Light
         const lightColor     = 0xFFFFFF;
@@ -52,9 +52,9 @@ export class CubeVisualizer {
 
         // Create camera and move it back slightly
         this.camera            = new THREE.PerspectiveCamera(fov, aspect, near, far);
-        this.camera.position.x = CAMERA_START.x;
-        this.camera.position.y = CAMERA_START.y;
-        this.camera.position.z = CAMERA_START.z;
+        this.camera.position.x = this.cameraStart.x;
+        this.camera.position.y = this.cameraStart.y;
+        this.camera.position.z = this.cameraStart.z;
 
         // Create controls
         this.controls = new OrbitControls(this.camera, this.canvas);
@@ -143,7 +143,8 @@ export class CubeVisualizer {
             random:            false,
             fileName:          "vertical-stripes.json",
             framesPerRotation: 120,
-            saveControls:      () => this.saveControls()
+            saveControls:      () => this.saveControls(),
+            unSaveControls:    () => this.unSaveControls()
         };
 
         // Define gui behavior
@@ -154,6 +155,7 @@ export class CubeVisualizer {
             this.gui.add(this.guiControls, "fileName");
             this.gui.add(this.guiControls, "framesPerRotation", 0, 240, 1);
             this.gui.add(this.guiControls, "saveControls");
+            this.gui.add(this.guiControls, "unSaveControls");
 
             const guiControlString = localStorage.getItem("guiControls");
             let preset             = JSON.parse(guiControlString);
@@ -171,6 +173,14 @@ export class CubeVisualizer {
             const controls      = this.gui.save();
             const controlString = JSON.stringify(controls);
             localStorage.setItem("guiControls", controlString);
+            alert("Controls saved -- refresh to apply");
+        }
+    }
+
+    unSaveControls() {
+        if (this.showControls) {
+            localStorage.removeItem("guiControls");
+            alert("Controls reset -- refresh to apply");
         }
     }
 
