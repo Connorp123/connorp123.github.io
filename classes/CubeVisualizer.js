@@ -92,16 +92,22 @@ export class CubeVisualizer {
                     state:   initialState,
                     actions: actions
                 });
+                // this.addCube({
+                //     state:    initialState,
+                //     actions:  actions,
+                //     position: new THREE.Vector3(0, 0, 50)
+                // });
             })
             .catch(err => console.log(err));
     }
 
-    addCube({state, actions}) {
+    addCube({state, actions, position}) {
         this.cubes.push(new RubiksCube({
             state:    state,
             scene:    this.scene,
             controls: this.guiControls,
-            actions:  actions
+            actions:  actions,
+            position: position
         }));
     }
 
@@ -120,9 +126,7 @@ export class CubeVisualizer {
      */
 
     setupGui() {
-        this.gui               = new lilGui.GUI();
-        const guiControlString = localStorage.getItem("guiControls");
-        let preset             = JSON.parse(guiControlString);
+        this.gui = new lilGui.GUI();
 
         // Define gui state
         this.guiControls = {
@@ -130,12 +134,7 @@ export class CubeVisualizer {
             random:            false,
             fileName:          "vertical-stripes.json",
             framesPerRotation: 60,
-            saveControls() {
-                // save current values to an object
-                preset = this.gui.save();
-                let s  = JSON.stringify(preset);
-                localStorage.setItem("guiControls", s);
-            }
+            saveControls:      () => this.saveControls()
         };
 
         // Define gui behavior
@@ -145,10 +144,20 @@ export class CubeVisualizer {
         this.gui.add(this.guiControls, "framesPerRotation", 0, 240, 1);
         this.gui.add(this.guiControls, "saveControls");
 
+        const guiControlString = localStorage.getItem("guiControls");
+        let preset             = JSON.parse(guiControlString);
+
         // Load preset
         if (preset) {
             this.gui.load(preset);
         }
+    }
+
+    saveControls() {
+        // save current values to an object
+        const controls      = this.gui.save();
+        const controlString = JSON.stringify(controls);
+        localStorage.setItem("guiControls", controlString);
     }
 
 

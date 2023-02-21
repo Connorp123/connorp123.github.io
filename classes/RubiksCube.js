@@ -53,7 +53,7 @@ const OFFSETS = [-OFFSET, 0, OFFSET];
 
 export class RubiksCube {
 
-    constructor({scene, state, actions, controls}) {
+    constructor({scene, state, actions, controls, position}) {
         if (!state) alert("RubiksCube initialized with no state");
 
         this.numSquares  = NUM_SQUARES;
@@ -65,6 +65,7 @@ export class RubiksCube {
         this.actions     = actions || [];
         this.actionIndex = 0;
         this.controls    = controls;
+        this.position    = position || new THREE.Vector3(0, 0, 0);
         this.rotating    = {
             active: false
         };
@@ -89,7 +90,6 @@ export class RubiksCube {
     createCube() {
         if (this.numSquares !== NUM_SQUARES) return;
         let pieceNumber = 0;
-        let layerIndex  = 0;
         let newPiece;
         let sqNumber;
 
@@ -97,41 +97,40 @@ export class RubiksCube {
         this.core = new RubiksPiece({
             scene:    this.scene,
             geometry: this.geometry,
-            x:        0,
-            y:        0,
-            z:        0,
-            mats:     getMaterialsForPiece({
-                state:      this.state,
-                layerIndex: -1,
-                sqNumber:   -1
-            })
+            x:        this.position.x,
+            y:        this.position.y,
+            z:        this.position.z,
+            color:    this.controls.debug ? 0xFFC0CB : COLORS[GREY]
         });
 
+        let numLayers  = 3;
+        let numColumns = 3;
+        let numRows    = 3;
+
         // Then create all the other pieces
-        OFFSETS.forEach(x => {
-            OFFSETS.forEach(z => {
-                OFFSETS.forEach(y => {
+        for (let lay = 0; lay < numLayers; lay++) {
+            for (let col = 0; col < numColumns; col++) {
+                for (let row = 0; row < numRows; row++) {
                     sqNumber = pieceNumber % 9;
-                    if (x !== 0 || y !== 0 || z !== 0) {
+                    if (lay !== 1 || row !== 1 || col !== 1) {
                         newPiece = new RubiksPiece({
                             parentPiece: this.core,
                             geometry:    this.geometry,
-                            x:           x,
-                            y:           y,
-                            z:           z,
+                            x:           this.position.x + OFFSETS[lay],
+                            y:           this.position.y + OFFSETS[row],
+                            z:           this.position.z + OFFSETS[col],
                             mats:        getMaterialsForPiece({
                                 state:      this.state,
-                                layerIndex: layerIndex,
+                                layerIndex: lay,
                                 sqNumber:   sqNumber
                             })
                         });
                         this.pieces.push(newPiece);
                     }
                     pieceNumber++;
-                });
-            });
-            layerIndex++;
-        });
+                }
+            }
+        }
     }
 
     /***
