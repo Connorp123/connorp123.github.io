@@ -2,10 +2,9 @@ import * as THREE from "./../lib/three.module.js";
 import {RubiksPiece} from "./RubiksPiece.js";
 
 // Display constants
-const PIECE_SIZE          = 10.0;
-const GAP                 = 1.0;
-const OFFSET              = PIECE_SIZE + GAP;
-const FRAMES_PER_ROTATION = 10;
+const PIECE_SIZE = 10.0;
+const GAP        = 1.0;
+const OFFSET     = PIECE_SIZE + GAP;
 
 // Cube constants
 const BACK_SIDE  = 0;
@@ -225,8 +224,9 @@ export class RubiksCube {
         }
 
         // Find the center piece for the side
-        let offset      = SIDE_OFFSET_MAP[side];
-        let centerPiece = this.core.getChildWithVector({
+        let adjustedOffset = this.getAdjustedOffset(side);
+        let offset         = this.getRawOffset(side);
+        let centerPiece    = this.core.getChildWithVector({
             x: offset[0],
             y: offset[1],
             z: offset[2]
@@ -263,7 +263,7 @@ export class RubiksCube {
         this.rotating = {
             active:       true,
             center:       centerPiece,
-            axis:         getRotationAxis(side),
+            axis:         this.getRotationAxis(side),
             numRotations: numRotations,
             toRotate:     (numRotations / 4) * Math.PI * 2,
             rotated:      0
@@ -306,6 +306,26 @@ export class RubiksCube {
         };
     }
 
+    getAdjustedOffset(sideNumber) {
+        const offsetMap = SIDE_OFFSET_MAP[sideNumber];
+        return [
+            this.position.x + offsetMap[0],
+            this.position.y + offsetMap[1],
+            this.position.z + offsetMap[2]
+        ];
+    }
+
+    getRawOffset(sideNumber) {
+        return SIDE_OFFSET_MAP[sideNumber];
+    }
+
+    getRotationAxis(N) {
+        let x = (this.getRawOffset(N)[0] / OFFSET) * -1;
+        let y = (this.getRawOffset(N)[1] / OFFSET) * -1;
+        let z = (this.getRawOffset(N)[2] / OFFSET) * -1;
+        return new THREE.Vector3(x, y, z);
+    };
+
     /***
      *
      *      ,ad8888ba,   88888888ba     ,ad8888ba,    88        88  88888888ba   88  888b      88    ,ad8888ba,
@@ -329,7 +349,7 @@ export class RubiksCube {
     }
 
     saveAndUngroup({child}) {
-        let pos = child.getWorldPosition().round();
+        let pos = child.getWorldPosition().round().sub(this.position);
         let rot = child.getWorldQuaternion().normalize();
 
         // Remove the child from the parent
@@ -386,13 +406,6 @@ const stringToMaterial = (str) => {
     if (str.toUpperCase() === "R") return new THREE.MeshBasicMaterial({color: COLORS[R]});
     if (str.toUpperCase() === "P") return new THREE.MeshBasicMaterial({color: COLORS[PINK]});
     return new THREE.MeshBasicMaterial({color: COLORS[GREY]});
-};
-
-const getRotationAxis = (N) => {
-    let x = (SIDE_OFFSET_MAP[N][0] * -1) / OFFSET;
-    let y = (SIDE_OFFSET_MAP[N][1] * -1) / OFFSET;
-    let z = (SIDE_OFFSET_MAP[N][2] * -1) / OFFSET;
-    return new THREE.Vector3(x, y, z);
 };
 
 const getMaterialsForPiece = ({state, layerIndex, sqNumber}) => {

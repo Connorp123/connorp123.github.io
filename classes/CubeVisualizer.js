@@ -6,11 +6,13 @@ import {RubiksCube} from "./RubiksCube.js";
 export class CubeVisualizer {
 
 
-    constructor() {
-        this.cubes = [];
+    constructor({numCubes, showControls}) {
+        this.cubesToCreate = numCubes || 1;
+        this.cubes         = [];
+        this.showControls  = showControls || false;
         this.setupGui();
         this.basicSetup();
-        this.loadCubeData();
+        this.loadCubeDataFromFile();
     }
 
     /***
@@ -36,7 +38,7 @@ export class CubeVisualizer {
         const near         = 0.1;
         const far          = 10000;
         const CAMERA_START = {
-            x: -80,
+            x: -300,
             y: 30,
             z: -10
         };
@@ -81,24 +83,33 @@ export class CubeVisualizer {
      *
      *
      */
-
-    loadCubeData() {
+    loadCubeDataFromFile() {
         fetch(`./../resources/rubiks/${this.guiControls.fileName}`)
             .then(res => res.json())
             .then(data => {
                 const initialState = data["initial_state"];
                 const actions      = data["actions"];
-                this.addCube({
+                this.createCubes({
                     state:   initialState,
                     actions: actions
                 });
-                // this.addCube({
-                //     state:    initialState,
-                //     actions:  actions,
-                //     position: new THREE.Vector3(0, 0, 50)
-                // });
             })
             .catch(err => console.log(err));
+    }
+
+    createCubes({state, actions}) {
+        let cubeGap = 50;
+        let minZ    = ((this.cubesToCreate - 1) / 2) * cubeGap * -1;
+
+        let z = minZ;
+        for (let i = 0; i < this.cubesToCreate; i++) {
+            this.addCube({
+                state:    state,
+                actions:  actions,
+                position: new THREE.Vector3(0, 0, z)
+            });
+            z += cubeGap;
+        }
     }
 
     addCube({state, actions, position}) {
@@ -126,38 +137,41 @@ export class CubeVisualizer {
      */
 
     setupGui() {
-        this.gui = new lilGui.GUI();
-
         // Define gui state
         this.guiControls = {
             debug:             false,
             random:            false,
             fileName:          "vertical-stripes.json",
-            framesPerRotation: 60,
+            framesPerRotation: 120,
             saveControls:      () => this.saveControls()
         };
 
         // Define gui behavior
-        this.gui.add(this.guiControls, "debug");
-        this.gui.add(this.guiControls, "random");
-        this.gui.add(this.guiControls, "fileName");
-        this.gui.add(this.guiControls, "framesPerRotation", 0, 240, 1);
-        this.gui.add(this.guiControls, "saveControls");
+        if (this.showControls) {
+            this.gui = new lilGui.GUI();
+            this.gui.add(this.guiControls, "debug");
+            this.gui.add(this.guiControls, "random");
+            this.gui.add(this.guiControls, "fileName");
+            this.gui.add(this.guiControls, "framesPerRotation", 0, 240, 1);
+            this.gui.add(this.guiControls, "saveControls");
 
-        const guiControlString = localStorage.getItem("guiControls");
-        let preset             = JSON.parse(guiControlString);
+            const guiControlString = localStorage.getItem("guiControls");
+            let preset             = JSON.parse(guiControlString);
 
-        // Load preset
-        if (preset) {
-            this.gui.load(preset);
+            // Load preset
+            if (preset) {
+                this.gui.load(preset);
+            }
         }
     }
 
     saveControls() {
-        // save current values to an object
-        const controls      = this.gui.save();
-        const controlString = JSON.stringify(controls);
-        localStorage.setItem("guiControls", controlString);
+        if (this.showControls) {
+            // save current values to an object
+            const controls      = this.gui.save();
+            const controlString = JSON.stringify(controls);
+            localStorage.setItem("guiControls", controlString);
+        }
     }
 
 
@@ -191,7 +205,6 @@ export class CubeVisualizer {
                 } else {
                     cube.doNextAction();
                 }
-                this.gui.save();
             }
         });
         this.renderer.render(this.scene, this.camera);
