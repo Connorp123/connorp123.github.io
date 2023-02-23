@@ -7,6 +7,15 @@ const GAP        = 1.0;
 const OFFSET     = PIECE_SIZE + GAP;
 
 // Cube constants
+const SOLVED_STATE = [
+    ["B", "B", "B", "B", "B", "B", "B", "B", "B"],
+    ["G", "G", "G", "G", "G", "G", "G", "G", "G"],
+    ["W", "W", "W", "W", "W", "W", "W", "W", "W"],
+    ["Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["R", "R", "R", "R", "R", "R", "R", "R", "R"]
+];
+
 const BACK_SIDE  = 0;
 const FRONT_SIDE = 1;
 const UP_SIDE    = 2;
@@ -53,10 +62,10 @@ const OFFSETS = [-OFFSET, 0, OFFSET];
 export class RubiksCube {
 
     constructor({scene, state, actions, controls, position}) {
-        if (!state) alert("RubiksCube initialized with no state");
+        // if (!state) alert("RubiksCube initialized with no state");
 
         this.numSquares  = NUM_SQUARES;
-        this.state       = state;
+        this.state       = state || SOLVED_STATE;
         this.scene       = scene;
         this.geometry    = new THREE.BoxGeometry(PIECE_SIZE, PIECE_SIZE, PIECE_SIZE);
         this.pieces      = [];

@@ -6,8 +6,8 @@ import {RubiksCube} from "./RubiksCube.js";
 export class CubeVisualizer {
 
 
-    constructor({numCubes, showControls, cameraStart}) {
-        this.cubesToCreate = numCubes || 1;
+    constructor({numCubes, showControls, cameraStart, loadFromFile = true}) {
+        this.cubesToCreate = numCubes || 0;
         this.cubes         = [];
         this.showControls  = showControls || false;
         this.cameraStart   = cameraStart || {
@@ -17,7 +17,7 @@ export class CubeVisualizer {
         };
         this.setupGui();
         this.basicSetup();
-        this.loadCubeDataFromFile();
+        if (loadFromFile) this.loadCubeDataFromFile();
     }
 
     /***
@@ -97,7 +97,26 @@ export class CubeVisualizer {
             .catch(err => console.log(err));
     }
 
+    createCubesFromPopulation({population}) {
+        if (!population?.length > 0) {
+            return;
+        }
+        let cubeGap = 50;
+        let minZ    = ((population.length - 1) / 2) * cubeGap * -1;
+        let z       = minZ;
+        for (let n = 0; n < population.length; n++) {
+            this.addCube({
+                actions:  population[n],
+                position: new THREE.Vector3(0, 0, z)
+            });
+            z += cubeGap
+        }
+    }
+
     createCubes({state, actions}) {
+        if (this.cubesToCreate <= 0) {
+            return;
+        }
         let cubeGap = 50;
         let minZ    = ((this.cubesToCreate - 1) / 2) * cubeGap * -1;
 
@@ -218,5 +237,15 @@ export class CubeVisualizer {
             }
         });
         this.renderer.render(this.scene, this.camera);
+    }
+
+    // HELPERS
+
+    getScrambledState({numRotations}) {
+        // Create cube
+
+        // Perform 25 random rotations
+
+        // Return the state
     }
 }
