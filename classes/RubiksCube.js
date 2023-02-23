@@ -31,6 +31,7 @@ const O = RIGHT_SIDE;
 const R = LEFT_SIDE;
 
 const NUM_SQUARES   = 54;
+const NUM_SIDES     = 6;
 const LEFT_SQUARES  = new Set([0, 1, 2]);
 const UP_SQUARES    = new Set([2, 5, 8]);
 const RIGHT_SQUARES = new Set([6, 7, 8]);
@@ -212,6 +213,10 @@ export class RubiksCube {
         });
     }
 
+    isDoneWithActions() {
+        return !this.rotating.active && this.actionIndex >= this.actions.length;
+    }
+
     /***
      *
      *    88888888ba     ,ad8888ba,  888888888888    db    888888888888  88    ,ad8888ba,    888b      88
@@ -226,6 +231,25 @@ export class RubiksCube {
      *
      */
 
+    getPiecesForSide({side}) {
+        const offset = this.getRawOffset(side);
+        let pieces   = [];
+        if (side === 0 || side === 1) {
+            pieces = this.core.getChildrenWithXOff({
+                xOff: offset[0]
+            });
+        } else if (side === 2 || side === 3) {
+            pieces = this.core.getChildrenWithYOff({
+                yOff: offset[1]
+            });
+        } else {
+            pieces = this.core.getChildrenWithZOff({
+                zOff: offset[2]
+            });
+        }
+        return pieces;
+    }
+
     startRotation({side, numRotations}) {
 
         if (this.rotating.active || side < 0 || side > 5 || numRotations % 4 === 0) {
@@ -233,29 +257,17 @@ export class RubiksCube {
         }
 
         // Find the center piece for the side
-        let adjustedOffset = this.getAdjustedOffset(side);
-        let offset         = this.getRawOffset(side);
-        let centerPiece    = this.core.getChildWithVector({
+        const offset      = this.getRawOffset(side);
+        const centerPiece = this.core.getChildWithVector({
             x: offset[0],
             y: offset[1],
             z: offset[2]
         });
 
         // Get outer pieces for the side
-        let outerPieces;
-        if (side === 0 || side === 1) {
-            outerPieces = this.core.getChildrenWithXOff({
-                xOff: offset[0]
-            });
-        } else if (side === 2 || side === 3) {
-            outerPieces = this.core.getChildrenWithYOff({
-                yOff: offset[1]
-            });
-        } else {
-            outerPieces = this.core.getChildrenWithZOff({
-                zOff: offset[2]
-            });
-        }
+        let outerPieces = this.getPiecesForSide({
+            side: side
+        });
 
         // Filter out the center piece
         outerPieces = outerPieces.filter(piece => !piece.equals(centerPiece));
@@ -371,6 +383,54 @@ export class RubiksCube {
         child.setPosition(pos);
         child.setRotationFromQuaternion(rot);
     }
+
+    /***
+     *
+     *           db         88
+     *          d88b        88
+     *         d8'`8b       88
+     *        d8'  `8b      88
+     *       d8YaaaaY8b     88
+     *      d8""""""""8b    88
+     *     d8'        `8b   88
+     *    d8'          `8b  88
+     *
+     *
+     */
+
+    countCorrect() {
+
+        let correctCount = 0;
+
+        for (let side = 0; side < NUM_SIDES; side++) {
+
+            // Get pieces for side 0
+            let sidePieces = this.getPiecesForSide({side: side});
+
+            // Get correct color for side 0
+            let correctColor = COLORS[side];
+
+            // Get materials for side 0
+            for (let p = 0; p < sidePieces.length; p++) {
+
+                let mats      = sidePieces[p].getMaterials();
+                let faceColor = mats[side];
+                correctCount += faceColor.color.equals(correctColor) ? 1 : 0;
+            }
+        }
+
+        return correctCount;
+    }
+
+
+    printState() {
+        console.log(JSON.stringify(this.state));
+    }
+
+    compareState() {
+
+    }
+
 }
 
 /***

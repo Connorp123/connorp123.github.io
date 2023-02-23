@@ -112,4 +112,8 @@ export class RubiksPiece {
     getChildrenWithZOff({zOff}) {
         return this.getChildren().filter(child => child.mesh.position.getComponent(2) === zOff);
     }
+
+    getMaterials() {
+        return this.material;
+    }
 }

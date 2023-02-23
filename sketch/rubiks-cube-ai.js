@@ -14,7 +14,7 @@ function main() {
     });
 
     // Part 0: Decide on problem state
-    let PROBLEM_STATE = []
+    let PROBLEM_STATE = [];
 
     // Part 1: Create a population of N elements, each with randomly generated DNA.
     let N                = 100;
