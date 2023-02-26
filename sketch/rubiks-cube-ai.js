@@ -1,4 +1,5 @@
 import {CubeVisualizer} from "../classes/CubeVisualizer.js";
+import {GeneticController} from "../classes/GeneticController.js";
 
 function main() {
     // Create the cube visualizer
@@ -13,35 +14,22 @@ function main() {
         // loadFromFile: false,
     });
 
+    let controller = new GeneticController({
+        cubeVisualizer: visualizer
+    });
+
     // Part 0: Decide on problem state
-    let PROBLEM_STATE = []
+    let PROBLEM_STATE = [];
 
     // Part 1: Create a population of N elements, each with randomly generated DNA.
-    let N                = 100;
-    let DNA_LENGTH       = 100;
-    let POSSIBLE_ACTIONS = ["B", "F", "U", "D", "R", "L"];
-
-    // Create the population
-    let population = new Array(N);
-    for (let n = 0; n < N; n++) {
-
-        // Create the DNA
-        let dna = new Array(DNA_LENGTH);
-        for (let action = 0; action < DNA_LENGTH; action++) {
-            dna[action] = POSSIBLE_ACTIONS[Math.floor(Math.random() * POSSIBLE_ACTIONS.length)];
-        }
-
-        // Add the dna to the population
-        population[n] = dna;
-    }
-
-    // Create the actual cubes from the population
-    visualizer.createCubesFromPopulation({
-        population: population
+    controller.createPopulation({
+        populationSize: 100,
+        dnaLength:      100
     });
 
 
     // ---> Part 2: Evaluate the fitness of each element of the population and build a mating pool.
+
 
     // Part 3: Create a mating pool (Repeat N times)
 
@@ -56,8 +44,24 @@ function main() {
     // Part 4: Replace the old population & return to step 2  --->
 
 
-    function render(time) {
-        visualizer.render(time);
+    function render() {
+
+        if (controller.isDoneRunning) {
+
+            // Part 2: Evaluate fitness + build mating pool
+            controller.evaluatePopulation();
+
+            // Part 3:
+            controller.breedNextPopulation();
+
+
+        } else {
+
+            // Update the cube
+            controller.keepLiving();
+
+            
+        }
         requestAnimationFrame(render);
     }
 

@@ -9,6 +9,7 @@ export class CubeVisualizer {
     constructor({numCubes, showControls, cameraStart, loadFromFile = true}) {
         this.cubesToCreate = numCubes || 0;
         this.cubes         = [];
+        this.finishedCubes = [];
         this.showControls  = showControls || false;
         this.cameraStart   = cameraStart || {
             x: -70,
@@ -97,22 +98,6 @@ export class CubeVisualizer {
             .catch(err => console.log(err));
     }
 
-    createCubesFromPopulation({population}) {
-        if (!population?.length > 0) {
-            return;
-        }
-        let cubeGap = 50;
-        let minZ    = ((population.length - 1) / 2) * cubeGap * -1;
-        let z       = minZ;
-        for (let n = 0; n < population.length; n++) {
-            this.addCube({
-                actions:  population[n],
-                position: new THREE.Vector3(0, 0, z)
-            });
-            z += cubeGap
-        }
-    }
-
     createCubes({state, actions}) {
         if (this.cubesToCreate <= 0) {
             return;
@@ -139,6 +124,12 @@ export class CubeVisualizer {
             actions:  actions,
             position: position
         }));
+    }
+
+    removeAllCubes() {
+        while (this.scene.children.length) {
+            this.scene.remove(this.scene.children[0]);
+        }
     }
 
     /***
@@ -223,23 +214,82 @@ export class CubeVisualizer {
         time *= 0.001;
 
         // Update the cube
-        this.cubes.forEach(cube => {
+        this.cubes.forEach((cube, index) => {
 
             cube.update();
 
             // Randomly rotate the cube
-            if (Math.round(time) % 1 === 0) {
-                if (this.guiControls.random) {
-                    cube.randomRotation();
-                } else {
-                    cube.doNextAction();
+            if (this.guiControls.random) {
+                cube.randomRotation();
+            } else {
+
+                // Do action
+                cube.doNextAction();
+
+                // Check if done
+                if (cube.isDoneWithActions()) {
+                    this.finishedCubes.push(cube);
+                    this.cubes.splice(index, 1);
                 }
             }
         });
         this.renderer.render(this.scene, this.camera);
     }
 
-    // HELPERS
+    /***
+     *
+     *           db         88
+     *          d88b        88
+     *         d8'`8b       88
+     *        d8'  `8b      88
+     *       d8YaaaaY8b     88
+     *      d8""""""""8b    88
+     *     d8'        `8b   88
+     *    d8'          `8b  88
+     *
+     *
+     */
+
+    createCubesFromPopulation({population}) {
+        if (!population?.length > 0) {
+            return;
+        }
+        this.cubes  = [];
+        let cubeGap = 50;
+        let minZ    = ((population.length - 1) / 2) * cubeGap * -1;
+        let z       = minZ;
+        for (let n = 0; n < population.length; n++) {
+            this.addCube({
+                actions:  population[n],
+                position: new THREE.Vector3(0, 0, z)
+            });
+            z += cubeGap;
+        }
+    }
+
+    // Fitness = (correct - minCorrect) / (maxCorrect - minCorrect)
+    getFitnessScore({cube}) {
+        let minCorrect = 6; // For number of centers
+        let maxCorrect = 54; // For number of squares
+        return Number(cube.countCorrect() - minCorrect) / Number(maxCorrect - minCorrect);
+    }
+
+    getAllFitnessScores() {
+        let allScores = [];
+        this.finishedCubes.forEach(cube => {
+            allScores.push({
+                fitness: this.getFitnessScore({cube}),
+                dna:     cube.actions
+            });
+        });
+        return allScores;
+    }
+
+    // evaluateFitness({})
+
+    isDone() {
+        return this.cubes.length === 0;
+    }
 
     getScrambledState({numRotations}) {
         // Create cube
