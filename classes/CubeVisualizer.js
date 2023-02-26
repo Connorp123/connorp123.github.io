@@ -126,6 +126,12 @@ export class CubeVisualizer {
         }));
     }
 
+    removeAllCubes() {
+        while (this.scene.children.length) {
+            this.scene.remove(this.scene.children[0]);
+        }
+    }
+
     /***
      *
      *      ,ad8888ba,   88        88  88
@@ -213,31 +219,18 @@ export class CubeVisualizer {
             cube.update();
 
             // Randomly rotate the cube
-            if (Math.round(time) % 1 === 0) {
-                if (this.guiControls.random) {
-                    cube.randomRotation();
-                } else {
+            if (this.guiControls.random) {
+                cube.randomRotation();
+            } else {
 
-                    // AI simulation
+                // Do action
+                cube.doNextAction();
 
-                    // Do action
-                    cube.doNextAction();
-
-                    // Check if done
-                    if (cube.isDoneWithActions()) {
-                        this.finishedCubes.push(cube);
-                        this.cubes.splice(index, 1);
-                    }
+                // Check if done
+                if (cube.isDoneWithActions()) {
+                    this.finishedCubes.push(cube);
+                    this.cubes.splice(index, 1);
                 }
-            }
-
-            // If the last cube was just removed, print fitness scores
-            if (this.cubes.length === 0) {
-                let sortedCubes = this.finishedCubes.sort((a, b) => b.countCorrect() - a.countCorrect());
-
-                sortedCubes.forEach(sortedCube => {
-                    console.log(sortedCube.countCorrect());
-                });
             }
         });
         this.renderer.render(this.scene, this.camera);
@@ -261,6 +254,7 @@ export class CubeVisualizer {
         if (!population?.length > 0) {
             return;
         }
+        this.cubes  = [];
         let cubeGap = 50;
         let minZ    = ((population.length - 1) / 2) * cubeGap * -1;
         let z       = minZ;
@@ -273,8 +267,28 @@ export class CubeVisualizer {
         }
     }
 
-    isDone() {
+    // Fitness = (correct - minCorrect) / (maxCorrect - minCorrect)
+    getFitnessScore({cube}) {
+        let minCorrect = 6; // For number of centers
+        let maxCorrect = 54; // For number of squares
+        return Number(cube.countCorrect() - minCorrect) / Number(maxCorrect - minCorrect);
+    }
 
+    getAllFitnessScores() {
+        let allScores = [];
+        this.finishedCubes.forEach(cube => {
+            allScores.push({
+                fitness: this.getFitnessScore({cube}),
+                dna:     cube.actions
+            });
+        });
+        return allScores;
+    }
+
+    // evaluateFitness({})
+
+    isDone() {
+        return this.cubes.length === 0;
     }
 
     getScrambledState({numRotations}) {

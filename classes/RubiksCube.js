@@ -206,7 +206,6 @@ export class RubiksCube {
         if (action?.length < 1 || action?.length > 2) {
             console.log("Error, skipping action:", action);
         }
-
         this.startRotation({
             side:         charToSide(action.charAt(0)),
             numRotations: action.length > 1 ? parseInt(action.charAt(1)) : 1
@@ -384,6 +383,12 @@ export class RubiksCube {
         child.setRotationFromQuaternion(rot);
     }
 
+    removeAllPieces() {
+        this.pieces.forEach(() => {
+
+        })
+    }
+
     /***
      *
      *           db         88
@@ -425,10 +430,6 @@ export class RubiksCube {
 
     printState() {
         console.log(JSON.stringify(this.state));
-    }
-
-    compareState() {
-
     }
 
 }
