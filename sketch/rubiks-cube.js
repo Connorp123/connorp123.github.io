@@ -5,7 +5,6 @@ function main() {
     // Create the cube visualizer
     const visualizer = new CubeVisualizer({
         numCubes:     1,
-        showControls: true
     });
 
     function render(time) {

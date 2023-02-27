@@ -7,6 +7,9 @@ export class GeneticController {
         this.isDoneRunning  = false;
         this.dnaLength      = 0;
         this.generation     = 0;
+        this.totalFitness   = 0;
+        this.avgFitness     = 0;
+        this.maxFitness     = 0;
     }
 
     getRandomAction() {
@@ -52,25 +55,42 @@ export class GeneticController {
 
     // Part 2: Evaluate the fitness of each element of the population and build a mating pool.
     evaluatePopulation() {
-        let totalFitness = 0;
+        this.totalFitness = 0;
 
         let results = this.visualizer.getAllFitnessScores();
         results.forEach(result => {
-            totalFitness += result.fitness;
+            this.totalFitness += result.fitness;
             let wholeNumberScore = Math.round(result.fitness * 100);
             for (let n = 0; n < wholeNumberScore; n++) {
                 this.matingPool.push(result.dna);
             }
         });
 
-        let justScores = results.map(i => Number(i.fitness));
-
+        let justScores  = results.map(i => Number(i.fitness));
+        this.avgFitness = (this.totalFitness / results.length);
+        this.maxFitness = Math.max(...justScores);
 
         console.log("Generation:", this.generation);
-        console.log("Total Fitness:", totalFitness.toFixed(3));
-        console.log("Average Fitness:", (totalFitness / results.length).toFixed(3));
-        console.log("Best:", Math.max(...justScores).toFixed(3));
+        console.log("Total Fitness:", this.totalFitness.toFixed(3));
+        console.log("Average Fitness:", this.avgFitness.toFixed(3));
+        console.log("Best:", this.maxFitness.toFixed(3));
         console.log("---------------------------------------------------------------------------");
+    }
+
+    getTotalFitness() {
+        return this.totalFitness;
+    }
+
+    getAvgFitness() {
+
+    }
+
+    getMaxFitness() {
+
+    }
+
+    getMinFitness() {
+
     }
 
     crossOver({parentA, parentB}) {

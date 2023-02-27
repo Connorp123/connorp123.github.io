@@ -62,7 +62,7 @@ const OFFSETS = [-OFFSET, 0, OFFSET];
 
 export class RubiksCube {
 
-    constructor({scene, state, actions, controls, position}) {
+    constructor({scene, state, actions, position, debug=false, framesPerRotation=60}) {
         // if (!state) alert("RubiksCube initialized with no state");
 
         this.numSquares  = NUM_SQUARES;
@@ -73,8 +73,9 @@ export class RubiksCube {
         this.core        = null;
         this.actions     = actions || [];
         this.actionIndex = 0;
-        this.controls    = controls;
         this.position    = position || new THREE.Vector3(0, 0, 0);
+        this.debug = debug;
+        this.framesPerRotation = framesPerRotation;
         this.rotating    = {
             active: false
         };
@@ -109,7 +110,7 @@ export class RubiksCube {
             x:        this.position.x,
             y:        this.position.y,
             z:        this.position.z,
-            color:    this.controls.debug ? 0xFFC0CB : COLORS[GREY]
+            color:    this.debug ? 0xFFC0CB : COLORS[GREY]
         });
 
         let numLayers  = 3;
@@ -202,7 +203,7 @@ export class RubiksCube {
         }
         let action = this.actions[this.actionIndex];
         this.actionIndex++;
-        if (this.controls.debug) console.log(action);
+        if (this.debug) console.log(action);
         if (action?.length < 1 || action?.length > 2) {
             console.log("Error, skipping action:", action);
         }
@@ -292,7 +293,7 @@ export class RubiksCube {
 
     rotateStep({center, axis, toRotate, rotated, numRotations}) {
         // Rotate
-        let rad = toRotate / this.controls.framesPerRotation / numRotations;
+        let rad = toRotate / this.framesPerRotation / numRotations;
         if (rad + rotated > toRotate) {
             rad = toRotate - rotated;
         }

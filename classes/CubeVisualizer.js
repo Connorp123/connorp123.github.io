@@ -1,4 +1,3 @@
-import * as lilGui from "https://esm.run/lil-gui";
 import * as THREE from "./../lib/three.module.js";
 import {OrbitControls} from "../lib/OrbitControls.js";
 import {RubiksCube} from "./RubiksCube.js";
@@ -6,17 +5,20 @@ import {RubiksCube} from "./RubiksCube.js";
 export class CubeVisualizer {
 
 
-    constructor({numCubes, showControls, cameraStart, loadFromFile = true}) {
-        this.cubesToCreate = numCubes || 0;
+    constructor({cameraStart, debug=false, numCubes = 0, showControls = false, fileName="", random=false, loadFromFile = false, framesPerRotation=60}) {
+        this.cubesToCreate = numCubes;
         this.cubes         = [];
         this.finishedCubes = [];
-        this.showControls  = showControls || false;
+        this.showControls = showControls;
+        this.fileName = fileName;
+        this.random = random;
+        this.debug = debug;
+        this.framesPerRotation = framesPerRotation;
         this.cameraStart   = cameraStart || {
             x: -70,
             y: 30,
             z: -10
         };
-        this.setupGui();
         this.basicSetup();
         if (loadFromFile) this.loadCubeDataFromFile();
     }
@@ -65,7 +67,7 @@ export class CubeVisualizer {
         this.scene.add(light);
 
         // Axis help
-        if (this.guiControls.debug) {
+        if (this.debug) {
             const axesHelper = new THREE.AxesHelper(500);
             this.scene.add(axesHelper);
         }
@@ -85,7 +87,7 @@ export class CubeVisualizer {
      *
      */
     loadCubeDataFromFile() {
-        fetch(`./../resources/rubiks/${this.guiControls.fileName}`)
+        fetch(`./../resources/rubiks/${this.fileName}`)
             .then(res => res.json())
             .then(data => {
                 const initialState = data["initial_state"];
@@ -120,77 +122,16 @@ export class CubeVisualizer {
         this.cubes.push(new RubiksCube({
             state:    state,
             scene:    this.scene,
-            controls: this.guiControls,
             actions:  actions,
-            position: position
+            position: position,
+            debug: this.debug,
+            framesPerRotation: this.framesPerRotation,
         }));
     }
 
     removeAllCubes() {
         while (this.scene.children.length) {
             this.scene.remove(this.scene.children[0]);
-        }
-    }
-
-    /***
-     *
-     *      ,ad8888ba,   88        88  88
-     *     d8"'    `"8b  88        88  88
-     *    d8'            88        88  88
-     *    88             88        88  88
-     *    88      88888  88        88  88
-     *    Y8,        88  88        88  88
-     *     Y8a.    .a88  Y8a.    .a8P  88
-     *      `"Y88888P"    `"Y8888Y"'   88
-     *
-     *
-     */
-
-    setupGui() {
-        // Define gui state
-        this.guiControls = {
-            debug:             false,
-            random:            false,
-            fileName:          "vertical-stripes.json",
-            framesPerRotation: 120,
-            saveControls:      () => this.saveControls(),
-            unSaveControls:    () => this.unSaveControls()
-        };
-
-        // Define gui behavior
-        if (this.showControls) {
-            this.gui = new lilGui.GUI();
-            this.gui.add(this.guiControls, "debug");
-            this.gui.add(this.guiControls, "random");
-            this.gui.add(this.guiControls, "fileName");
-            this.gui.add(this.guiControls, "framesPerRotation", 0, 240, 1);
-            this.gui.add(this.guiControls, "saveControls");
-            this.gui.add(this.guiControls, "unSaveControls");
-
-            const guiControlString = localStorage.getItem("guiControls");
-            let preset             = JSON.parse(guiControlString);
-
-            // Load preset
-            if (preset) {
-                this.gui.load(preset);
-            }
-        }
-    }
-
-    saveControls() {
-        if (this.showControls) {
-            // save current values to an object
-            const controls      = this.gui.save();
-            const controlString = JSON.stringify(controls);
-            localStorage.setItem("guiControls", controlString);
-            alert("Controls saved -- refresh to apply");
-        }
-    }
-
-    unSaveControls() {
-        if (this.showControls) {
-            localStorage.removeItem("guiControls");
-            alert("Controls reset -- refresh to apply");
         }
     }
 
@@ -219,7 +160,7 @@ export class CubeVisualizer {
             cube.update();
 
             // Randomly rotate the cube
-            if (this.guiControls.random) {
+            if (this.random) {
                 cube.randomRotation();
             } else {
 
