@@ -4,11 +4,13 @@ function main() {
 
     // Create the cube visualizer
     const visualizer = new CubeVisualizer({
-        numCubes:     1,
+        numCubes: 1,
+        random:   true
     });
+    console.log(visualizer);
 
-    function render(time) {
-        visualizer.render(time);
+    function render() {
+        visualizer.render();
         requestAnimationFrame(render);
     }
 

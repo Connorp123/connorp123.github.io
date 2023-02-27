@@ -62,21 +62,21 @@ const OFFSETS = [-OFFSET, 0, OFFSET];
 
 export class RubiksCube {
 
-    constructor({scene, state, actions, position, debug=false, framesPerRotation=60}) {
+    constructor({scene, state, actions, position, debug = false, framesPerRotation = 60}) {
         // if (!state) alert("RubiksCube initialized with no state");
 
-        this.numSquares  = NUM_SQUARES;
-        this.state       = state || SOLVED_STATE;
-        this.scene       = scene;
-        this.geometry    = new THREE.BoxGeometry(PIECE_SIZE, PIECE_SIZE, PIECE_SIZE);
-        this.pieces      = [];
-        this.core        = null;
-        this.actions     = actions || [];
-        this.actionIndex = 0;
-        this.position    = position || new THREE.Vector3(0, 0, 0);
-        this.debug = debug;
+        this.numSquares        = NUM_SQUARES;
+        this.state             = state || SOLVED_STATE;
+        this.scene             = scene;
+        this.geometry          = new THREE.BoxGeometry(PIECE_SIZE, PIECE_SIZE, PIECE_SIZE);
+        this.pieces            = [];
+        this.core              = null;
+        this.actions           = actions || [];
+        this.actionIndex       = 0;
+        this.position          = position || new THREE.Vector3(0, 0, 0);
+        this.debug             = debug;
         this.framesPerRotation = framesPerRotation;
-        this.rotating    = {
+        this.rotating          = {
             active: false
         };
 
@@ -186,11 +186,12 @@ export class RubiksCube {
 
     randomRotation() {
         if (this.rotating.active) {
-            return;
+            return false;
         }
         let side         = Math.round(Math.random() * 100) % 6;
         let numRotations = Math.round(Math.random() * 100) % 3 + 1;
         this.startRotation({side, numRotations});
+        return true;
     }
 
     /**
@@ -387,7 +388,7 @@ export class RubiksCube {
     removeAllPieces() {
         this.pieces.forEach(() => {
 
-        })
+        });
     }
 
     /***
@@ -430,7 +431,10 @@ export class RubiksCube {
 
 
     printState() {
-        console.log(JSON.stringify(this.state));
+        // for (let side = 0; side < NUM_SIDES; side++) {
+        //     let sidePieces = this.getPiecesForSide({side: side});
+        //     console.log(sidePieces);
+        // }
     }
 
 }

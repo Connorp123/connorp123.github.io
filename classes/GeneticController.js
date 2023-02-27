@@ -1,5 +1,5 @@
 export class GeneticController {
-    constructor({cubeVisualizer}) {
+    constructor({cubeVisualizer, gui, startingState}) {
         this.populationSize = 0;
         this.visualizer     = cubeVisualizer;
         this.population     = [];
@@ -10,6 +10,14 @@ export class GeneticController {
         this.totalFitness   = 0;
         this.avgFitness     = 0;
         this.maxFitness     = 0;
+        this.startingState  = startingState;
+
+        this.gui = gui;
+        if (gui) {
+            this.gui.add(this, "generation");
+            this.gui.add(this, "avgFitness");
+            this.gui.add(this, "maxFitness");
+        }
     }
 
     getRandomAction() {
@@ -49,7 +57,8 @@ export class GeneticController {
 
         // Create the actual cubes from the population
         this.visualizer.createCubesFromPopulation({
-            population: this.population
+            population:    this.population,
+            startingState: this.startingState
         });
     }
 
@@ -141,7 +150,8 @@ export class GeneticController {
 
         // Create population in viz
         this.visualizer.createCubesFromPopulation({
-            population: this.population
+            population:    this.population,
+            startingState: this.startingState
         });
     }
 

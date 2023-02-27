@@ -5,22 +5,37 @@ import {RubiksCube} from "./RubiksCube.js";
 export class CubeVisualizer {
 
 
-    constructor({cameraStart, debug=false, numCubes = 0, showControls = false, fileName="", random=false, loadFromFile = false, framesPerRotation=60}) {
-        this.cubesToCreate = numCubes;
-        this.cubes         = [];
-        this.finishedCubes = [];
-        this.showControls = showControls;
-        this.fileName = fileName;
-        this.random = random;
-        this.debug = debug;
+    constructor({
+                    cameraStart,
+                    gui,
+                    debug = false,
+                    numCubes = 0,
+                    fileName = "",
+                    random = false,
+                    loadFromFile = false,
+                    framesPerRotation = 60
+                }) {
+        this.cubesToCreate     = numCubes;
+        this.cubes             = [];
+        this.finishedCubes     = [];
+        this.fileName          = fileName;
+        this.random            = random;
+        this.debug             = debug;
         this.framesPerRotation = framesPerRotation;
-        this.cameraStart   = cameraStart || {
+        this.cameraStart       = cameraStart || {
             x: -70,
             y: 30,
             z: -10
         };
+
+        this.gui = gui;
+        if (gui) {
+            this.gui.add(this, "framesPerRotation", 0, 240, 1);
+        }
+
         this.basicSetup();
         if (loadFromFile) this.loadCubeDataFromFile();
+        if (this.cubesToCreate) this.createCubes({});
     }
 
     /***
@@ -120,12 +135,12 @@ export class CubeVisualizer {
 
     addCube({state, actions, position}) {
         this.cubes.push(new RubiksCube({
-            state:    state,
-            scene:    this.scene,
-            actions:  actions,
-            position: position,
-            debug: this.debug,
-            framesPerRotation: this.framesPerRotation,
+            state:             state,
+            scene:             this.scene,
+            actions:           actions,
+            position:          position,
+            debug:             this.debug,
+            framesPerRotation: this.framesPerRotation
         }));
     }
 
@@ -150,10 +165,7 @@ export class CubeVisualizer {
      *
      */
 
-    render(time) {
-        // Get the time in seconds
-        time *= 0.001;
-
+    render() {
         // Update the cube
         this.cubes.forEach((cube, index) => {
 
@@ -191,7 +203,7 @@ export class CubeVisualizer {
      *
      */
 
-    createCubesFromPopulation({population}) {
+    createCubesFromPopulation({population, startingState}) {
         if (!population?.length > 0) {
             return;
         }
@@ -201,6 +213,7 @@ export class CubeVisualizer {
         let z       = minZ;
         for (let n = 0; n < population.length; n++) {
             this.addCube({
+                state:    startingState,
                 actions:  population[n],
                 position: new THREE.Vector3(0, 0, z)
             });
@@ -226,17 +239,25 @@ export class CubeVisualizer {
         return allScores;
     }
 
-    // evaluateFitness({})
-
     isDone() {
         return this.cubes.length === 0;
     }
 
-    getScrambledState({numRotations}) {
+    getScrambledState({numRotations = 25}) {
         // Create cube
-
-        // Perform 25 random rotations
-
-        // Return the state
+        // let cube = new RubiksCube({
+        //     scene:             this.scene,
+        //     position:          new THREE.Vector3(0, 0, 0),
+        //     framesPerRotation: 0
+        // });
+        //
+        // // Perform 25 random rotations
+        // for (let i = 0; i < numRotations; i++) {
+        //     cube.randomRotation();
+        // }
+        //
+        // // Return the state
+        // cube.printState();
+        // return cube.state;
     }
 }
