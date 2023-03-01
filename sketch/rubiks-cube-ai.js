@@ -1,7 +1,7 @@
 import {CubeVisualizer} from "../classes/CubeVisualizer.js";
 import {GeneticController} from "../classes/GeneticController.js";
 import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.18/+esm";
-
+import * as THREE from "./../lib/three.module.js";
 
 /***
  *
@@ -58,10 +58,14 @@ function main() {
     let step        = 1;
     let examineMode = false;
 
-
     let mainControls = {
         debug:        false,
         autoContinue: false,
+        rewatchBest:  () => {
+            moveCameraToBest();
+            step = 2.5;
+            replayGeneration();
+        },
         examineGen:   () => {
             examineMode = true;
         },
@@ -75,6 +79,7 @@ function main() {
         name:         "rubiks-cube-ai",
         showControls: true
     });
+    gui.add(mainControls, "rewatchBest");
     gui.add(mainControls, "nextGen");
     gui.add(mainControls, "examineGen");
     gui.add(mainControls, "autoContinue");
@@ -105,7 +110,29 @@ function main() {
         dnaLength:      100
     });
 
-    // Load old settings
+
+    // Camera,animation,step
+    const stepSize = 0.1;
+    let progress   = 0;
+    let distance;
+    let direction;
+
+
+    function moveCameraToBest() {
+        let bestPos          = controller.getBestPos();
+        console.log(bestPos);
+        // Create a new vector for the target position
+        const targetPosition = new THREE.Vector3(-100, 0, 0).add(bestPos);
+
+        // Calculate the distance and direction from the current position to the target position
+        distance  = visualizer.camera.position.distanceTo(targetPosition);
+        direction = targetPosition.clone().sub(visualizer.camera.position).normalize();
+
+    }
+
+    function replayGeneration() {
+
+    }
 
 
     function render() {
@@ -131,13 +158,25 @@ function main() {
                         step = -1;
                     }
                     break;
+                case 2.5:
+
+                    // Increment the progress value
+                    progress += stepSize;
+
+                    // Calculate the new camera position
+                    const newPosition = visualizer.camera.position.clone().add(direction.clone().multiplyScalar(distance * stepSize));
+
+                    // Update the camera position
+                    visualizer.camera.position.copy(newPosition);
+                    break;
+
                 case 3:
                     controller.breedNextPopulation();
                     step = 1;
                     break;
             }
         }
-
+        visualizer.render();
         requestAnimationFrame(render);
     }
 

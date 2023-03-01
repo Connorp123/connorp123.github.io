@@ -86,6 +86,15 @@ export class GeneticController {
         console.log("---------------------------------------------------------------------------");
     }
 
+    getBestPos() {
+        let results = this.visualizer.getAllFitnessScores();
+        const attribute = "fitness";
+        const bestCube = results.reduce((prev, current) => {
+            return (prev[attribute] > current[attribute]) ? prev : current;
+        });
+        return bestCube.position;
+    }
+
     getTotalFitness() {
         return this.totalFitness;
     }

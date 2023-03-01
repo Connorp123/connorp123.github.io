@@ -3,8 +3,6 @@ import {OrbitControls} from "../lib/OrbitControls.js";
 import {RubiksCube} from "./RubiksCube.js";
 
 export class CubeVisualizer {
-
-
     constructor({
                     cameraStart,
                     gui,
@@ -232,8 +230,9 @@ export class CubeVisualizer {
         let allScores = [];
         this.finishedCubes.forEach(cube => {
             allScores.push({
-                fitness: this.getFitnessScore({cube}),
-                dna:     cube.actions
+                fitness:  this.getFitnessScore({cube}),
+                dna:      cube.actions,
+                position: cube.position
             });
         });
         return allScores;
