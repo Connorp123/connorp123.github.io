@@ -6,6 +6,7 @@ export class CubeVisualizer {
     constructor({
                     cameraStart,
                     gui,
+                    globalState,
                     debug = false,
                     numCubes = 0,
                     fileName = "",
@@ -29,6 +30,11 @@ export class CubeVisualizer {
         this.gui = gui;
         if (gui) {
             this.gui.add(this, "framesPerRotation", 0, 240, 1);
+        }
+
+        this.state = {}
+        if (globalState) {
+            globalState.viz = this.state;
         }
 
         this.basicSetup();
