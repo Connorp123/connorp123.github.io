@@ -1,16 +1,13 @@
 export class GeneticController {
-    constructor({cubeVisualizer, gui, startingState}) {
+    constructor({gui}) {
         this.populationSize = 0;
-        this.visualizer     = cubeVisualizer;
         this.population     = [];
         this.matingPool     = [];
-        this.isDoneRunning  = false;
         this.dnaLength      = 0;
         this.generation     = 0;
         this.totalFitness   = 0;
         this.avgFitness     = 0;
         this.maxFitness     = 0;
-        this.startingState  = startingState;
 
         this.gui = gui;
         if (gui) {
@@ -25,19 +22,8 @@ export class GeneticController {
         return POSSIBLE_ACTIONS[Math.floor(Math.random() * POSSIBLE_ACTIONS.length)];
     }
 
-    keepLiving() {
-
-        // If done, set done
-        if (this.visualizer.isDone()) {
-            this.isDoneRunning = true;
-            return;
-        }
-
-        this.visualizer.render();
-    }
-
-    // Part 1: Create a population of N elements, each with randomly generated DNA.
-    createPopulation({populationSize, dnaLength}) {
+    // Part 1: Ceate a population of N elements, each with randomly generated DNA.
+    createInitialPopulation({populationSize, dnaLength}) {
         this.populationSize = populationSize;
         this.dnaLength      = dnaLength;
 
@@ -55,28 +41,23 @@ export class GeneticController {
             this.population[n] = dna;
         }
 
-        // Create the actual cubes from the population
-        this.visualizer.createCubesFromPopulation({
-            population:    this.population,
-            startingState: this.startingState
-        });
+        return this.population;
     }
 
     // Part 2: Evaluate the fitness of each element of the population and build a mating pool.
-    evaluatePopulation() {
+    evaluatePopulation({scoredPopulation}) {
         this.totalFitness = 0;
 
-        let results = this.visualizer.getAllFitnessScores();
-        results.forEach(result => {
-            this.totalFitness += result.fitness;
-            let wholeNumberScore = Math.round(result.fitness * 100);
+        scoredPopulation.forEach(monkey => {
+            this.totalFitness += monkey.fitness;
+            let wholeNumberScore = Math.round(monkey.fitness * 100);
             for (let n = 0; n < wholeNumberScore; n++) {
-                this.matingPool.push(result.dna);
+                this.matingPool.push(monkey.dna);
             }
         });
 
-        let justScores  = results.map(i => Number(i.fitness));
-        this.avgFitness = (this.totalFitness / results.length);
+        let justScores  = scoredPopulation.map(i => Number(i.fitness));
+        this.avgFitness = (this.totalFitness / scoredPopulation.length);
         this.maxFitness = Math.max(...justScores);
 
         console.log("Generation:", this.generation);
@@ -84,31 +65,6 @@ export class GeneticController {
         console.log("Average Fitness:", this.avgFitness.toFixed(3));
         console.log("Best:", this.maxFitness.toFixed(3));
         console.log("---------------------------------------------------------------------------");
-    }
-
-    getBestPos() {
-        let results = this.visualizer.getAllFitnessScores();
-        const attribute = "fitness";
-        const bestCube = results.reduce((prev, current) => {
-            return (prev[attribute] > current[attribute]) ? prev : current;
-        });
-        return bestCube.position;
-    }
-
-    getTotalFitness() {
-        return this.totalFitness;
-    }
-
-    getAvgFitness() {
-
-    }
-
-    getMaxFitness() {
-
-    }
-
-    getMinFitness() {
-
     }
 
     crossOver({parentA, parentB}) {
@@ -129,7 +85,6 @@ export class GeneticController {
     // Mate
     breedNextPopulation() {
         this.population    = [];
-        this.isDoneRunning = false;
         this.generation++;
         let parentA;
         let parentB;
@@ -154,14 +109,7 @@ export class GeneticController {
             this.population.push(child);
         }
 
-        // Delete old population
-        this.visualizer.removeAllCubes();
-
-        // Create population in viz
-        this.visualizer.createCubesFromPopulation({
-            population:    this.population,
-            startingState: this.startingState
-        });
+        return this.population;
     }
 
 }

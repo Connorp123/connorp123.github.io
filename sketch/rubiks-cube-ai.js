@@ -57,6 +57,8 @@ class Gui {
 function main() {
     let step        = 1;
     let examineMode = false;
+    let population;
+    let fitnessScores;
 
     let mainControls = {
         debug:        false,
@@ -99,15 +101,17 @@ function main() {
     let startingState = visualizer.getScrambledState({numRotations: 25});
 
     let controller = new GeneticController({
-        cubeVisualizer: visualizer,
-        gui:            gui,
-        startingState:  startingState
+        gui: gui
     });
 
     // Part 1: Create a population of N elements, each with randomly generated DNA.
-    controller.createPopulation({
+    population = controller.createInitialPopulation({
         populationSize: 100,
         dnaLength:      100
+    });
+    visualizer.createCubesFromPopulation({
+        population:    population,
+        startingState: startingState
     });
 
 
@@ -119,15 +123,22 @@ function main() {
 
 
     function moveCameraToBest() {
-        let bestPos          = controller.getBestPos();
+
+        // Get the position of the best cube
+        let scoredPopulation = visualizer.getAllFitnessScores();
+        const attribute      = "fitness";
+        const bestCube       = scoredPopulation.reduce((prev, current) => {
+            return (prev[attribute] > current[attribute]) ? prev : current;
+        });
+        let bestPos          = bestCube.position;
         console.log(bestPos);
+
         // Create a new vector for the target position
         const targetPosition = new THREE.Vector3(-100, 0, 0).add(bestPos);
 
         // Calculate the distance and direction from the current position to the target position
         distance  = visualizer.camera.position.distanceTo(targetPosition);
         direction = targetPosition.clone().sub(visualizer.camera.position).normalize();
-
     }
 
     function replayGeneration() {
@@ -144,14 +155,18 @@ function main() {
         } else {
             switch (step) {
                 case 1:
-                    if (controller.isDoneRunning) {
+                    if (visualizer.isDone()) {
                         step++;
                     } else {
-                        controller.keepLiving();
+                        // Replace with visualizer.
+                        visualizer.render();
                     }
                     break;
                 case 2:
-                    controller.evaluatePopulation();
+                    fitnessScores = visualizer.getAllFitnessScores();
+                    controller.evaluatePopulation({
+                        scoredPopulation: fitnessScores
+                    });
                     if (mainControls.autoContinue) {
                         step++;
                     } else {
@@ -171,7 +186,17 @@ function main() {
                     break;
 
                 case 3:
-                    controller.breedNextPopulation();
+                    population = controller.breedNextPopulation();
+
+                    // Delete old population
+                    visualizer.removeAllCubes();
+
+                    // Create population in viz
+                    visualizer.createCubesFromPopulation({
+                        population:    population,
+                        startingState: startingState
+                    });
+
                     step = 1;
                     break;
             }
