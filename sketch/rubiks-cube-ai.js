@@ -55,25 +55,19 @@ class Gui {
 }
 
 function main() {
-    let step        = 1;
-    let examineMode = false;
-    let population;
-    let fitnessScores;
 
-    let mainControls = {
-        debug:        false,
-        autoContinue: false,
-        rewatchBest:  () => {
-            moveCameraToBest();
-            step = 2.5;
-            replayGeneration();
-        },
-        examineGen:   () => {
-            examineMode = true;
-        },
-        nextGen:      () => {
-            step = 3;
-            console.log(step);
+    let state = {
+        controls: {
+            debug:        false,
+            autoContinue: true,
+            rewatchBest:  () => {
+                moveCameraToBest();
+                state.ai.step = 2.5;
+                replayGeneration();
+            },
+            nextGen:      () => {
+                state.ai.step = 3;
+            }
         }
     };
 
@@ -81,16 +75,15 @@ function main() {
         name:         "rubiks-cube-ai",
         showControls: true
     });
-    gui.add(mainControls, "rewatchBest");
-    gui.add(mainControls, "nextGen");
-    gui.add(mainControls, "examineGen");
-    gui.add(mainControls, "autoContinue");
-    gui.add(mainControls, "debug");
+    gui.add(state.controls, "rewatchBest");
+    gui.add(state.controls, "nextGen");
+    gui.add(state.controls, "autoContinue");
+    gui.add(state.controls, "debug");
     gui.loadPreset();
 
     // Create the cube visualizer
     const visualizer  = new CubeVisualizer({
-        debug:             mainControls.debug,
+        debug:             state.controls.debug,
         framesPerRotation: 5,
         cameraStart:       {
             x: -300,
@@ -101,19 +94,19 @@ function main() {
     let startingState = visualizer.getScrambledState({numRotations: 25});
 
     let controller = new GeneticController({
-        gui: gui
+        gui:         gui,
+        globalState: state
     });
 
     // Part 1: Create a population of N elements, each with randomly generated DNA.
-    population = controller.createInitialPopulation({
+    controller.createInitialPopulation({
         populationSize: 100,
         dnaLength:      100
     });
     visualizer.createCubesFromPopulation({
-        population:    population,
+        population:    state.ai.population,
         startingState: startingState
     });
-
 
     // Camera,animation,step
     const stepSize = 0.1;
@@ -148,59 +141,23 @@ function main() {
 
     function render() {
 
-        if (examineMode) {
+        if (visualizer.isDone()) {
 
-            // Show best cube
+            // Evaluate and breed
+            controller.evaluatePopulation({
+                scoredPopulation: visualizer.getAllFitnessScores()
+            });
+            controller.breedNextPopulation();
 
-        } else {
-            switch (step) {
-                case 1:
-                    if (visualizer.isDone()) {
-                        step++;
-                    } else {
-                        // Replace with visualizer.
-                        visualizer.render();
-                    }
-                    break;
-                case 2:
-                    fitnessScores = visualizer.getAllFitnessScores();
-                    controller.evaluatePopulation({
-                        scoredPopulation: fitnessScores
-                    });
-                    if (mainControls.autoContinue) {
-                        step++;
-                    } else {
-                        step = -1;
-                    }
-                    break;
-                case 2.5:
-
-                    // Increment the progress value
-                    progress += stepSize;
-
-                    // Calculate the new camera position
-                    const newPosition = visualizer.camera.position.clone().add(direction.clone().multiplyScalar(distance * stepSize));
-
-                    // Update the camera position
-                    visualizer.camera.position.copy(newPosition);
-                    break;
-
-                case 3:
-                    population = controller.breedNextPopulation();
-
-                    // Delete old population
-                    visualizer.removeAllCubes();
-
-                    // Create population in viz
-                    visualizer.createCubesFromPopulation({
-                        population:    population,
-                        startingState: startingState
-                    });
-
-                    step = 1;
-                    break;
-            }
+            // Reset view
+            visualizer.createCubesFromPopulation({
+                population:    state.ai.population,
+                startingState: startingState
+            });
+            visualizer.play();
         }
+
+        controller.render();
         visualizer.render();
         requestAnimationFrame(render);
     }

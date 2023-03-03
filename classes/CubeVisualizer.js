@@ -2,10 +2,16 @@ import * as THREE from "./../lib/three.module.js";
 import {OrbitControls} from "../lib/OrbitControls.js";
 import {RubiksCube} from "./RubiksCube.js";
 
+const PLAY   = 1;
+const PAUSE  = 2;
+const REPLAY = 3;
+
 export class CubeVisualizer {
+
     constructor({
                     cameraStart,
                     gui,
+                    globalState,
                     debug = false,
                     numCubes = 0,
                     fileName = "",
@@ -20,6 +26,8 @@ export class CubeVisualizer {
         this.random            = random;
         this.debug             = debug;
         this.framesPerRotation = framesPerRotation;
+        this.time              = 0;
+        this.timeStep          = 1;
         this.cameraStart       = cameraStart || {
             x: -70,
             y: 30,
@@ -29,6 +37,13 @@ export class CubeVisualizer {
         this.gui = gui;
         if (gui) {
             this.gui.add(this, "framesPerRotation", 0, 240, 1);
+        }
+
+        this.state = {
+            mode: 1
+        };
+        if (globalState) {
+            globalState.viz = this.state;
         }
 
         this.basicSetup();
@@ -163,8 +178,7 @@ export class CubeVisualizer {
      *
      */
 
-    render() {
-        // Update the cube
+    updateCubes() {
         this.cubes.forEach((cube, index) => {
 
             cube.update();
@@ -184,7 +198,48 @@ export class CubeVisualizer {
                 }
             }
         });
+    }
+
+    play() {
+        this.state.mode = PLAY;
+    }
+
+    pause() {
+        this.state.mode = PAUSE;
+    }
+
+    replay({generation}) {
+        this.state.mode        = REPLAY;
+        this.currentGeneration = generation;
+    }
+
+
+    render() {
+
+
+        switch (this.state.mode) {
+            case PLAY:
+                this.updateCubes();
+                break;
+            case PAUSE:
+                break;
+            case REPLAY:
+
+                // Increment the progress value
+                // progress += stepSize;
+                //
+                // // Calculate the new camera position
+                // const newPosition = visualizer.camera.position.clone().add(direction.clone().multiplyScalar(distance * stepSize));
+                //
+                // // Update the camera position
+                // visualizer.camera.position.copy(newPosition);
+                break;
+        }
+
+        // Update the cube
+        // this.updateCubes();
         this.renderer.render(this.scene, this.camera);
+        this.time += this.timeStep;
     }
 
     /***
@@ -205,6 +260,7 @@ export class CubeVisualizer {
         if (!population?.length > 0) {
             return;
         }
+        this.removeAllCubes();
         this.cubes  = [];
         let cubeGap = 50;
         let minZ    = ((population.length - 1) / 2) * cubeGap * -1;

@@ -1,5 +1,10 @@
+const CREATE_POP   = 1;
+const EVALUATE_POP = 2;
+const BREED        = 3;
+const REPLAY       = 4;
+
 export class GeneticController {
-    constructor({gui}) {
+    constructor({gui, globalState}) {
         this.populationSize = 0;
         this.population     = [];
         this.matingPool     = [];
@@ -8,12 +13,24 @@ export class GeneticController {
         this.totalFitness   = 0;
         this.avgFitness     = 0;
         this.maxFitness     = 0;
+        this.time           = 0;
+        this.timeStep       = 1;
 
         this.gui = gui;
         if (gui) {
             this.gui.add(this, "generation");
             this.gui.add(this, "avgFitness");
             this.gui.add(this, "maxFitness");
+        }
+
+        this.state = {
+            step:        1,
+            population:  this.population,
+            generations: []
+        };
+        if (globalState) {
+            globalState.ai   = this.state;
+            this.globalState = globalState;
         }
     }
 
@@ -41,7 +58,7 @@ export class GeneticController {
             this.population[n] = dna;
         }
 
-        return this.population;
+        this.state.population = this.population;
     }
 
     // Part 2: Evaluate the fitness of each element of the population and build a mating pool.
@@ -84,8 +101,13 @@ export class GeneticController {
 
     // Mate
     breedNextPopulation() {
-        this.population    = [];
-        this.generation++;
+
+        // Save last population
+        this.state.generations.push(Array.from(this.population));
+        this.generation = this.state.generations.length;
+
+        // Create new population
+        this.population  = [];
         let parentA;
         let parentB;
         let child;
@@ -108,8 +130,30 @@ export class GeneticController {
             }
             this.population.push(child);
         }
-
-        return this.population;
     }
 
+    evaluate() {
+        this.state.step = EVALUATE_POP;
+    }
+
+    render() {
+        // switch (this.state.step) {
+        //     case CREATE_POP:
+        //         break;
+        //
+        //     case EVALUATE_POP:
+        //         this.evaluatePopulation();
+        //         this.state.step = BREED;
+        //         break;
+        //
+        //     case BREED:
+        //         this.breedNextPopulation();
+        //         this.state.step = 1;
+        //         break;
+        //
+        //     case REPLAY:
+        //         break;
+        // }
+        this.time += this.timeStep;
+    }
 }
