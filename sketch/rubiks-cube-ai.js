@@ -59,7 +59,7 @@ function main() {
     let state = {
         controls: {
             debug:        false,
-            autoContinue: false,
+            autoContinue: true,
             rewatchBest:  () => {
                 moveCameraToBest();
                 state.ai.step = 2.5;
@@ -140,51 +140,24 @@ function main() {
 
 
     function render() {
-        switch (state.ai.step) {
-            case 1:
-                if (visualizer.isDone()) {
-                    state.ai.step++;
-                } else {
-                    visualizer.render();
-                }
-                break;
-            case 2:
-                state.ai.fitnessScores = visualizer.getAllFitnessScores();
-                controller.evaluatePopulation();
-                if (state.controls.autoContinue) {
-                    state.ai.step++;
-                } else {
-                    state.ai.step = -1;
-                }
-                break;
-            case 2.5:
 
-                // Increment the progress value
-                progress += stepSize;
+        if (visualizer.isDone()) {
 
-                // Calculate the new camera position
-                const newPosition = visualizer.camera.position.clone().add(direction.clone().multiplyScalar(distance * stepSize));
+            // Evaluate and breed
+            controller.evaluatePopulation({
+                scoredPopulation: visualizer.getAllFitnessScores()
+            });
+            controller.breedNextPopulation();
 
-                // Update the camera position
-                visualizer.camera.position.copy(newPosition);
-                break;
-
-            case 3:
-                controller.breedNextPopulation();
-
-                // Delete old population
-                visualizer.removeAllCubes();
-
-                // Create population in viz
-                visualizer.createCubesFromPopulation({
-                    population:    state.ai.population,
-                    startingState: startingState
-                });
-
-                state.ai.step = 1;
-                break;
+            // Reset view
+            visualizer.createCubesFromPopulation({
+                population:    state.ai.population,
+                startingState: startingState
+            });
+            visualizer.play();
         }
 
+        controller.render();
         visualizer.render();
         requestAnimationFrame(render);
     }
