@@ -23,14 +23,12 @@ export class GeneticController {
             this.gui.add(this, "maxFitness");
         }
 
+        this.sharedState = globalState.shared;
         this.state = {
             step:        1,
-            population:  this.population,
-            generations: []
         };
         if (globalState) {
             globalState.ai   = this.state;
-            this.globalState = globalState;
         }
     }
 
@@ -45,7 +43,7 @@ export class GeneticController {
         this.dnaLength      = dnaLength;
 
         // Create the population
-        this.population = new Array(populationSize);
+        let newPopulation = new Array(populationSize);
         for (let n = 0; n < populationSize; n++) {
 
             // Create the DNA
@@ -55,10 +53,11 @@ export class GeneticController {
             }
 
             // Add the dna to the population
-            this.population[n] = dna;
+            newPopulation[n] = dna;
         }
 
-        this.state.population = this.population;
+        this.sharedState.generations.push(newPopulation);
+        this.sharedState.currentGeneration++;
     }
 
     // Part 2: Evaluate the fitness of each element of the population and build a mating pool.
@@ -77,7 +76,7 @@ export class GeneticController {
         this.avgFitness = (this.totalFitness / scoredPopulation.length);
         this.maxFitness = Math.max(...justScores);
 
-        console.log("Generation:", this.generation);
+        console.log("Generation:", this.sharedState.generations.length);
         console.log("Total Fitness:", this.totalFitness.toFixed(3));
         console.log("Average Fitness:", this.avgFitness.toFixed(3));
         console.log("Best:", this.maxFitness.toFixed(3));
@@ -102,12 +101,8 @@ export class GeneticController {
     // Mate
     breedNextPopulation() {
 
-        // Save last population
-        this.state.generations.push(Array.from(this.population));
-        this.generation = this.state.generations.length;
-
         // Create new population
-        this.population  = [];
+        let newPopulation  = [];
         let parentA;
         let parentB;
         let child;
@@ -128,8 +123,11 @@ export class GeneticController {
                     child[i] = this.getRandomAction();
                 }
             }
-            this.population.push(child);
+            newPopulation.push(child);
         }
+
+        this.sharedState.generations.push(newPopulation);
+        this.sharedState.currentGeneration++;
     }
 
     evaluate() {

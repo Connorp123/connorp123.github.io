@@ -1,63 +1,75 @@
 import {CubeVisualizer} from "../classes/CubeVisualizer.js";
 import {GeneticController} from "../classes/GeneticController.js";
-import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.18/+esm";
+import {Gui} from "../classes/Gui.js";
 import * as THREE from "./../lib/three.module.js";
 
-/***
- *
- *      ,ad8888ba,   88        88  88
- *     d8"'    `"8b  88        88  88
- *    d8'            88        88  88
- *    88             88        88  88
- *    88      88888  88        88  88
- *    Y8,        88  88        88  88
- *     Y8a.    .a88  Y8a.    .a8P  88
- *      `"Y88888P"    `"Y8888Y"'   88
- *
- *
- */
-class Gui {
-    constructor({name = "guiControls"}) {
-        this.gui  = new GUI();
-        this.name = name + "-gui";
-
-        this.add(this, "saveControls");
-        this.add(this, "unSaveControls");
-    }
-
-    add(object, property, $1, max, step) {
-        this.gui.add(object, property, $1, max, step).listen().decimals(2);
-    }
-
-    loadPreset() {
-        const guiControlString = localStorage.getItem(this.name);
-        let preset             = JSON.parse(guiControlString);
-
-        // Load preset
-        if (preset) {
-            this.gui.load(preset);
-        }
-    }
-
-    saveControls() {
-        const controls      = this.gui.save();
-        const controlString = JSON.stringify(controls);
-        localStorage.setItem(this.name, controlString);
-        console.log("Saving controls at " + this.name, controlString);
-        alert("Controls saved -- refresh to apply");
-
-    }
-
-    unSaveControls() {
-        localStorage.removeItem(this.name);
-        alert("Controls reset -- refresh to apply");
-    }
-}
+let SCRAMBLED_STATE = [
+    ["R", "R", "R", "B", "B", "B", "O", "O", "O"],
+    ["R", "R", "R", "G", "G", "G", "O", "O", "O"],
+    ["W", "W", "W", "W", "W", "W", "W", "W", "W"],
+    ["Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y"],
+    ["B", "B", "B", "O", "O", "O", "G", "G", "G"],
+    ["B", "B", "B", "R", "R", "R", "G", "G", "G"]
+];
 
 function main() {
 
+    const POP_SIZE   = 100;
+    const DNA_LENGTH = 30;
+
     let state = {
-        controls: {
+        shared: {
+            startingState:     SCRAMBLED_STATE,
+            generations:       [],
+            currentGeneration: -1,
+            currentAction:     -1
+        }
+    };
+    let gui;
+    let visualizer;
+    let controller;
+
+    createGui();
+    createController();
+    createVisualizer();
+
+    visualizer.createCubesFromPopulation({
+        population:    state.shared.generations[state.shared.currentGeneration],
+        startingState: state.shared.startingState
+    });
+
+    function render() {
+
+        if (visualizer.isDone()) {
+
+            // Evaluate and breed
+            controller.evaluatePopulation({
+                scoredPopulation: visualizer.getAllFitnessScores()
+            });
+            controller.breedNextPopulation();
+
+            // Reset view
+            visualizer.createCubesFromPopulation({
+                population:    state.shared.generations[state.shared.currentGeneration],
+                startingState: state.shared.startingState
+            });
+            visualizer.play();
+        }
+
+        controller.render();
+        visualizer.render();
+        requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
+
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Setup
+    //------------------------------------------------------------------------------------------------------------------
+
+    function createGui() {
+        state.controls = {
             debug:        false,
             autoContinue: true,
             rewatchBest:  () => {
@@ -68,52 +80,47 @@ function main() {
             nextGen:      () => {
                 state.ai.step = 3;
             }
-        }
-    };
+        };
 
-    const gui = new Gui({
-        name:         "rubiks-cube-ai",
-        showControls: true
-    });
-    gui.add(state.controls, "rewatchBest");
-    gui.add(state.controls, "nextGen");
-    gui.add(state.controls, "autoContinue");
-    gui.add(state.controls, "debug");
-    gui.loadPreset();
+        gui = new Gui({
+            name:         "rubiks-cube-ai",
+            showControls: true
+        });
+        gui.add(state.controls, "rewatchBest");
+        gui.add(state.controls, "nextGen");
+        gui.add(state.controls, "autoContinue");
+        gui.add(state.controls, "debug");
+        gui.loadPreset();
+    }
 
-    // Create the cube visualizer
-    const visualizer  = new CubeVisualizer({
-        debug:             state.controls.debug,
-        framesPerRotation: 5,
-        cameraStart:       {
-            x: -300,
-            y: 30,
-            z: -10
-        }
-    });
-    let startingState = visualizer.getScrambledState({numRotations: 25});
+    function createVisualizer() {
+        visualizer = new CubeVisualizer({
+            debug:             state.controls.debug,
+            framesPerRotation: 5,
+            cameraStart:       {
+                x: -300,
+                y: 30,
+                z: -10
+            }
+        });
+    }
 
-    let controller = new GeneticController({
-        gui:         gui,
-        globalState: state
-    });
+    function createController() {
+        controller = new GeneticController({
+            gui:         gui,
+            globalState: state
+        });
+        controller.createInitialPopulation({
+            populationSize: POP_SIZE,
+            dnaLength:      DNA_LENGTH
+        });
+    }
 
-    // Part 1: Create a population of N elements, each with randomly generated DNA.
-    controller.createInitialPopulation({
-        populationSize: 100,
-        dnaLength:      100
-    });
-    visualizer.createCubesFromPopulation({
-        population:    state.ai.population,
-        startingState: startingState
-    });
-
-    // Camera,animation,step
-    const stepSize = 0.1;
-    let progress   = 0;
+    //------------------------------------------------------------------------------------------------------------------
+    // Helpers
+    //------------------------------------------------------------------------------------------------------------------
     let distance;
     let direction;
-
 
     function moveCameraToBest() {
 
@@ -137,32 +144,6 @@ function main() {
     function replayGeneration() {
 
     }
-
-
-    function render() {
-
-        if (visualizer.isDone()) {
-
-            // Evaluate and breed
-            controller.evaluatePopulation({
-                scoredPopulation: visualizer.getAllFitnessScores()
-            });
-            controller.breedNextPopulation();
-
-            // Reset view
-            visualizer.createCubesFromPopulation({
-                population:    state.ai.population,
-                startingState: startingState
-            });
-            visualizer.play();
-        }
-
-        controller.render();
-        visualizer.render();
-        requestAnimationFrame(render);
-    }
-
-    requestAnimationFrame(render);
 }
 
 main();

@@ -431,10 +431,10 @@ export class RubiksCube {
 
 
     printState() {
-        // for (let side = 0; side < NUM_SIDES; side++) {
-        //     let sidePieces = this.getPiecesForSide({side: side});
-        //     console.log(sidePieces);
-        // }
+        for (let side = 0; side < NUM_SIDES; side++) {
+            let sidePieces = this.getPiecesForSide({side: side});
+            console.log(sidePieces);
+        }
     }
 
 }

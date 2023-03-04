@@ -42,13 +42,15 @@ export class CubeVisualizer {
         this.state = {
             mode: 1
         };
+        this.sharedState = {}
         if (globalState) {
+            this.sharedState = globalState.shared;
             globalState.viz = this.state;
         }
 
         this.basicSetup();
         if (loadFromFile) this.loadCubeDataFromFile();
-        if (this.cubesToCreate) this.createCubes({});
+        // if (this.cubesToCreate) this.createCubes({});
     }
 
     /***

@@ -5,9 +5,10 @@ function main() {
     // Create the cube visualizer
     const visualizer = new CubeVisualizer({
         numCubes: 1,
-        random:   true
+        random:   false,
+        loadFromFile: true,
+        fileName: "vertical-stripes.json"
     });
-    console.log(visualizer);
 
     function render() {
         visualizer.render();
