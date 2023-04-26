@@ -51,6 +51,12 @@ function vectorAdd(v1, v2) {
   return [v1[0] + v2[0], v1[1] + v2[1], v1[2] + v2[2]];
 }
 
+function vectorMult(v1, v2) {
+    if (v1.length < 3 || v2.length < 3) return v1;
+
+    return [v1[0] * v2[0], v1[1] * v2[1], v1[2] * v2[2]];
+}
+
 function vectorLimit(v, limit) {
   if (v.length < 3) return v;
 
