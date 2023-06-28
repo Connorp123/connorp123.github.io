@@ -1,11 +1,9 @@
 // Comments are Univers ASCII art
 
-const LINE_SPACING   = 5;
-const LINE_LENGTH    = 10;
-const LINE_THICKNESS = 1;
-const WIDTH_RATIO    = 1;
-const VIDEO_WIDTH  = 150.0;
-const VIDEO_HEIGHT = 100.0;
+const LINE_SPACING   = 10;
+const LINE_LENGTH    = 2;
+const LINE_THICKNESS = 10;
+const WIDTH_RATIO   = 1;
 
 import {RandomLine} from "./RandomLine.js";
 import {createGui} from "../../helpers/gui-helpers.js";
@@ -27,22 +25,17 @@ export const sketch = (p) => {
      */
     let canvas;
     let capture;
-    let threshold = 0.5;
-    let lines     = [];
+    let threshold      = 0.5;
+    let lines          = [];
 
     let state = {
-        frameRate:     1,
-        lineSpacing:   LINE_SPACING,
-        lineLength:    LINE_LENGTH,
+        lineSpacing: LINE_SPACING,
+        lineLength: LINE_LENGTH,
         lineThickness: LINE_THICKNESS,
-        widthRatio:    WIDTH_RATIO,
-        videoWidth: VIDEO_WIDTH,
-        videoHeight: VIDEO_HEIGHT,
-        threshold:     false,
-        posterize:     false,
-        blur:          false
-    };
-    let gui   = createGui({state, name: "daily"});
+        widthRatio: WIDTH_RATIO,
+        debug: false,
+    }
+    let gui = createGui({state, name:"daily"})
 
     /***
      *
@@ -58,33 +51,28 @@ export const sketch = (p) => {
      *
      */
     p.setup = () => {
-        canvas = createInstanceCanvas(p);
+        canvas  = createInstanceCanvas(p);
+        capture = p.createCapture(p.VIDEO);
 
-        let constraints = {
-            video: {
-                width:     state.videoWidth,
-                height:    state.videoHeight,
-                frameRate: 2.0
-            },
-        };
+        if (p.width > p.height) {
+            capture.size((p.width * state.widthRatio) / state.lineSpacing, p.AUTO);
+        } else {
+            capture.size((p.width * state.widthRatio) / state.lineSpacing, p.AUTO);
+        }
 
-        capture = p.createCapture(constraints, () => {});
+        // capture.size(16 * Math.pow(2, CAMERA_SCALE), 9 * Math.pow(2, CAMERA_SCALE));
+        // capture.size(p.width / 4, p.height / 4);
+        capture.hide();
+        p.pixelDensity(1);
 
         // Create lines
-        p.pixelDensity(1);
         p.strokeWeight(state.lineThickness);
-        for (let i = 0; i < state.videoWidth; i++) {
+        for (let i = 0; i < capture.width; i++) {
             const row = [];
-            for (let j = 0; j < state.videoHeight; j++) {
+            for (let j = 0; j < capture.height; j++) {
                 // Assuming pixel density is 1
-                const pixelIndex = (i + j * state.videoWidth) * 4;
-                row.push(new RandomLine({
-                    p,
-                    pixelIndex,
-                    lineLength: state.lineLength,
-                    x:          i * state.lineSpacing,
-                    y:          j * state.lineSpacing
-                }));
+                const pixelIndex = (i + j * capture.width) * 4;
+                row.push(new RandomLine({p, pixelIndex, lineLength: state.lineLength, x: i * state.lineSpacing, y: j * state.lineSpacing}));
             }
             lines.push(row);
         }
@@ -106,25 +94,28 @@ export const sketch = (p) => {
      */
     p.draw = () => {
         // redrawBackground(p);
-        if (!capture.loadedmetadata) return;
         capture.loadPixels();
         lines.forEach(row => {
             row.forEach(line => {
                 let i = line.index;
-                p.stroke(capture.pixels[i], capture.pixels[i + 1], capture.pixels[i + 2]);
+                if (!state.debug) {
+                    p.stroke(capture.pixels[i], capture.pixels[i + 1], capture.pixels[i + 2]);
+                } else {
+                    let brightness = (capture.pixels[i] + capture.pixels[i + 1] + capture.pixels[i + 2]) / 3;
+                    p.stroke(brightness);
+                }
                 line.display();
             });
         });
-        state.frameRate = p.frameRate();
-        if (state.threshold) {
-            p.filter(p.THRESHOLD, threshold);
-        }
-        if (state.posterize) {
-            p.filter(p.POSTERIZE, 2);
-        }
-        if (state.blur) {
-            p.filter(p.BLUR, 2);
-        }
+        console.log("frameRate", p.frameRate());
+        // p.filter(p.THRESHOLD, threshold);
+        // p.filter(p.POSTERIZE, 20);
+    };
+
+    p.mouseWheel = (event) => {
+        if (event.deltaY < 0) threshold += 0.01;
+        else if (threshold > 0) threshold -= 0.01;
+        console.log("threshold", threshold);
     };
 
     p.keyPressed = () => {
