@@ -2,19 +2,18 @@
 <html lang="en">
 <head>
   <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
+  <script>
+    (function (w, d, s, l, i) {
       w[l] = w[l] || [];
-      w[l].push({
-          "gtm.start":
-              new Date().getTime(), event: "gtm.js",
-      });
-      var f                          = d.getElementsByTagName(s)[0],
-          j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async                        = true;
-      j.src                          =
-          "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      w[l].push({"gtm.start": new Date().getTime(), event: "gtm.js"});
+      let f   = d.getElementsByTagName(s)[0];
+      let j   = d.createElement(s);
+      let dl  = l !== "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src   = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
       f.parentNode.insertBefore(j, f);
-  })(window, document, "script", "dataLayer", "GTM-5WT2CP6");</script>
+    })(window, document, "script", "dataLayer", "GTM-5WT2CP6");
+  </script>
 
   <!-- SEO -->
   <meta charset="UTF-8">
@@ -24,11 +23,12 @@
   <meta name="viewport" content="width=device-width">
 
   <!-- p5 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.min.js"
-          integrity="sha512-WJXVjqeINVpi5XXJ2jn0BSCfp0y80IKrYh731gLRnkAS9TKc5KNt/OfLtu+fCueqdWniouJ1ubM+VI/hbo7POQ=="
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer"
-          async></script>
+  <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"
+      integrity="sha512-bcfltY+lNLlNxz38yBBm/HLaUB1gTV6I0e+fahbF9pS6roIdzUytozWdnFV8ZnM6cSAG5EbmO0ag0a/fLZSG4Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer">
+  </script>
 
   <!-- Tensorflow -->
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs" async></script>
@@ -40,7 +40,6 @@
 
   <!-- p5 Instances -->
   <script src="./sketch/home/home.js" async></script>
-  <!--  <script src="./sketch/home/cursor-v1.js" type="module"></script>-->
   <script src="./sketch/home/cursor-v2.js" async></script>
   <script src="./sketch/home/whitney.js" async></script>
   <script src="./sketch/home/rapid-bubbles.js" async></script>
@@ -83,6 +82,13 @@
   </div>
   <!-- Mini Sketches -->
   <div class="projects">
+    <!-- Sketch 11 -->
+    <div class="mini-sketch-container">
+      <div class="title">
+        <a href="./art/word-vomit.html">Word Vomit</a>
+      </div>
+      <div class="sketch" id="sketch12"></div>
+    </div>
     <!-- Sketch 11 -->
     <div class="mini-sketch-container">
       <div class="title">
