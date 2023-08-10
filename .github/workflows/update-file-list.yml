@@ -16,7 +16,7 @@ jobs:
       - name: List JS files and save to JSON
         run: |
           echo "[" > jsfiles.json
-          find path/to/jsfiles -name "*.js" -printf '"%f", ' >> jsfiles.json
+          find noc -name "*.js" -printf '"%f", ' >> jsfiles.json
           sed -i '$ s/..$//' jsfiles.json
           echo "]" >> jsfiles.json
 
