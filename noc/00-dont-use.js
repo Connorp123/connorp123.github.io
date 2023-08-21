@@ -3,7 +3,7 @@ const actions = {
 };
 
 const getJsonFiles = async () => {
-    const response = await fetch("/noc/jsfiles.json");
+    const response = await fetch("/jsfiles.json");
     const jsFiles  = await response.json();
 
 
