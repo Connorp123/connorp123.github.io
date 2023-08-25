@@ -1,6 +1,6 @@
 // Comments are Univers ASCII art
 
-import {createGui} from "../../helpers/gui-helpers.js";
+import {createGui} from "../../helpers/gui-helpers";
 
 export const sketch = (p) => {
 
