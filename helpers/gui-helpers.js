@@ -12,7 +12,7 @@ import {Gui} from "../classes/Gui.js";
  * @param name will be used to save the controls in local storage
  * @param showControls false to hide controls
  */
-export const createGui = ({state, name="gui", showControls=true}) => {
+export const createGui = ({state, name = "gui", showControls = true}) => {
     let gui = new Gui({
         name:         name,
         showControls: showControls
@@ -22,6 +22,8 @@ export const createGui = ({state, name="gui", showControls=true}) => {
 
     Object.keys(state).forEach((control => {
         gui.add(state, control);
-    }))
+    }));
     gui.loadPreset();
-}
+
+    return gui;
+};
