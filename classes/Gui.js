@@ -26,6 +26,11 @@ export class Gui {
         this.gui.add(object, property, $1, max, step).listen().decimals(2);
     }
 
+    onChange = (onChangeFunction) => {
+        if (typeof onChangeFunction !== "function") return;
+        this.gui.onChange(event => onChangeFunction(event));
+    };
+
     loadPreset() {
         const guiControlString = localStorage.getItem(this.name);
         let preset             = JSON.parse(guiControlString);
