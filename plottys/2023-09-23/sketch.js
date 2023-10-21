@@ -19,11 +19,13 @@ export const sketch = (p) => {
 
     gui.onChange(() => {
         boxes.length = 0;
+        p.background(255);
         createBoxes_Staggered();
     });
     gui.add(state, "width", 10, 500, 10);
 
     const createBoxes_Staggered = () => {
+
 
         const width      = state.width;
         const height     = width * 2;
@@ -31,6 +33,7 @@ export const sketch = (p) => {
 
         const rightEdge = p.width + width;
         const botEdge   = p.height + halfHeight;
+
 
         let xStart = 4;
 
@@ -50,19 +53,29 @@ export const sketch = (p) => {
             }
 
         }
+
+        // boxes.push(new Box({
+        //         p,
+        //         state,
+        //         x: 3 * width,
+        //         y: 3 * halfHeight
+        //     }
+        // ));
     };
 
     p.setup = () => {
+        // canvas = p.createCanvas(297 * 3, 400 * 3);
         canvas = p.createCanvas(297 * 3, 400 * 3, p.SVG);
+        p.background(255);
         createBoxes_Staggered();
+        boxes.forEach(box => box.draw());
     };
 
 
     p.draw = () => {
-        // redrawBackground(p);
+        redrawBackground(p);
         p.background(255);
         boxes.forEach(box => box.draw());
-        // p.clear();
     };
 
     p.keyPressed = () => {

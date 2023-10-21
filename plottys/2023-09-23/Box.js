@@ -48,38 +48,42 @@ export class Box {
         this.p.pop();
     }
 
-    draw() {
-
-
+    drawInside() {
         const width  = this.state.width;
         const height = width * 2;
 
-        const spacing = 5;
+        const spacing     = 4;
+        const halfSpacing = spacing / 2;
 
         this.p.push();
 
         this.p.translate(this.x, this.y);
-        this.p.beginShape(this.p.QUADS);
 
         // FRONT
 
         if (this.state.color1) {
             this.p.stroke(this.colors.green);
             let y = 0;
-            this.p.beginShape();
             while (y <= height) {
 
                 if (y % (spacing * 2) === 0) {
-                    this.p.vertex(0, y);
-                    this.p.vertex(width, y);
+
+                    this.p.line(halfSpacing, y, width - halfSpacing, y);
+                    if (y + spacing <= height) {
+                        this.p.arc(width - halfSpacing, y + halfSpacing, spacing, spacing, -this.p.HALF_PI, this.p.HALF_PI, this.p.OPEN);
+                    }
+
                 } else {
-                    this.p.vertex(width, y);
-                    this.p.vertex(0, y);
+
+                    this.p.line(width - halfSpacing, y, halfSpacing, y);
+                    if (y + spacing <= height) {
+                        this.p.arc(halfSpacing, y + halfSpacing, spacing, spacing, this.p.HALF_PI, -this.p.HALF_PI, this.p.OPEN);
+                    }
+
                 }
 
                 y += spacing;
             }
-            this.p.endShape();
         }
 
         // LEFT
@@ -87,33 +91,41 @@ export class Box {
 
             this.p.stroke(this.colors.dark);
 
-            let x1 = 0 - width;
-            let y1 = 0 - (height / 2);
+            const x1 = 0 - width;
+            let y1   = 0 - (height / 2);
 
-            let x2 = 0;
-            let y2 = 0;
+            const x2 = 0;
+            let y2   = 0;
 
-            this.p.beginShape();
+
+            let count = 0;
 
             while (y1 < 0) {
 
-                if (y1 % (spacing * 2) === 0) {
-                    this.p.vertex(x1, y1);
-                    this.p.vertex(x2, y2);
+                if (count % 2 === 0) {
+
+                    this.p.line(x1, y1, x2, y2);
+                    // this.p.arc(x1 + halfSpacing, y1 + halfSpacing, spacing, spacing, 0, this.p.PI * 2, this.p.OPEN);
+                    // this.p.arc(x2, y2, spacing, spacing, this.p.HALF_PI + (this.p.HALF_PI / 2), -(this.p.HALF_PI / 2), this.p.OPEN);
+
                 } else {
-                    this.p.vertex(x2, y2);
-                    this.p.vertex(x1, y1);
+                    this.p.line(x2, y2, x1, y1);
+                    // this.p.arc(x1 + halfSpacing, y1 + halfSpacing, spacing, spacing, this.p.HALF_PI / 2, -(this.p.HALF_PI / 2), this.p.OPEN);
+
                 }
 
                 y1 += spacing;
                 y2 += spacing;
+                count++;
             }
 
-            this.p.endShape();
         }
 
         this.p.pop();
+    }
 
+    draw() {
+        this.drawInside();
         this.drawOutline();
     }
 }
