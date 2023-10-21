@@ -47,21 +47,8 @@ const createSquareCanvas = (p) => {
     );
 };
 
-const createSvgCanvas = (p) => {
-
-    if (p.windowWidth < 1000 && p.windowHeight > p.windowWidth) {
-        return p.createCanvas(p.windowWidth, p.windowWidth, p.SVG);
-    }
-
-    if (p.windowHeight < 1000 && p.windowWidth > p.windowHeight) {
-        return p.createCanvas(p.windowHeight, p.windowHeight, p.SVG);
-    }
-
-    return p.createCanvas(
-        p.windowWidth < 1000 ? p.windowWidth : 1000,
-        p.windowHeight < 1000 ? p.windowHeight : 1000,
-        p.SVG
-    );
+const createSvgCanvas = (p, width, height) => {
+    return p.createCanvas(width, height, p.SVG);
 };
 
 function getGifName() {
