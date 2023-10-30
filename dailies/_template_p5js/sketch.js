@@ -1,4 +1,5 @@
-import { createGui } from "../../helpers/gui-helpers.js";
+import {createGui} from "../../helpers/gui-helpers.js";
+import {getGifName} from "../../helpers/daily-helpers.js";
 
 const createClass = ({p}) => {
     return class MyClass {
@@ -42,5 +43,9 @@ export const sketch = (p) => {
         if (state.redrawBackground) p.background(0);
         classInstance.update();
         classInstance.draw();
+    };
+
+    p.keyPressed = () => {
+        if (p.key === "S" || p.key === "s") p.save(`${getGifName()}.png`);
     };
 };
