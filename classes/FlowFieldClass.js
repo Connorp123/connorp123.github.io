@@ -1,12 +1,12 @@
-const createFlowField = ({p}) => {
+export const createFlowField = ({p}) => {
     return class FlowField {
 
         constructor(r) {
             // Determines the number of columns
             this.resolution = r; // The size of each "cell"
-            this.cols       = width / this.resolution;
-            this.rows       = height / this.resolution;
-
+            this.cols       = Math.floor(p.width / this.resolution);
+            this.rows       = Math.floor(p.height / this.resolution);
+            this.scale      = 25;
 
             // Creates the FlowField
             this.field = this.make2Darray(this.cols);
@@ -25,7 +25,6 @@ const createFlowField = ({p}) => {
 
         init() {
             // Reseed the noise so that we get a new flow every time
-            // Need to get noise working
             p.noiseSeed(Math.floor(p.random(10000)));
             let xoff = 0;
             for (let i = 0; i < this.cols; i++) {
@@ -49,17 +48,18 @@ const createFlowField = ({p}) => {
 
         // Draw every vector
         display() {
+            p.stroke(255);
+            p.strokeWeight(1);
             for (let i = 0; i < this.cols; i++) {
                 for (let j = 0; j < this.rows; j++) {
-                    this.drawVector(this.field[i][j], i * this.resolution, j * this.resolution, this.resolution - 2);
+                    this.drawVector(this.field[i][j], i * this.resolution, j * this.resolution);
                 }
             }
         };
 
         lookup(lookup) {
-            let column = Math.floor(p.constrain(lookup.x / this.resolution, 0, this.cols - 1));
-            let row    = Math.floor(p.constrain(lookup.y / this.resolution, 0, this.rows - 1));
-
+            const column = Math.floor(p.constrain(lookup.x / this.resolution, 0, this.cols - 1));
+            const row    = Math.floor(p.constrain(lookup.y / this.resolution, 0, this.rows - 1));
             return this.field[column][row].copy();
         };
 
@@ -71,18 +71,16 @@ const createFlowField = ({p}) => {
 
             // Translate to location to render vector
             p.translate(x, y);
-            p.stroke(200, 100);
 
             // Call vector heading function to get direction (note that pointing to the right is a heading of 0) and rotate
             p.rotate(v.heading());
 
             // Calculate length of vector & scale it to be bigger or smaller if necessary
-            const len = v.mag() * p.scale;
+            const len = v.mag() * this.scale;
 
             // Draw three lines to make an arrow (draw pointing up since we've rotate to the proper direction)
             p.line(0, 0, len, 0);
-            // line(len,0,len-arrowsize,+arrowsize/2);
-            // line(len,0,len-arrowsize,-arrowsize/2);
+
             p.pop();
         }
     };
