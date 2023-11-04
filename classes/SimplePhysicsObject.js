@@ -1,14 +1,10 @@
-import { getGifName } from "../../helpers/daily-helpers.js";
-import { createGui } from "../../helpers/gui-helpers.js";
-import { createFlowField } from "../../classes/FlowFieldClass.js";
-
 const smallerCanvasDimension = (p) => {
     return Math.min(p.width, p.height);
 };
 
-const createSimplePhysicsObject = ({p}) => {
+export const createSimplePhysicsObject = ({p}) => {
     return class SimplePhysicsObject {
-        constructor({x, y, radius, displayFunction}) {
+        constructor({x, y, radius, beforeUpdate, displayFunction}) {
 
             // Physics
             this.pos    = p.createVector(x || p.random() * p.width, y || p.random() * p.height);
@@ -24,19 +20,21 @@ const createSimplePhysicsObject = ({p}) => {
             this.rgb = [p.random() * 255, p.random() * 255, p.random() * 255];
 
             // Overrides
+            this.beforeUpdate    = beforeUpdate;
             this.displayFunction = displayFunction;
-
-
         }
 
         update() {
-            this.vel.add(this.acc);
-            this.vel.limit(this.maxVel);
-            this.pos.add(this.vel);
+            if (this.beforeUpdate) this.beforeUpdate(this);
+            else {
+                this.vel.add(this.acc);
+                this.vel.limit(this.maxVel);
+                this.pos.add(this.vel);
 
-            this.acc.set();
+                this.acc.set();
 
-            this.checkBounds();
+                this.checkBounds();
+            }
         }
 
         checkBounds() {
@@ -47,7 +45,7 @@ const createSimplePhysicsObject = ({p}) => {
         }
 
         display() {
-            if (this.displayFunction) this.displayFunction();
+            if (this.displayFunction) this.displayFunction(this);
             else {
                 p.fill(...this.rgb);
                 p.stroke(0);
@@ -71,52 +69,5 @@ const createSimplePhysicsObject = ({p}) => {
             this.acc.add(vec);
         };
 
-    };
-};
-
-
-export const sketch = (p) => {
-
-    // Basics
-    let canvas;
-    let state = {
-        debug:            false,
-        redrawBackground: false
-    };
-    let gui   = createGui({state});
-
-    // Class creators
-    const BigCircle = createSimplePhysicsObject({p});
-    const FlowField = createFlowField({p});
-
-    // Global vars
-    let circles = [];
-    let flowField;
-
-    p.setup = () => {
-        canvas = p.createCanvas(p.windowWidth, p.windowHeight);
-        p.frameRate(144);
-        p.background(0);
-
-        for (let i = 0; i < 20; i++) {
-            circles.push(new BigCircle({}));
-        }
-
-        flowField = new FlowField(30);
-    };
-
-    p.draw = () => {
-        if (state.redrawBackground) p.background(0);
-
-        circles.forEach(circle => {
-            circle.follow(flowField);
-            circle.update();
-            circle.draw();
-        });
-        if (state.debug) flowField.display();
-    };
-
-    p.keyPressed = () => {
-        if (p.key === "S" || p.key === "s") p.save(`${getGifName()}.png`);
     };
 };
