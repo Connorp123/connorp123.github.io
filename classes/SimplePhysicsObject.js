@@ -26,15 +26,13 @@ export const createSimplePhysicsObject = ({p}) => {
 
         update() {
             if (this.beforeUpdate) this.beforeUpdate(this);
-            else {
-                this.vel.add(this.acc);
-                this.vel.limit(this.maxVel);
-                this.pos.add(this.vel);
+            this.vel.add(this.acc);
+            this.vel.limit(this.maxVel);
+            this.pos.add(this.vel);
 
-                this.acc.set();
+            this.acc.set();
 
-                this.checkBounds();
-            }
+            this.checkBounds();
         }
 
         checkBounds() {
