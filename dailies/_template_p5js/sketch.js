@@ -1,20 +1,6 @@
+import { createSimplePhysicsObject } from "../../classes/SimplePhysicsObject";
 import { createGui } from "../../helpers/gui-helpers.js";
-
-const createClass = ({p}) => {
-    return class MyClass {
-        constructor() {
-            this.pos = [p.mouseX, p.mouseY];
-        }
-
-        update() {
-            this.pos = [p.mouseX, p.mouseY];
-        }
-
-        draw() {
-            p.ellipse(...this.pos, 100);
-        }
-    };
-};
+import { getGifName } from "../../helpers/daily-helpers.js";
 
 export const sketch = (p) => {
 
@@ -27,7 +13,7 @@ export const sketch = (p) => {
     let gui   = createGui({state});
 
     // Class creators
-    const MyClass = createClass({p});
+    const SimplePhysicsObject = createSimplePhysicsObject({p});
 
     // Global vars
     let classInstance;
@@ -35,12 +21,16 @@ export const sketch = (p) => {
     p.setup = () => {
         canvas = p.createCanvas(p.windowWidth, p.windowHeight);
         p.frameRate(144);
-        classInstance = new MyClass();
+        classInstance = new SimplePhysicsObject({});
     };
 
     p.draw = () => {
         if (state.redrawBackground) p.background(0);
         classInstance.update();
         classInstance.draw();
+    };
+
+    p.keyPressed = () => {
+        if (p.key === "S" || p.key === "s") p.save(`${getGifName()}.png`);
     };
 };
