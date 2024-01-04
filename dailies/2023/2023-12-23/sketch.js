@@ -1,15 +1,15 @@
-import { createSimplePhysicsObject } from "../../classes/SimplePhysicsObject.js";
-import { createGui } from "../../helpers/gui-helpers.js";
-import { getGifName } from "../../helpers/daily-helpers.js";
+import { createSimplePhysicsObject } from "../../../classes/SimplePhysicsObject.js";
+import { createGui } from "../../../helpers/gui-helpers.js";
+import { getGifName } from "../../../helpers/daily-helpers.js";
 
 export const createSquare = ({p}) => {
 
     return class Square {
         constructor({x, y, step}) {
-            this.pos = [x,y];
+            this.pos       = [x, y];
             this.t         = 0;
             this.direction = 1;
-            this.step = step;
+            this.step      = step;
         }
 
         reverseDirection() {
@@ -28,10 +28,10 @@ export const createSquare = ({p}) => {
             p.fill(
                 p.map(size, 0, 20, 100, 0),
                 100,
-                100,
+                100
             );
             p.stroke(0);
-            p.square(...this.pos, this.t)
+            p.square(...this.pos, this.t);
         }
 
     };
@@ -45,10 +45,11 @@ export const sketch = (p) => {
     let state = {
         debug:            false,
         redrawBackground: true,
-        padding: 40,
-        spacing: 30
+        padding:          40,
+        spacing:          30
     };
-    let gui   = createGui({state,
+    let gui   = createGui({
+        state,
         onChange: () => p.setup()
     });
 
@@ -67,12 +68,12 @@ export const sketch = (p) => {
         const SPACING = state.spacing;
 
         squares = [];
-        for(let i = 0; i < 20; i++) {
-            for(let j = 0; j < 20; j++) {
+        for (let i = 0; i < 20; i++) {
+            for (let j = 0; j < 20; j++) {
                 squares.push(new Square({
-                    x: 40 + i * SPACING,
-                    y: 40 + j * SPACING,
-                    step: p.map(i + j, 0, 38, 0.1, 0.5),
+                    x:    40 + i * SPACING,
+                    y:    40 + j * SPACING,
+                    step: p.map(i + j, 0, 38, 0.1, 0.5)
                 }));
             }
         }

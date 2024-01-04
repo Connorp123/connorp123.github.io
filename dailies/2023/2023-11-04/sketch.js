@@ -1,7 +1,7 @@
-import { getGifName } from "../../helpers/daily-helpers.js";
-import { createGui } from "../../helpers/gui-helpers.js";
-import { createFlowField } from "../../classes/FlowFieldClass.js";
-import { createSimplePhysicsObject } from "../../classes/SimplePhysicsObject.js";
+import { getGifName } from "../../../helpers/daily-helpers.js";
+import { createGui } from "../../../helpers/gui-helpers.js";
+import { createFlowField } from "../../../classes/FlowFieldClass.js";
+import { createSimplePhysicsObject } from "../../../classes/SimplePhysicsObject.js";
 
 const createNoiseLookup = ({p}) => {
     return class NoiseLookup {

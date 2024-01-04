@@ -1,5 +1,5 @@
-import {getGifName} from "../../helpers/daily-helpers.js";
-import {createGui} from "../../helpers/gui-helpers.js";
+import { getGifName } from "../../../helpers/daily-helpers.js";
+import { createGui } from "../../../helpers/gui-helpers.js";
 
 const smallerCanvasDimension = (p) => {
     return Math.min(p.width, p.height);
