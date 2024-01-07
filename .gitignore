@@ -6,3 +6,4 @@
 .idea/**
 .fleet/**
 *Zone.Identifier
+*node_modules*
