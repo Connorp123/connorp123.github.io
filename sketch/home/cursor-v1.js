@@ -12,21 +12,21 @@
  *
  */
 export const cursor_v1 = (p) => {
-  let canvas;
-  const fps = 100;
-  let cursor;
+    let canvas;
+    const fps = 100;
+    let cursor;
 
-  p.setup = () => {
-    canvas = createInstanceCanvas(p);
-    p.frameRate(fps);
-    cursor = new Cursor(p);
-  };
+    p.setup = () => {
+        canvas = createInstanceCanvas(p);
+        p.frameRate(fps);
+        cursor = new Cursor(p);
+    };
 
-  p.draw = () => {
-    redrawBackground(p);
-    cursor.update();
-    cursor.display();
-  };
+    p.draw = () => {
+        redrawBackground(p);
+        cursor.update();
+        cursor.display();
+    };
 };
 
 /***
@@ -43,62 +43,62 @@ export const cursor_v1 = (p) => {
  *
  */
 class Cursor {
-  constructor(p) {
-    // For all cursors
-    this.history     = [];
-    this.length      = 40;
-    this.widthMean   = 10;
-    this.widthStdDev = 3;
-    this.t           = 0;
-    this.tStep       = 0.01;
-    this.p           = p;
+    constructor(p) {
+        // For all cursors
+        this.history     = [];
+        this.length      = 40;
+        this.widthMean   = 10;
+        this.widthStdDev = 3;
+        this.t           = 0;
+        this.tStep       = 0.01;
+        this.p           = p;
 
-    // For this cursor
-    this.newCursor();
-  }
-
-  newCursor(pos = [this.p.mouseX, this.p.mouseY]) {
-
-    // Generate new cursor
-    this.color = [
-      this.p.noise(this.t) * 255,
-      this.p.noise(this.t + 5) * 255,
-      this.p.noise(this.t + 10) * 255,
-    ];
-    this.width = this.p.randomGaussian(this.widthMean, this.widthStdDev);
-    this.pos   = pos;
-
-    // Check history length
-    if (this.history.length >= this.length) {
-      this.history.splice(0, this.history.length - this.length + 1);
+        // For this cursor
+        this.newCursor();
     }
 
-    // Save the cursor
-    this.history.push({
-      color: this.color,
-      width: this.width,
-      pos  : this.pos
-    });
-  }
+    newCursor(pos = [this.p.mouseX, this.p.mouseY]) {
 
-  // Create a new cursor and update the time
-  update(pos) {
-    this.newCursor(pos);
-    this.t += this.tStep;
-  }
+        // Generate new cursor
+        this.color = [
+            this.p.noise(this.t) * 255,
+            this.p.noise(this.t + 5) * 255,
+            this.p.noise(this.t + 10) * 255
+        ];
+        this.width = this.p.randomGaussian(this.widthMean, this.widthStdDev);
+        this.pos   = pos;
 
-  // Display the cursor
-  display() {
-    this.p.stroke(0);
-    this.p.strokeWeight(0);
+        // Check history length
+        if (this.history.length >= this.length) {
+            this.history.splice(0, this.history.length - this.length + 1);
+        }
 
-    // Draw each cursor in the history
-    for (let i = 0; i < this.history.length - 10; i++) {
-      let cursor = this.history[i];
-      this.p.fill(cursor.color[0], cursor.color[1], cursor.color[2]);
-      this.p.circle(cursor.pos[0], cursor.pos[1], cursor.width);
+        // Save the cursor
+        this.history.push({
+            color: this.color,
+            width: this.width,
+            pos:   this.pos
+        });
     }
-  }
+
+    // Create a new cursor and update the time
+    update(pos) {
+        this.newCursor(pos);
+        this.t += this.tStep;
+    }
+
+    // Display the cursor
+    display() {
+        this.p.stroke(0);
+        this.p.strokeWeight(0);
+
+        // Draw each cursor in the history
+        for (let i = 0; i < this.history.length - 10; i++) {
+            let cursor = this.history[i];
+            this.p.fill(cursor.color[0], cursor.color[1], cursor.color[2]);
+            this.p.circle(cursor.pos[0], cursor.pos[1], cursor.width);
+        }
+    }
 }
 
 /***
@@ -115,26 +115,26 @@ class Cursor {
  *
  */
 
-import { RandomWalker } from "/classes/RandomWalker.js";
+import { RandomWalker } from "/classes/module/RandomWalker.js";
 
 export const home_cursor_v1 = (p) => {
-  const FPS = 100;
-  let canvas;
-  let cursor;
-  let mouse;
+    const FPS = 100;
+    let canvas;
+    let cursor;
+    let mouse;
 
-  p.setup = () => {
-    canvas = createInstanceCanvas(p);
-    p.frameRate(FPS);
-    cursor = new Cursor(p);
-    mouse  = new RandomWalker(p, {});
-  };
+    p.setup = () => {
+        canvas = createInstanceCanvas(p);
+        p.frameRate(FPS);
+        cursor = new Cursor(p);
+        mouse  = new RandomWalker(p, {});
+    };
 
-  p.draw = () => {
-    redrawBackground(p);
-    cursor.update(mouse.getNextPos());
-    cursor.display();
-  };
+    p.draw = () => {
+        redrawBackground(p);
+        cursor.update(mouse.getNextPos());
+        cursor.display();
+    };
 };
 
 

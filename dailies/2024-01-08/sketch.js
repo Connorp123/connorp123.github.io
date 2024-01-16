@@ -1,4 +1,4 @@
-import { createSimplePhysicsObject } from "../../classes/SimplePhysicsObject.js";
+import { createSimplePhysicsObject } from "../../classes/module/SimplePhysicsObject.js";
 import { getGifName } from "../../helpers/modules/display-helpers-modules.js";
 
 
