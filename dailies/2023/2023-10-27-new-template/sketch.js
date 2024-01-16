@@ -1,4 +1,4 @@
-import { createGui } from "../../helpers/gui-helpers.js";
+import { createGui } from "../../../helpers/gui-helpers.js";
 
 const createClass = ({p}) => {
     return class MyClass {

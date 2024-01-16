@@ -4,14 +4,24 @@ const smallerCanvasDimension = (p) => {
 
 export const createSimplePhysicsObject = ({p}) => {
     return class SimplePhysicsObject {
-        constructor({x, y, radius, beforeUpdate, displayFunction}) {
+        constructor({
+                        x,
+                        y,
+                        radius,
+                        beforeUpdate,
+                        displayFunction,
+                        startAcc,
+                        startVel,
+                        maxVel,
+                        maxAcc
+                    }) {
 
             // Physics
             this.pos    = p.createVector(x || p.random() * p.width, y || p.random() * p.height);
-            this.acc    = p.createVector(0, 0);
-            this.vel    = p.createVector(0, 0);
-            this.maxVel = 1;
-            this.maxAcc = 0.01;
+            this.acc    = startAcc || p.createVector(0, 0);
+            this.vel    = startVel || p.createVector(0, 0);
+            this.maxVel = maxVel || 1;
+            this.maxAcc = maxAcc || 0.01;
 
             this.size = Math.floor(radius * 2) || Math.floor(smallerCanvasDimension(p) * (1 / 3));
             this.r    = radius || Math.ceil(this.size / 2);
@@ -46,7 +56,7 @@ export const createSimplePhysicsObject = ({p}) => {
             if (this.displayFunction) this.displayFunction(this);
             else {
                 p.fill(...this.rgb);
-                p.stroke(0);
+                p.noStroke();
                 p.circle(this.pos.x, this.pos.y, this.size);
             }
         }
@@ -64,7 +74,7 @@ export const createSimplePhysicsObject = ({p}) => {
             if (!vec) {
                 vec = p.createVector(x, y);
             }
-            this.acc.add(vec);
+            this.acc.add(vec).limit(this.maxAcc);
         };
 
     };

@@ -10,24 +10,24 @@
   <!-- Styles -->
   <link rel="stylesheet" href="./../../css/global.css">
   <style>
-      body, .art-wrapper, #sketch {
-          margin: 0;
-          padding: 0;
-          overflow: hidden;
-      }
+    body, .art-wrapper, #sketch {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
   </style>
 
   <!-- p5 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.min.js"
-          integrity="sha512-pgK6Wo8doipc/IPQ0ilH3b47ww01345nR9ud1/6Qp0n+lQlEW9zuw6JhysRcUpBY4yKuVZjn1MAkDxbnncuGsQ=="
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"
+          integrity="sha512-uaz5GpnQoE6t5echKlX8P52czvsIGgLPcvlzfvRubLZ1Hp8JemUDnbUiAahbVtPb+jUVrNETuXvAhDDF/N3M4w=="
           crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- Sketch -->
   <script src="sketch.js" type="module" async></script>
   <script type="module" async>
-      import {sketch} from "./sketch.js";
+    import {sketch} from "./sketch.js";
 
-      new p5(sketch, "sketch");
+    new p5(sketch, "sketch");
   </script>
 </head>
 
