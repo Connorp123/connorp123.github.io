@@ -1,13 +1,13 @@
-import {CubeVisualizer} from "../classes/CubeVisualizer.js";
+import { CubeVisualizer } from "../classes/module/CubeVisualizer.js";
 
 function main() {
 
     // Create the cube visualizer
     const visualizer = new CubeVisualizer({
-        numCubes: 1,
-        random:   false,
+        numCubes:     1,
+        random:       false,
         loadFromFile: true,
-        fileName: "vertical-stripes.json"
+        fileName:     "vertical-stripes.json"
     });
 
     function render() {

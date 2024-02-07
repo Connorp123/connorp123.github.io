@@ -1,5 +1,5 @@
 import { createGui } from "../../helpers/gui-helpers.js";
-import { WordManager } from "../../classes/WordManager.js";
+import { WordManager } from "../../classes/module/WordManager.js";
 
 export const word_vomit = (p) => {
     let state = {

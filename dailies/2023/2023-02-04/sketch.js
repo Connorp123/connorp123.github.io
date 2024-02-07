@@ -28,7 +28,7 @@
 
 import * as THREE from "https://threejs.org/build/three.module.js";
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
-import { RubiksCube } from "../../../classes/RubiksCube.js";
+import { RubiksCube } from "../../../classes/module/RubiksCube.js";
 
 
 /***

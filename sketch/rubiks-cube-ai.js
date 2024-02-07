@@ -1,7 +1,7 @@
-import {CubeVisualizer} from "../classes/CubeVisualizer.js";
-import {GeneticController} from "../classes/GeneticController.js";
-import {Gui} from "../classes/Gui.js";
-import * as THREE from "./../lib/three.module.js";
+import { CubeVisualizer } from "../classes/module/CubeVisualizer.js";
+import { GeneticController } from "../classes/module/GeneticController.js";
+import { Gui } from "../classes/module/Gui.js";
+import * as THREE from "../static/lib/three.module.js";
 
 let SCRAMBLED_STATE = [
     ["R", "R", "R", "B", "B", "B", "O", "O", "O"],

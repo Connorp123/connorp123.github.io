@@ -1,4 +1,4 @@
-import {Gui} from "../classes/Gui.js";
+import { Gui } from "../classes/module/Gui.js";
 
 /**
  * Create a gui from a state with controls set
@@ -16,7 +16,7 @@ import {Gui} from "../classes/Gui.js";
 export const createGui = ({state, name = "gui", showControls = true, onChange}) => {
     let gui = new Gui({
         name:         name,
-        showControls: showControls,
+        showControls: showControls
     });
 
     gui.onChange(onChange);
