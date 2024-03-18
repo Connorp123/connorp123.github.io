@@ -1,0 +1,99 @@
+@import './global.scss';
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: $bg-color-2-light-gray;
+}
+
+.gallery {
+  padding-top: 150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.main-content {
+  max-width: 1000px;
+  min-width: 500px;
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  border: 1px solid $bg-color-dark-grey;
+  padding: 30px;
+  border-radius: 15px;
+  background-color: $bg-color-light-grey;
+}
+
+.info, p, p:hover {
+  color: black;
+}
+
+.info {
+  font-family: $font-regular;
+  letter-spacing: 1px;
+  text-align: left;
+
+  h1 {
+    font-family: $font-light;
+    padding: 0;
+    margin: 0;
+  }
+
+  p {
+    font-size: 20px;
+  }
+}
+
+#sketch {
+  padding-top: 4px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1000px;
+  min-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 30px;
+
+  button {
+    padding: 20px 40px;
+    border-radius: 10px;
+    background-color: $bg-color-2-light-purple;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+
+  a {
+    text-decoration: none;
+    margin-left: 5px;
+  }
+}
+
+footer, footer a, footer a:visited {
+  color: $bg-color-dark-grey;
+  font-size: 12px;
+}
+
+
+@media only screen and (min-width: 20px) and (max-width: 1000px - 1px) {
+  .main-content {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    padding: 0 20px 20px;
+  }
+}
