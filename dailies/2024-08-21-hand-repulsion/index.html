@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- SEO -->
+  <meta charset="UTF-8">
+  <title>Daily Sketch </title>
+  <meta property="og:image" content="./../../img/profile.png"/>
+  <meta name="viewport" content="width=device-width">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./../../css/global.css">
+  <style>
+    body, .art-wrapper, #sketch {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
+
+  <!-- Tensorflow -->
+  <script src="https://unpkg.com/@tensorflow/tfjs-core@2.1.0/dist/tf-core.js"></script>
+  <script src="https://unpkg.com/@tensorflow/tfjs-converter@2.1.0/dist/tf-converter.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-cpu"></script>
+  <script
+      src="https://unpkg.com/@tensorflow/tfjs-backend-webgl@2.1.0/dist/tf-backend-webgl.js"></script>
+  <script src="https://unpkg.com/@tensorflow-models/handpose@0.0.6/dist/handpose.js"></script>
+
+  <!-- p5 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"
+          integrity="sha512-uaz5GpnQoE6t5echKlX8P52czvsIGgLPcvlzfvRubLZ1Hp8JemUDnbUiAahbVtPb+jUVrNETuXvAhDDF/N3M4w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Helpers -->
+  <script src="./../../helpers/display-helpers.js"></script>
+
+  <!-- Sketch -->
+  <script src="sketch.js" type="module" async></script>
+  <script type="module" async>
+    import {sketch} from "./sketch.js";
+
+    new p5(sketch, "sketch");
+  </script>
+</head>
+
+<body>
+<div class="art-wrapper">
+  <div class="sketch" id="sketch"></div>
+</div>
+</body>
+</html>
