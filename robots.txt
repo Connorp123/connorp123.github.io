@@ -6,3 +6,4 @@ Disallow: /art/rubiks-cube
 Disallow: /archive/
 Disallow: /_template
 Disallow: /tools
+Disallow: /index
