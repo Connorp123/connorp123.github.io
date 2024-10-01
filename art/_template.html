@@ -6,11 +6,11 @@
     (function (w, d, s, l, i) {
       w[l] = w[l] || [];
       w[l].push({"gtm.start": new Date().getTime(), event: "gtm.js"});
-      let f   = d.getElementsByTagName(s)[0];
-      let j   = d.createElement(s);
-      let dl  = l !== "dataLayer" ? "&l=" + l : "";
+      let f = d.getElementsByTagName(s)[0];
+      let j = d.createElement(s);
+      let dl = l !== "dataLayer" ? "&l=" + l : "";
       j.async = true;
-      j.src   = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
       f.parentNode.insertBefore(j, f);
     })(window, document, "script", "dataLayer", "GTM-5WT2CP6");
   </script>
@@ -47,7 +47,8 @@
   <script src="https://unpkg.com/@tensorflow/tfjs-core@2.1.0/dist/tf-core.js"></script>
   <script src="https://unpkg.com/@tensorflow/tfjs-converter@2.1.0/dist/tf-converter.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-cpu"></script>
-  <script src="https://unpkg.com/@tensorflow/tfjs-backend-webgl@2.1.0/dist/tf-backend-webgl.js"></script>
+  <script
+      src="https://unpkg.com/@tensorflow/tfjs-backend-webgl@2.1.0/dist/tf-backend-webgl.js"></script>
   <script src="https://unpkg.com/@tensorflow-models/handpose@0.0.6/dist/handpose.js"></script>
 
   <!-- Helpers -->
@@ -55,9 +56,9 @@
 
   <!-- Sketch -->
   <script type="module">
-    import {sketch_name} from "../sketch/modules/sketch_name.js";
+    import {word_vomit} from "../sketch/modules/word-vomit.js";
 
-    new p5(sketch_name, "sketch");
+    new p5(word_vomit, "sketch");
   </script>
 </head>
 
@@ -69,7 +70,7 @@
 </noscript>
 <div class="art-wrapper">
   <div class="back-button">
-    <a href="../index.html"><=</a>
+    <a href="../index.html">connorpeace.com</a>
   </div>
   <div class="sketch" id="sketch"></div>
   <div class="sidebar">
