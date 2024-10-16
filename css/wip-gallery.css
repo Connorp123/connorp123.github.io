@@ -79,13 +79,13 @@ p {
 
 .back-button {
   position: absolute;
-  left: 30px;
-  top: 30px;
+  left: 10px;
+  top: 10px;
   user-select: none;
 }
 .back-button a {
   color: #333333;
-  font-size: 46px;
+  font-size: 20px;
   text-decoration: none;
 }
 
@@ -96,55 +96,63 @@ body {
 }
 
 .gallery {
-  padding-top: 150px;
-  margin-left: auto;
-  margin-right: auto;
+  display: grid;
+  grid-template-rows: 50px auto 50px 50px;
+  grid-template-columns: 1fr minmax(500px, 1000px) 1fr;
+  justify-content: space-between;
+  grid-gap: 1rem;
+}
+
+.back-button {
+  grid-row: 1;
+  grid-column: 2;
+  position: unset;
+  align-self: end;
+}
+.back-button a {
+  color: #141414;
+  font-size: 20px;
+  text-decoration: none;
 }
 
 .main-content {
-  max-width: 1000px;
-  min-width: 500px;
-  display: flex;
-  justify-content: space-between;
-  height: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  grid-column: 2;
+  grid-row: 2;
   border: 1px solid #625F63;
   padding: 30px;
   border-radius: 15px;
   background-color: #F4F4F5;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
 }
-
-.info, p, p:hover {
-  color: black;
+.main-content .info, .main-content p, .main-content p:hover {
+  color: #141414;
 }
-
-.info {
+.main-content .info {
   font-family: "Rubik-Regular";
   letter-spacing: 1px;
   text-align: left;
 }
-.info h1 {
+.main-content .info h1 {
   font-family: "Rubik-Light";
   padding: 0;
   margin: 0;
 }
-.info p {
+.main-content .info p {
   font-size: 20px;
 }
-
-#sketch {
-  padding-top: 4px;
+.main-content #sketch {
+  justify-self: end;
 }
 
 .controls {
-  display: flex;
+  grid-row: 3;
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: auto auto;
   justify-content: space-between;
-  max-width: 1000px;
-  min-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 30px;
+  align-items: start;
 }
 .controls button {
   padding: 20px 40px;
@@ -154,15 +162,24 @@ body {
 .controls button:hover {
   cursor: pointer;
 }
+.controls #back {
+  grid-column: 1;
+}
+.controls #forward {
+  grid-column: 2;
+}
+
+#sketch {
+  padding-top: 4px;
+}
 
 footer {
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
+  grid-column: 2;
+  grid-row: 4;
+  justify-self: center;
 }
 footer a {
   text-decoration: none;
-  margin-left: 5px;
 }
 
 footer, footer a, footer a:visited {
@@ -170,12 +187,20 @@ footer, footer a, footer a:visited {
   font-size: 12px;
 }
 
-@media only screen and (min-width: 20px) and (max-width: 999px) {
-  .main-content {
-    flex-direction: column;
+@media only screen and (min-width: 20px) and (max-width: 699px) {
+  .gallery {
+    grid-template-columns: 1fr minmax(250px, 100%) 1fr;
   }
-  .sidebar {
-    padding: 0 20px 20px;
+
+  .main-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+  .main-content h1 {
+    font-size: 28px;
+  }
+  .main-content #sketch {
+    justify-self: center;
   }
 }
 
