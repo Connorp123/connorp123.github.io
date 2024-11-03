@@ -133,6 +133,7 @@ body {
   font-family: "Rubik-Regular";
   letter-spacing: 1px;
   text-align: left;
+  padding-right: 20px;
 }
 .main-content .info h1 {
   font-family: "Rubik-Light";
@@ -144,6 +145,7 @@ body {
 }
 .main-content #sketch {
   justify-self: end;
+  align-self: center;
 }
 
 .controls {
@@ -195,6 +197,9 @@ footer, footer a, footer a:visited {
   .main-content {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
+  }
+  .main-content .info {
+    padding-right: 0;
   }
   .main-content h1 {
     font-size: 28px;

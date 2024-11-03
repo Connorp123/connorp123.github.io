@@ -48,6 +48,7 @@ body {
     font-family: $font-regular;
     letter-spacing: 1px;
     text-align: left;
+    padding-right: 20px;
 
     h1 {
       font-family: $font-light;
@@ -62,6 +63,7 @@ body {
 
   #sketch {
     justify-self: end;
+    align-self: center;
   }
 }
 
@@ -121,6 +123,10 @@ footer, footer a, footer a:visited {
   .main-content {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
+
+    .info {
+      padding-right: 0;
+    }
 
     h1 {
       font-size: 28px;
