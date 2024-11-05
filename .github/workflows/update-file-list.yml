@@ -3,7 +3,7 @@ name: Update JS File List
 on:
   push:
     paths:
-      - 'noc/*.js'
+      - 'rnd/dynamic-sketch-loading/*.js'
 
 jobs:
   update-list:

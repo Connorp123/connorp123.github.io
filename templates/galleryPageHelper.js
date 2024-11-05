@@ -1,7 +1,7 @@
 const galleryPages = [
     "abstract-art.html",
     "landscape-painting.html",
-    "wip-gallery-page.html",
+    "gallery-page-template.html",
     "modern-sculpture.html",
     "renaissance-masterpiece.html",
     "impressionist-work.html"

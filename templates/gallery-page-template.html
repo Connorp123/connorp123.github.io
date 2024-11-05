@@ -3,9 +3,9 @@
 <head>
   <!-- Google Tag Manager -->
   <script>
-    (function (w, d, s, l, i) {
+    (function(w, d, s, l, i) {
       w[l] = w[l] || [];
-      w[l].push({"gtm.start": new Date().getTime(), event: "gtm.js"});
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
       let f = d.getElementsByTagName(s)[0];
       let j = d.createElement(s);
       let dl = l !== "dataLayer" ? "&l=" + l : "";
@@ -39,9 +39,9 @@
 
   <!-- Sketch -->
   <script type="module">
-    import {wipGalleryPage} from "./wip-gallery-page.js";
+    import { galleryPageTemplate } from "./gallery-page-template.js";
 
-    new p5(wipGalleryPage, "sketch");
+    new p5(galleryPageTemplate, "sketch");
   </script>
 </head>
 
