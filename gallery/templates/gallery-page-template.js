@@ -1,4 +1,4 @@
-import { createGalleryCanvas, setGalleryButtonUrls } from "./galleryPageHelper.js";
+import { createGalleryCanvas, setGalleryButtonUrls } from "../../helpers/galleryPageHelper.js";
 
 export const galleryPageTemplate = (p) => {
     let canvas;
