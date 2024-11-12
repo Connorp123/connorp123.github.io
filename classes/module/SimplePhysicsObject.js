@@ -2,18 +2,46 @@ const smallerCanvasDimension = (p) => {
     return Math.min(p.width, p.height);
 };
 
+/**
+ * pos:             PVector
+ * acc:             PVector
+ * vel:             PVector
+ * maxVel:          number (1)
+ * maxAcc:          number (0.01)
+ * size:            number (2x radius)
+ * r:               number (radius)
+ * rgb:             Array [number, number, number]
+ * customPhysics:   (this) => {}
+ * displayFunction: (this) => {}
+ */
 export const createSimplePhysicsObject = ({p}) => {
+
     return class SimplePhysicsObject {
+
+        /**
+         *
+         * @param x
+         * @param y
+         * @param radius
+         * @param customPhysics
+         * @param displayFunction -- accepts this, should set fill, stroke, etc.
+         * @param startAcc
+         * @param startVel
+         * @param maxVel
+         * @param maxAcc
+         * @param color -- Array [number, number, number]
+         */
         constructor({
                         x,
                         y,
                         radius,
-                        beforeUpdate,
+                        customPhysics,
                         displayFunction,
                         startAcc,
                         startVel,
                         maxVel,
-                        maxAcc
+                        maxAcc,
+                        color
                     }) {
 
             // Physics
@@ -27,10 +55,10 @@ export const createSimplePhysicsObject = ({p}) => {
             this.r    = radius || Math.ceil(this.size / 2);
 
             // Default draw
-            this.rgb = [p.random() * 255, p.random() * 255, p.random() * 255];
+            this.rgb = color || [p.random() * 255, p.random() * 255, p.random() * 255];
 
             // Overrides
-            this.beforeUpdate    = beforeUpdate;
+            this.beforeUpdate    = customPhysics;
             this.displayFunction = displayFunction;
         }
 
@@ -68,6 +96,16 @@ export const createSimplePhysicsObject = ({p}) => {
             desired.mult(this.maxVel);
             const steer = desired.sub(this.vel).limit(this.maxAcc);
             this.addForce({vec: steer});
+        }
+
+        attractTo({destinationVec, destinationX, destinationY}) {
+            if (!destinationVec) {
+                destinationVec = p.createVector(destinationX, destinationY);
+            }
+
+            // Get dif between this pos and destination
+            const diff = destinationVec.sub(this.pos);
+            this.addForce({vec: diff});
         }
 
         addForce({vec, x, y}) {
