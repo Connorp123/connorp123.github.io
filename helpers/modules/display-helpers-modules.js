@@ -14,3 +14,7 @@ export const getReelCanvas = (p, scale = 1) => {
 export const getFullscreenCanvas = (p) => {
     return p.createCanvas(p.windowWidth, p.windowHeight);
 };
+
+export const createSvgCanvas = (p, width, height) => {
+    return p.createCanvas(width, height, p.SVG);
+};
