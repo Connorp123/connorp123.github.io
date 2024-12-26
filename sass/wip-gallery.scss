@@ -7,58 +7,73 @@ body {
 }
 
 .gallery {
-  padding-top: 150px;
-  margin-left: auto;
-  margin-right: auto;
+  display: grid;
+  grid-template-rows: 50px auto 50px 50px;
+  grid-template-columns: 1fr minmax(500px, 1000px) 1fr;
+  justify-content: space-between;
+  grid-gap: 1rem;
+}
+
+.back-button {
+  grid-row: 1;
+  grid-column: 2;
+  position: unset;
+  align-self: end;
+
+  a {
+    color: $bg-color-3-black;
+    font-size: 20px;
+    text-decoration: none;
+  }
 }
 
 .main-content {
-  max-width: 1000px;
-  min-width: 500px;
-  display: flex;
-  justify-content: space-between;
-  height: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  grid-column: 2;
+  grid-row: 2;
 
   border: 1px solid $bg-color-dark-grey;
   padding: 30px;
   border-radius: 15px;
   background-color: $bg-color-light-grey;
-}
 
-.info, p, p:hover {
-  color: black;
-}
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
 
-.info {
-  font-family: $font-regular;
-  letter-spacing: 1px;
-  text-align: left;
-
-  h1 {
-    font-family: $font-light;
-    padding: 0;
-    margin: 0;
+  .info, p, p:hover {
+    color: $bg-color-3-black;
   }
 
-  p {
-    font-size: 20px;
-  }
-}
+  .info {
+    font-family: $font-regular;
+    letter-spacing: 1px;
+    text-align: left;
+    padding-right: 20px;
 
-#sketch {
-  padding-top: 4px;
+    h1 {
+      font-family: $font-light;
+      padding: 0;
+      margin: 0;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+
+  #sketch {
+    justify-self: end;
+    align-self: center;
+  }
 }
 
 .controls {
-  display: flex;
+  grid-row: 3;
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: auto auto;
   justify-content: space-between;
-  max-width: 1000px;
-  min-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 30px;
+  align-items: start;
 
   button {
     padding: 20px 40px;
@@ -69,16 +84,28 @@ body {
       cursor: pointer;
     }
   }
+
+  #back {
+    grid-column: 1;
+  }
+
+  #forward {
+    grid-column: 2;
+  }
+}
+
+#sketch {
+  padding-top: 4px;
 }
 
 footer {
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
+  grid-column: 2;
+  grid-row: 4;
+  justify-self: center;
 
   a {
     text-decoration: none;
-    margin-left: 5px;
+    //margin-left: 5px;
   }
 }
 
@@ -87,13 +114,26 @@ footer, footer a, footer a:visited {
   font-size: 12px;
 }
 
-
-@media only screen and (min-width: 20px) and (max-width: 1000px - 1px) {
-  .main-content {
-    flex-direction: column;
+// Phone
+@media only screen and (min-width: 20px) and (max-width: 700px - 1px) {
+  .gallery {
+    grid-template-columns: 1fr minmax(250px, 100%) 1fr;
   }
 
-  .sidebar {
-    padding: 0 20px 20px;
+  .main-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+
+    .info {
+      padding-right: 0;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+
+    #sketch {
+      justify-self: center;
+    }
   }
 }
