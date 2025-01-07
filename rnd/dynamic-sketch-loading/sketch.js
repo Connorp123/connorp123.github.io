@@ -56,5 +56,6 @@ export const dynamicSketch1 = (p) => {
      */
     p.draw = () => {
         redrawBackground(p);
+        p.circle(p.mouseX, p.mouseY, 20);
     };
 };
