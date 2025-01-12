@@ -1,0 +1,32 @@
+name: Strip HTML Extensions
+
+on:
+  push:
+    paths:
+      - '*.html'
+
+jobs:
+  process-html:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Strip .html extensions from <a> tags
+        run: |
+          python scripts/strip_html_extension.py
+
+      # Commit and push changes if any
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Automatically strip .html extensions from <a> tags" || echo "No changes to commit"
+          git push
