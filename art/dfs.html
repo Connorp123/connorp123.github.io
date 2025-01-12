@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
   <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({
-          "gtm.start":
-              new Date().getTime(), event: "gtm.js",
-      });
-      var f                          = d.getElementsByTagName(s)[0],
-          j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async                        = true;
-      j.src                          =
-          "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
+  <script>(function(w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({
+      "gtm.start":
+          new Date().getTime(), event: "gtm.js",
+    });
+    var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
+    j.async = true;
+    j.src =
+        "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+    f.parentNode.insertBefore(j, f);
   })(window, document, "script", "dataLayer", "GTM-5WT2CP6");</script>
 
   <!-- SEO -->
@@ -40,9 +40,9 @@
   <!-- Sketch -->
   <!--    <script src="../sketch/home/cursor-v1.js" type="module"></script>-->
   <script type="module">
-      import {dfs} from "/sketch/dfs.js";
+    import { dfs } from "/sketch/dfs.js";
 
-      let sketch = new p5(dfs, "sketch");
+    let sketch = new p5(dfs, "sketch");
   </script>
 </head>
 
@@ -59,7 +59,8 @@
   <div class="sketch" id="sketch"></div>
   <div class="sidebar">
     <h1>Depth-First Search Visualization</h1>
-    <p>Credit to <a href="http://ai.berkeley.edu/project_overview">UC Berkely</a> for the Pacman maze</p>
+    <p>Credit to <a href="http://ai.berkeley.edu/project_overview.html">UC Berkely</a> for the
+      Pacman maze</p>
   </div>
 </div>
 </body>
