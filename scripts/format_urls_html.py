@@ -37,13 +37,6 @@ def process_file(file_path):
         content
     )
 
-    # Remove trailing slashes from all URLs
-    content = re.sub(
-        r'(<(?:a|link)[^>]+href="[^"]+?)/"',
-        lambda match: match.group(1) + '"',
-        content
-    )
-
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(content)
     print(f"Processed: {file_path}")
