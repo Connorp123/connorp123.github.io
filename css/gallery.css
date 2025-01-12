@@ -193,7 +193,6 @@ footer, footer a, footer a:visited {
   .gallery {
     grid-template-columns: 1fr minmax(250px, 100%) 1fr;
   }
-
   .main-content {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
@@ -209,4 +208,4 @@ footer, footer a, footer a:visited {
   }
 }
 
-/*# sourceMappingURL=wip-gallery.css.map */
+/*# sourceMappingURL=gallery.css.map */

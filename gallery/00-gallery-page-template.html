@@ -20,13 +20,13 @@
   <!-- SEO -->
   <!-- TODO - Change page title, canonical -->
   <meta charset="UTF-8">
-  <title>Title</title>
-  <link href="https://connorpeace.com/art/whitney.html" rel="canonical">
+  <title>Connor Peace's Sketch</title>
+  <link href="https://connorpeace.com/gallery/index.html" rel="canonical">
   <meta property="og:image" content="./../img/profile.png"/>
   <meta name="viewport" content="width=device-width">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="../../css/wip-gallery.css">
+  <link rel="stylesheet" href="../css/gallery.css">
 
   <!-- p5 -->
   <script
@@ -40,11 +40,11 @@
 
   <!-- Sketch -->
   <script type="module">
-    import { galleryPageTemplate } from "../js/00-gallery-page-template.js";
+    import { galleryPageTemplate } from "./js/00-gallery-page-template.js";
     import {
       setGalleryButtonUrls,
       createGalleryPageHelpButton,
-    } from "../../helpers/gallery-page-helper.js";
+    } from "../helpers/gallery-page-helper.js";
 
     setGalleryButtonUrls();
     createGalleryPageHelpButton([]);
@@ -62,7 +62,7 @@
 
 <div class="gallery">
   <div class="back-button">
-    <a href="../../index.html">connorpeace.com</a>
+    <a href="../index.html">connorpeace.com</a>
   </div>
   <div class="main-content">
     <div class="info">
