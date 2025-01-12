@@ -1,12 +1,13 @@
-name: Strip HTML Extensions
+name: Format URLs
 
 on:
   push:
     paths:
       - '*.html'
+      - 'sitemap.xml'
 
 jobs:
-  process-html:
+  process-urls:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,9 +19,13 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Strip .html extensions from <a> tags
+      - name: Format html urls
         run: |
-          python scripts/strip_html_extension.py
+          python scripts/format_urls_html.py
+
+      - name: Format sitemap urls
+        run: |
+          python scripts/format_urls_sitemap.py
 
       # Commit and push changes if any
       - name: Commit and push changes
@@ -28,5 +33,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
-          git commit -m "Automatically strip .html extensions from <a> tags" || echo "No changes to commit"
+          git commit -m "Automatically format urls" || echo "No changes to commit"
           git push

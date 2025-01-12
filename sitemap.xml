@@ -1,64 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 ">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://connorpeace.com/</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/resume.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/resume</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/attraction.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/art/attraction</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/cursor-v1.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/art/cursor-v1</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/cursor-v2.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/art/cursor-v2</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/easiest-snake-game.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/art/easiest-snake-game</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/face-attraction.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/art/face-attraction</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/hand-attraction.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/art/hand-attraction</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/primary-layers.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/art/primary-layers</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/random-number-visualizer.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/art/random-number-visualizer</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/rapid-bubbles.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/art/rapid-bubbles</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/tiles.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/art/tiles</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/seattle-temp-viz.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/art/seattle-temp-viz</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/whitney.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/art/whitney</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/dfs.html</loc>
-        <lastmod>2023-01-11</lastmod>
+        <loc>https://connorpeace.com/art/dfs</loc>
     </url>
 </urlset>
