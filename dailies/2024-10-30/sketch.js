@@ -1,8 +1,5 @@
+import { getFullscreenCanvas, getGifName } from "../../helpers/display-helpers-modules.js";
 import { createGui } from "../../helpers/gui-helpers.js";
-import {
-    getFullscreenCanvas,
-    getGifName
-} from "../../helpers/modules/display-helpers-modules.js";
 
 const smallerCanvasDimension = (p) => {
     return Math.min(p.width, p.height);

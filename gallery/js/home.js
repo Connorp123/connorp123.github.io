@@ -1,4 +1,4 @@
-import { createGalleryCanvas, setGalleryButtonUrls } from "../../helpers/galleryPageHelper.js";
+import { createGalleryCanvas, setGalleryButtonUrls } from "../../helpers/gallery-page-helper.js";
 
 export const flow_field = (p) => {
     let flowField;      // flowField object

@@ -1,5 +1,5 @@
+import { getGifName } from "../../helpers/display-helpers-modules.js";
 import { createGui } from "../../helpers/gui-helpers.js";
-import { getGifName } from "../../helpers/modules/display-helpers-modules.js";
 
 const createClass = ({p}) => {
     return class MyClass {

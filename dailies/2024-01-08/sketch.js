@@ -1,5 +1,5 @@
 import { createSimplePhysicsObject } from "../../classes/module/SimplePhysicsObject.js";
-import { getGifName } from "../../helpers/modules/display-helpers-modules.js";
+import { getGifName } from "../../helpers/display-helpers-modules.js";
 
 
 // Genuary 8 Prompt -- chaotic systems

@@ -1,4 +1,4 @@
-import { getGifName } from "../../helpers/modules/display-helpers-modules.js";
+import { getGifName } from "../../helpers/display-helpers-modules.js";
 
 // Day 13 - wobbly sin
 
