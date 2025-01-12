@@ -32,8 +32,8 @@ def process_file(file_path):
 
     # Process <link> tags
     content = re.sub(
-        r'<link([^>]+)href="([^"]+)\.html(/?)"',
-        lambda match: f'<link{match.group(1)}href="{match.group(2)}"',
+        r'<link([^>]*?)rel="canonical"([^>]*?)href="([^"]+)"|<link([^>]*?)href="([^"]+)"([^>]*?)rel="canonical"',
+        lambda match: f'<link{match.group(1) or match.group(4) or ""} rel="canonical" href="{match.group(3) or match.group(5)}">',
         content
     )
 
