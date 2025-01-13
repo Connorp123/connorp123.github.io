@@ -1,45 +1,54 @@
 import os
 import re
 
+
 def process_html_files():
-    """
-    Process all .html files in the root directory and subdirectories,
-    modifying URLs in <a> and <link> tags.
-    """
-    root_directory = os.getcwd()  # Repository root
+    root_directory = os.getcwd()
     for dirpath, _, filenames in os.walk(root_directory):
         for file in filenames:
             if file.endswith(".html"):
                 file_path = os.path.join(dirpath, file)
                 process_file(file_path)
 
-def process_file(file_path):
-    """
-    Modify the file to:
-    1. Remove ".html" from href attributes of <a> tags.
-    2. Remove ".html" from href attributes of <link> tags.
-    3. Strip trailing forward slashes from URLs.
-    """
-    with open(file_path, 'r', encoding='utf-8') as file:
-        content = file.read()
 
-    # Process <a> tags
-    content = re.sub(
+def get_canonical_url(file_path):
+    content_root = "https://connorpeace.com"
+    relative_path = os.path.relpath(file_path, os.getcwd()).replace("\\", "/")
+    if relative_path.endswith("index.html"):
+        return f"{content_root}/{os.path.dirname(relative_path)}/".rstrip("/")
+    else:
+        return f"{content_root}/{relative_path}".replace(".html", "")
+
+
+def recreate_canonical_link(file_path, content):
+    canonical_url = get_canonical_url(file_path)
+    return re.sub(
+        r'<link[^>]*?rel="canonical"[^>]*?>',
+        f'<link rel="canonical" href="{canonical_url}">',
+        content
+    )
+
+
+def clean_anchor_tags(content):
+    return re.sub(
         r'<a([^>]+)href="([^"]+)\.html(/?)"',
         lambda match: f'<a{match.group(1)}href="{match.group(2)}"',
         content
     )
 
-    # Process <link> tags
-    content = re.sub(
-        r'<link([^>]*?)rel="canonical"([^>]*?)href="([^"]+)"|<link([^>]*?)href="([^"]+)"([^>]*?)rel="canonical"',
-        lambda match: f'<link{match.group(1) or match.group(4) or ""} rel="canonical" href="{match.group(3) or match.group(5)}">',
-        content
-    )
+
+def process_file(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+
+    content = recreate_canonical_link(file_path, content)
+    content = clean_anchor_tags(content)
 
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(content)
+
     print(f"Processed: {file_path}")
+
 
 if __name__ == "__main__":
     process_html_files()
