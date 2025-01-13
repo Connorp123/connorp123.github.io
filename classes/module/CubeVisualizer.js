@@ -1,5 +1,5 @@
-import * as THREE from "../../static/lib/three.module.js";
 import { OrbitControls } from "../../static/lib/OrbitControls.js";
+import * as THREE from "../../static/lib/three.module.js";
 import { RubiksCube } from "./RubiksCube.js";
 
 const PLAY   = 1;
@@ -117,7 +117,7 @@ export class CubeVisualizer {
      *
      */
     loadCubeDataFromFile() {
-        fetch(`./../resources/rubiks/${this.fileName}`)
+        fetch(`./../static/resources/rubiks/${this.fileName}`)
             .then(res => res.json())
             .then(data => {
                 const initialState = data["initial_state"];
