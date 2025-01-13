@@ -65,6 +65,38 @@ body {
     justify-self: end;
     align-self: center;
   }
+
+  .sketch-specific-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: stretch;
+    align-content: start;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    padding-top: 20px;
+
+    textarea {
+      grid-row-start: 1;
+      grid-column-start: -1;
+      grid-column-end: 1;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: $bg-color-2-light-purple;
+      resize: none;
+    }
+
+    button {
+      grid-row-start: 2;
+      padding: 20px 40px;
+      border-radius: 10px;
+      background-color: $bg-color-2-light-purple;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 .controls {

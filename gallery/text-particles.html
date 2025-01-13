@@ -19,7 +19,7 @@
 
   <!-- SEO -->
   <meta charset="UTF-8">
-  <title>Connor Peace - Sketch</title>
+  <title>Connor Peace - Text Particles</title>
   <link rel="canonical" href="https://connorpeace.com/gallery/00-gallery-page-template">
   <meta property="og:image" content="./../img/profile.png"/>
   <meta name="viewport" content="width=device-width">
@@ -45,14 +45,21 @@
     } from "../helpers/gallery-page-helper.js";
 
     setGalleryButtonUrls();
-    createGalleryPageHelpButton([]);
+    createGalleryPageHelpButton([
+      "1 - Return to start",
+      "R - Toggle repel",
+      "B - Toggle trails",
+      "F - Toggle radiate",
+      "Up Arrow - Increase font size",
+      "Down Arrow - Decrease font size",
+    ]);
   </script>
 
   <!-- Sketch -->
   <script type="module">
-    import { galleryPageTemplate } from "./js/00-gallery-page-template.js";
+    import { text_particles } from "./js/text-particles.js";
 
-    new p5(galleryPageTemplate, "sketch");
+    new p5(text_particles, "sketch");
   </script>
 </head>
 
@@ -70,12 +77,16 @@
   </div>
   <div class="main-content">
     <div class="info">
-      <h1>Random Number Visualizer</h1>
-      <p>Harris portrayed herself, appearing in a mirror opposite the actor who plays her on the
-        show, Maya Rudolph, who was nervously preparing for a campaign speech. Dressed identically
-        in a black suit and pearls, the two traded variations on Harris' first name, saying
-        Americans want to "end the drama-la" in politics "with a cool new stepmom-ala."</p>
+      <h1>Text Particles</h1>
+      <p>Try entering your own name!</p>
       <a id="show-sketch-controls">Controls</a>
+
+      <div class="sketch-specific-inputs">
+        <label for="text-input"></label>
+        <textarea id="text-input" placeholder="Connor&#10;Peace">Connor&#10;Connor</textarea>
+        <button id="font-button">Switch Font</button>
+        <button id="particle-button">Switch Particle Type</button>
+      </div>
     </div>
     <div class="sketch" id="sketch"></div>
   </div>

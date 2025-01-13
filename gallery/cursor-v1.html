@@ -38,9 +38,8 @@
 
   <!-- Helpers -->
 
-  <!-- Sketch -->
+  <!-- Page Setup -->
   <script type="module">
-    import { cursor_v1 } from "./js/cursor-v1.js";
     import {
       setGalleryButtonUrls,
       createGalleryPageHelpButton,
@@ -48,6 +47,12 @@
 
     setGalleryButtonUrls();
     createGalleryPageHelpButton([]);
+  </script>
+
+  <!-- Sketch -->
+  <script type="module">
+    import { cursor_v1 } from "./js/cursor-v1.js";
+
     new p5(cursor_v1, "sketch");
   </script>
 </head>

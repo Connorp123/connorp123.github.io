@@ -1,17 +1,19 @@
+import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+
 export const text_particles = (p) => {
 
-    let redraw      = true;
-    let reset       = true;
-    let repel       = true;
-    let radiate     = false;
-    let debug       = false;
-    let displayMode = 0;
-    let bgColor     = 0;
-    let vehicles    = [];
-    let fontNames   = [
+    let redraw              = true;
+    let reset               = true;
+    let repel               = true;
+    let radiate             = false;
+    let debug               = true;
+    let displayMode         = 0;
+    let bgColor             = 0;
+    let vehicles            = [];
+    let fontNames           = [
         "../../static/fonts/waltograph42.ttf",
         "../../static/fonts/waltographUI.ttf"];
-    let fontNum     = 0;
+    let fontNum             = 0;
     let fontSize;
     let font;
     let textBox1;
@@ -19,6 +21,8 @@ export const text_particles = (p) => {
     let displayModeButton;
     let canvas;
     let mouse;
+    const SAMPLE_FACTOR     = 0.75; // frequency of points
+    const LINE_SPACE_FACTOR = 1;
 
 //--------------------------------------------------------------------------------------------------
 
@@ -29,10 +33,12 @@ export const text_particles = (p) => {
 
     p.setup = () => {
         // Creates the canvas
-        canvas = createInstanceCanvas(p);
+        canvas = createGalleryCanvas(p);
 
         // Calculate the font size
-        fontSize = p.floor(p.width / 4.5);
+        p.textAlign(p.CENTER, p.CENTER);
+
+        fontSize = p.floor(p.width / 3);
 
         // Create the html elements
         createElements();
@@ -72,9 +78,6 @@ export const text_particles = (p) => {
         if (key === "F") {
             radiate = !radiate;
         }
-        if (key === " ") {
-            debug = !debug;
-        }
         if (p.keyCode === p.UP_ARROW) {
             changeFontSize(25);
         }
@@ -90,24 +93,36 @@ export const text_particles = (p) => {
     }//-------------------------------------------------------------------------------------------------
 
     function updateText() {
+        vehicles = [];
 
-        let text = textBox1.value();
-        let xPos = 25;
-        let yPos = p.height / 2 + fontSize / 3;
+        // Calculate total height of text block
+        let text        = textBox1.value;
+        let lines       = text.split("\n");
+        let lineHeight  = font.textBounds(lines[0], 0, 0, fontSize).h;
+        let totalHeight = lineHeight * lines.length;
 
-        // Gets a list of points from the borders of the text
-        let points = font.textToPoints(text, xPos, yPos, fontSize, {
-            sampleFactor: 0.15  // sampleFactor ~ frequency of points
+        // Calculate y-offset for vertical centering
+        let yOffset = (p.height / 2) - (totalHeight / 2) + lineHeight;
+
+        lines.forEach((line, lineNumber) => {
+            let lineWidth = font.textBounds(line, 0, 0, fontSize).w;
+            let xPos      = (p.width - lineWidth) / 2;
+            let yPos      = yOffset + (lineNumber * lineHeight);
+
+            // Get points from the text
+            let points = font.textToPoints(line, xPos, yPos, fontSize, {
+                sampleFactor: SAMPLE_FACTOR
+            });
+
+            // Create vehicles for each point
+            points.forEach(pt => {
+                let vehicle = new Vehicle(pt.x, pt.y, 5);
+                vehicle.randomizePos();
+                vehicles.push(vehicle);
+            });
         });
 
-        // Creates a vehicle at each of the points
-        vehicles = [];
-        for (let i = 0; i < points.length; i++) {
-            let pt      = points[i];
-            let vehicle = new Vehicle(pt.x, pt.y, 5);
-            vehicle.randomizePos();
-            vehicles.push(vehicle);
-        }
+
     }//-------------------------------------------------------------------------------------------------
 
     function switchFont() {
@@ -122,27 +137,17 @@ export const text_particles = (p) => {
         let urlValues = getURLValues();
 
         // Create the elements
-        if (urlValues.text)
-            textBox1 = p.createInput(urlValues.text);
-        else
-            textBox1 = p.createInput("ConnorPeace");
-        fontButton        = p.createButton("Switch Font");
-        displayModeButton = p.createButton("Switch Particle Type");
+        textBox1          = /** @type {HTMLTextAreaElement} */ document.getElementById("text-input");
+        fontButton        = /** @type {HTMLButtonElement} */ document.getElementById("font-button");
+        displayModeButton = /** @type {HTMLButtonElement} */ document.getElementById("particle-button");
+
+        // Override text box if url values
+        if (urlValues.text) textBox1.value = p.createInput(urlValues.text);
 
         // Set their function
-        textBox1.input(updateText);
-        fontButton.mousePressed(switchFont);
-        displayModeButton.mousePressed(changeDisplayMode);
-
-        // Set their positions
-        textBox1.position(0, 0);
-        fontButton.position(textBox1.width, 0);
-        displayModeButton.position(textBox1.width + fontButton.width, 0);
-
-        // Set their parents
-        // textBox1.parent('textInput1');
-        // fontButton.parent('fontButton');
-        // displayModeButton.parent('displayModeButton');
+        textBox1.addEventListener("change", updateText);
+        fontButton.addEventListener("click", switchFont);
+        displayModeButton.addEventListener("click", changeDisplayMode);
     }//-------------------------------------------------------------------------------------------------
 
 // From http://stackoverflow.com/questions/8237780/javascript-read-variable-value-from-url

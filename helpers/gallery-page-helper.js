@@ -68,8 +68,8 @@ const isClickOutsideDialog = (event, dialog) => {
 };
 
 const disableButtons = (backButton, forwardButton) => {
-    backButton.disabled    = true;
-    forwardButton.disabled = true;
+    if (backButton) backButton.disabled = true;
+    if (forwardButton) forwardButton.disabled = true;
 };
 
 const setupButton = (button, url) => {

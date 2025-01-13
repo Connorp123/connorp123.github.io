@@ -147,6 +147,34 @@ body {
   justify-self: end;
   align-self: center;
 }
+.main-content .sketch-specific-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-items: stretch;
+  align-content: start;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  padding-top: 20px;
+}
+.main-content .sketch-specific-inputs textarea {
+  grid-row-start: 1;
+  grid-column-start: -1;
+  grid-column-end: 1;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #E2E0F5;
+  resize: none;
+}
+.main-content .sketch-specific-inputs button {
+  grid-row-start: 2;
+  padding: 20px 40px;
+  border-radius: 10px;
+  background-color: #E2E0F5;
+}
+.main-content .sketch-specific-inputs button:hover {
+  cursor: pointer;
+}
 
 .controls {
   grid-row: 3;
