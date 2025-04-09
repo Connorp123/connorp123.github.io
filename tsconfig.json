@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ESNext",
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "types": ["p5/global"],
+    "baseUrl": ".",
+      "paths": {
+          "classes/*": ["classes/*"],
+          "helpers/*": ["helpers/*"],
+          "sketch/*": ["sketch/*"]
+      }
+  },
+  "include": ["**/*.js", "index.html"],
+}
