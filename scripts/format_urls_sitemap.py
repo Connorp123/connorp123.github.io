@@ -1,13 +1,15 @@
 import os
 import re
 
+
 def process_sitemap():
     """
     Process all .html files in  sitemap.xml
     """
-    root_directory = os.getcwd()  # Repository root
+    root_directory = os.path.dirname(os.getcwd())  # Repository root
     file_path = os.path.join(root_directory, "sitemap.xml")
     process_file(file_path)
+
 
 def process_file(file_path):
     """
@@ -36,6 +38,7 @@ def process_file(file_path):
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(content)
     print(f"Processed: {file_path}")
+
 
 if __name__ == "__main__":
     process_sitemap()

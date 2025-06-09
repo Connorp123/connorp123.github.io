@@ -1,4 +1,4 @@
-import { createGalleryCanvas } from "helpers/gallery-page-helper.js";
+import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
 
 export const rapid_bubbles = (p) => {
     let canvas;

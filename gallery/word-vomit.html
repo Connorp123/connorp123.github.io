@@ -18,10 +18,9 @@
     <!-- End Google Tag Manager -->
 
     <!-- SEO -->
-    <!-- TODO - Change page title, canonical -->
     <meta charset="UTF-8">
-    <title>Connor Peace - Natural Cursor Trail</title>
-    <link rel="canonical" href="https://connorpeace.com/../gallery/cursor-v1">
+    <title>Connor Peace - Word Vomit</title>
+    <link rel="canonical" href="https://connorpeace.com/../gallery/word-vomit">
     <meta property="og:image" content="./../img/profile.png"/>
     <meta name="viewport" content="width=device-width">
 
@@ -40,20 +39,17 @@
 
     <!-- Page Setup -->
     <script type="module">
-        import {
-            setGalleryButtonUrls,
-            createGalleryPageHelpButton,
-        } from "../helpers/gallery-page-helper.js";
+        import { setGalleryButtonUrls, createGalleryPageHelpButton } from "../helpers/gallery-page-helper.js";
 
         setGalleryButtonUrls();
-        createGalleryPageHelpButton([]);
+        createGalleryPageHelpButton(["Click - Spawn new word"]);
     </script>
 
     <!-- Sketch -->
     <script type="module">
-        import { cursor_v1 } from "./js/cursor-v1.js";
+        import { word_vomit } from "./js/word-vomit.js";
 
-        new p5(cursor_v1, "sketch");
+        new p5(word_vomit, "sketch");
     </script>
 </head>
 
@@ -71,19 +67,14 @@
     </div>
     <div class="main-content">
         <div class="info">
-            <h1>Natural Cursor Trail</h1>
+            <h1>Word Vomit</h1>
             <p>
-                The color of the dots that follow the cursor are generated using Perlin Noise, and their
-                sizes are normally
-                distributed using p5's randomGaussian() function.
-            </p>
+                This was originally designed for my pen plotter. I wanted to have a bunch of words spread across the
+                screen and I liked the idea of being able to spew them from my mouse like a sparkler.</p>
             <p>
-                I store the most recent values of the cursor position in an
-                array, and choose not to draw the newest entries to give the sketch a feeling of following
-                the cursor.
-            </p>
-            <p>
-                The combination of these attributes gives the little snake thing a very natural feel :)
+                The lyrics for Mr. Roger's famous song <i>Won't You Be My Neighbor</i> were initially placeholder text
+                -- I had been thinking of him a lot since re-watching his documentary (MUST WATCH) -- But I loved them
+                so much I decided to keep them permanently :)
             </p>
             <a id="show-sketch-controls">Controls</a>
         </div>

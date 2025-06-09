@@ -1,4 +1,6 @@
-let color_layers = (p) => {
+import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+
+export const primary_layers = (p) => {
     let canvas;
     let imgLoaded   = false;
     let isDrawing   = false;
@@ -17,8 +19,8 @@ let color_layers = (p) => {
     let timer    = 100;
 
     p.setup = () => {
-        canvas = createInstanceCanvas(p);
-        redrawBackground(p);
+        canvas = createGalleryCanvas(p);
+        p.background(0);
         if (!autoRun) {
             p.fill(255);
             p.textSize(48);
@@ -27,7 +29,7 @@ let color_layers = (p) => {
         }
 
         // Load the image
-        p.loadImage("../../img/colorful-architecture.jpg", image => {
+        p.loadImage("../../static/img/colorful-architecture.jpg", image => {
 
             // Save the image and update vars
             originalImage = image;

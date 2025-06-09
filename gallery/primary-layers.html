@@ -18,10 +18,9 @@
     <!-- End Google Tag Manager -->
 
     <!-- SEO -->
-    <!-- TODO - Change page title, canonical -->
     <meta charset="UTF-8">
-    <title>Connor Peace - Natural Cursor Trail</title>
-    <link rel="canonical" href="https://connorpeace.com/../gallery/cursor-v1">
+    <title>Connor Peace - Primary Layers</title>
+    <link rel="canonical" href="https://connorpeace.com/../gallery/primary-layers">
     <meta property="og:image" content="./../img/profile.png"/>
     <meta name="viewport" content="width=device-width">
 
@@ -51,9 +50,9 @@
 
     <!-- Sketch -->
     <script type="module">
-        import { cursor_v1 } from "./js/cursor-v1.js";
+        import { primary_layers } from "./js/primary-layers.js";
 
-        new p5(cursor_v1, "sketch");
+        new p5(primary_layers, "sketch");
     </script>
 </head>
 
@@ -71,20 +70,11 @@
     </div>
     <div class="main-content">
         <div class="info">
-            <h1>Natural Cursor Trail</h1>
-            <p>
-                The color of the dots that follow the cursor are generated using Perlin Noise, and their
-                sizes are normally
-                distributed using p5's randomGaussian() function.
-            </p>
-            <p>
-                I store the most recent values of the cursor position in an
-                array, and choose not to draw the newest entries to give the sketch a feeling of following
-                the cursor.
-            </p>
-            <p>
-                The combination of these attributes gives the little snake thing a very natural feel :)
-            </p>
+            <h1>Layering Primary Colors to Create an Image</h1>
+            <p>Just a simple layering of primary colors (Red, Blue, Yellow) to reveal an image. I love how it magically
+                appears
+                when the yellow layer is drawn on top.</p>
+            <p>Inspired by a post seen on <a href="https://www.instagram.com/reel/CjBUUrIptLA">@suchiuframing</a></p>
             <a id="show-sketch-controls">Controls</a>
         </div>
         <div class="sketch" id="sketch"></div>

@@ -9,5 +9,11 @@ export const galleryPages = [
     "rubiks-cube.html",
     "dfs.html",
     "easiest-snake-game.html",
-    "cursor-v2.html"
+    "cursor-v2.html",
+    "tiles.html",
+    "word-vomit.html",
+    "seattle-temp-viz.html",
+    "rubiks-cube-ai.html",
+    "primary-layers.html",
+    "face-attraction.html"
 ];

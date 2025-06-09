@@ -1,75 +1,78 @@
-let tiles = (p, isMini=false) => {
-  let redraw = false;
-  let NUM_SQUARES = 100;
-  let ROW_LENGTH = 10;
-  let squares = [];
-  let current = 0;
-  let drawing = true;
-  let t = 0;
-  let tStep = 0.005;
+import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
 
-  p.setup = () => {
-    createInstanceCanvas(p)
-    p.frameRate(45);
-    p.background(0);
+export const tiles = (p, isMini = false) => {
+    let redraw      = false;
+    let NUM_SQUARES = 100;
+    let ROW_LENGTH  = 10;
+    let squares     = [];
+    let current     = 0;
+    let drawing     = true;
+    let t           = 0;
+    let tStep       = 0.005;
+    let canvas;
 
-    // Create each square
-    let w = p.width / ROW_LENGTH;
-    let x = 0;
-    let y = 0;
+    p.setup = () => {
+        canvas = createGalleryCanvas(p);
+        p.frameRate(45);
+        p.background(0);
 
-    // Create each square
-    for (let row = 0; row < ROW_LENGTH; row++) {
-      for (let col = 0; col < ROW_LENGTH; col++) {
-        squares.push(new Square(p, x, y, w, t));
-        x += w;
-      }
-      x = 0;
-      y += w;
-    }
-  }
+        // Create each square
+        let w = p.width / ROW_LENGTH;
+        let x = 0;
+        let y = 0;
 
-  p.draw = () => {
-    if (redraw) p.background(0);
+        // Create each square
+        for (let row = 0; row < ROW_LENGTH; row++) {
+            for (let col = 0; col < ROW_LENGTH; col++) {
+                squares.push(new Square(p, x, y, w, t));
+                x += w;
+            }
+            x = 0;
+            y += w;
+        }
+    };
 
-    // At each frame, show the next square
-    if (current >= NUM_SQUARES) {
-      current = 0;
-      drawing = !drawing;
-    }
+    p.draw = () => {
+        if (redraw) p.background(0);
 
-    if (drawing) {
-      squares[current].draw(t);
-    } else {
-      squares[current].hide();
-    }
+        // At each frame, show the next square
+        if (current >= NUM_SQUARES) {
+            current = 0;
+            drawing = !drawing;
+        }
 
-    current++;
-    t += tStep;
-  }
-}
+        if (drawing) {
+            squares[current].draw(t);
+        } else {
+            squares[current].hide();
+        }
+
+        current++;
+        t += tStep;
+    };
+};
 
 class Square {
 
-  constructor(p, x, y, w) {
-    this.p = p;
-    this.x = x;
-    this.y = y;
-    this.w = w;
-  }
+    constructor(p, x, y, w) {
+        this.p = p;
+        this.x = x;
+        this.y = y;
+        this.w = w;
+    }
 
-  draw = (t) => {
-    this.color = [
-      this.p.noise(t) * 255,
-      this.p.noise(t + 1) * 255,
-      this.p.noise(t + 2) * 255,
-    ]
-    this.p.fill(this.color[0], this.color[1], this.color[2]);
-    this.p.square(this.x, this.y, this.w);
-  }
+    draw = (t) => {
+        this.color = [
+            this.p.noise(t) * 255,
+            this.p.noise(t + 1) * 255,
+            this.p.noise(t + 2) * 255
+        ];
+        this.p.fill(this.color[0], this.color[1], this.color[2]);
+        this.p.square(this.x, this.y, this.w);
+    };
 
-  hide = () => {
-    this.p.fill(0);
-    this.p.square(this.x, this.y, this.w);
-  }
+    hide = () => {
+        this.p.fill(0);
+        this.p.square(this.x, this.y, this.w);
+    };
 }

@@ -1,90 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
-  <script>(function(w, d, s, l, i) {
-    w[l] = w[l] || [];
-    w[l].push({
-      "gtm.start":
-          new Date().getTime(), event: "gtm.js",
-    });
-    const f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l !== "dataLayer" ? "&l=" + l : "";
-    j.async = true;
-    j.src =
-        "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-    f.parentNode.insertBefore(j, f);
-  })(window, document, "script", "dataLayer", "GTM-5WT2CP6");</script>
-  <!-- End Google Tag Manager -->
+    <!-- Google Tag Manager -->
+    <script>(function(w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            "gtm.start":
+                new Date().getTime(), event: "gtm.js",
+        });
+        const f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l !== "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src =
+            "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-5WT2CP6");</script>
+    <!-- End Google Tag Manager -->
 
-  <!-- SEO -->
-  <meta charset="UTF-8">
-  <title>Connor Peace - Interactive Rubik's Cube Simulator</title>
-  <link rel="canonical" href="https://connorpeace.com/gallery/00-gallery-page-template">
-  <meta property="og:image" content="./../img/profile.png"/>
-  <meta name="viewport" content="width=device-width">
+    <!-- SEO -->
+    <meta charset="UTF-8">
+    <title>Connor Peace - Interactive Rubik's Cube Simulator</title>
+    <link rel="canonical" href="https://connorpeace.com/../gallery/rubiks-cube">
+    <meta property="og:image" content="./../img/profile.png"/>
+    <meta name="viewport" content="width=device-width">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="../css/gallery.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/gallery.css">
 
-  <!-- p5 -->
-  <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"
-      integrity="sha512-bcfltY+lNLlNxz38yBBm/HLaUB1gTV6I0e+fahbF9pS6roIdzUytozWdnFV8ZnM6cSAG5EbmO0ag0a/fLZSG4Q=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer">
-  </script>
+    <!-- p5 -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"
+        integrity="sha512-bcfltY+lNLlNxz38yBBm/HLaUB1gTV6I0e+fahbF9pS6roIdzUytozWdnFV8ZnM6cSAG5EbmO0ag0a/fLZSG4Q=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer">
+    </script>
 
-  <!-- Helpers -->
-  <script src="./../helpers/threejs-helpers.js"></script>
+    <!-- Helpers -->
 
-  <!-- Sketch -->
-  <script src="./js/rubiks-cube.js" type="module"></script>
+    <!-- Page Setup -->
+    <script type="module">
+        import {
+            setGalleryButtonUrls,
+            createGalleryPageHelpButton,
+        } from "../helpers/gallery-page-helper.js";
 
-  <!-- Page Setup -->
-  <script type="module">
-    import {
-      setGalleryButtonUrls,
-      createGalleryPageHelpButton,
-    } from "../helpers/gallery-page-helper.js";
+        setGalleryButtonUrls();
+        createGalleryPageHelpButton([]);
+    </script>
 
-    setGalleryButtonUrls();
-    createGalleryPageHelpButton([]);
-  </script>
+    <!-- Sketch -->
+    <script type="module">
+        import { galleryPageTemplate } from "./js/00-gallery-page-template.js";
 
-  <!-- Sketch -->
-  <script type="module">
-
-  </script>
+        new p5(galleryPageTemplate, "sketch");
+    </script>
 </head>
 
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript>
-  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WT2CP6"
-          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WT2CP6"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <div class="gallery">
-  <div class="back-button">
-    <a href="../index">connorpeace.com</a>
-  </div>
-  <div class="main-content">
-    <div class="info">
-      <h1>Rubik's Cube Simulator</h1>
-      <p>An interactive, simulated Rubik's cube using Three.JS</p>
-      <a id="show-sketch-controls">Controls</a>
+    <div class="back-button">
+        <a href="../index">connorpeace.com</a>
     </div>
-    <canvas id="canvas"></canvas>
-  </div>
-  <div class="controls">
-    <button id="back">back</button>
-    <button id="forward">forward</button>
-  </div>
-  <footer>gallery design inspired by <a href="https://www.codergb.art" target="_blank"
-                                        rel="noopener noreferrer">https://www.codergb.art</a>
-  </footer>
+    <div class="main-content">
+        <div class="info">
+            <h1>Rubik's Cube Simulator</h1>
+            <p>An interactive, simulated Rubik's cube using Three.JS</p>
+            <p>Haven't been able to get this to work for my new website format, so check it out <a
+                href="../sandbox/rubiks-cube">here</a></p>
+            <a id="show-sketch-controls">Controls</a>
+        </div>
+        <div class="sketch" id="sketch"></div>
+    </div>
+    <div class="controls">
+        <button id="back">back</button>
+        <button id="forward">forward</button>
+    </div>
+    <footer>gallery design inspired by <a href="https://www.codergb.art" target="_blank"
+                                          rel="noopener noreferrer">https://www.codergb.art</a>
+    </footer>
 </div>
 </body>
 </html>
