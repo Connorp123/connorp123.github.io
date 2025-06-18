@@ -146,6 +146,18 @@ body {
 .main-content #sketch {
   justify-self: end;
   align-self: center;
+  position: relative;
+}
+.main-content #fullscreen {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: 0;
+  border: 0;
+  color: white;
+  font-size: 32px;
+  padding: 0 10px;
+  z-index: 10;
 }
 .main-content .sketch-specific-inputs {
   display: grid;
@@ -197,10 +209,6 @@ body {
 }
 .controls #forward {
   grid-column: 2;
-}
-
-#sketch {
-  padding-top: 4px;
 }
 
 footer {

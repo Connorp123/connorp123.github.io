@@ -1,4 +1,4 @@
-import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
 
 export const hand_attraction = (p) => {
 
@@ -25,6 +25,7 @@ export const hand_attraction = (p) => {
     //--------------------------------------------------------------------------------------------------------------------
     p.setup = () => {
         canvas = createGalleryCanvas(p);
+        setupFullscreenButton(p);
         canvas.mouseClicked(startSketch);
         p.frameRate(60);
         p.textAlign(p.CENTER, p.CENTER);

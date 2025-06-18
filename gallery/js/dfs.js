@@ -1,4 +1,4 @@
-import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
 
 /***
  *
@@ -22,6 +22,7 @@ export const dfs = (p) => {
 
     p.setup = () => {
         canvas = createGalleryCanvas(p);
+        setupFullscreenButton(p, () => p.redraw());
         p.frameRate(FRAME_RATE);
         init();
         p.noLoop();

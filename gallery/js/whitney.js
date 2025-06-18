@@ -2,7 +2,7 @@
 // https://www.youtube.com/watch?v=XGe9QuJWOIg
 
 
-import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
 
 export const whitney = (p) => {
     let telescopes = [];
@@ -12,6 +12,7 @@ export const whitney = (p) => {
 
     p.setup = () => {
         canvas = createGalleryCanvas(p);
+        setupFullscreenButton(p);
         canvas.mouseClicked(drawTelescope);
         p.frameRate(5);
         p.background(0);

@@ -1,4 +1,4 @@
-import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
 
 export const cursor_v2 = (p) => {
 
@@ -9,6 +9,7 @@ export const cursor_v2 = (p) => {
 
     p.setup = () => {
         canvas = createGalleryCanvas(p);
+        setupFullscreenButton(p);
         for (let i = 0; i < numWalkers; i++) {
             walkers.push(new Walker(p.mouseX, p.mouseY));
             console.log("hi");

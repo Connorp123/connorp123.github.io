@@ -1,4 +1,4 @@
-import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
 
 export const tiles = (p, isMini = false) => {
     let redraw      = false;
@@ -11,25 +11,34 @@ export const tiles = (p, isMini = false) => {
     let tStep       = 0.005;
     let canvas;
 
-    p.setup = () => {
-        canvas = createGalleryCanvas(p);
-        p.frameRate(45);
-        p.background(0);
-
+    const recreateSquares = () => {
         // Create each square
-        let w = p.width / ROW_LENGTH;
-        let x = 0;
-        let y = 0;
+        let w   = p.width / ROW_LENGTH;
+        let x   = 0;
+        let y   = 0;
+        squares = [];
+        current = 0;
+        drawing = true;
+        t       = 0;
 
         // Create each square
         for (let row = 0; row < ROW_LENGTH; row++) {
             for (let col = 0; col < ROW_LENGTH; col++) {
-                squares.push(new Square(p, x, y, w, t));
+                squares.push(new Square(p, x, y, w));
                 x += w;
             }
             x = 0;
             y += w;
         }
+    };
+
+    p.setup = () => {
+        canvas = createGalleryCanvas(p);
+        setupFullscreenButton(p, () => recreateSquares());
+        p.frameRate(45);
+        p.background(0);
+
+        recreateSquares();
     };
 
     p.draw = () => {

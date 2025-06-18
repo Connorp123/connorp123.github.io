@@ -18,6 +18,7 @@ export const cursor_v1 = (p) => {
 
     p.setup = () => {
         canvas = createGalleryCanvas(p);
+        setupFullscreenButton(p);
         p.frameRate(fps);
         cursor = new Cursor(p);
     };
@@ -116,7 +117,7 @@ class Cursor {
  */
 
 import { RandomWalker } from "/classes/module/RandomWalker.js";
-import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
 
 export const home_cursor_v1 = (p) => {
     const FPS = 100;

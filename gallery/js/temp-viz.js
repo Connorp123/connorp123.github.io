@@ -1,4 +1,4 @@
-import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
 
 export const temp_viz = (p) => {
     let canvas;
@@ -20,6 +20,7 @@ export const temp_viz = (p) => {
 
     p.setup = async () => {
         canvas = createGalleryCanvas(p);
+        setupFullscreenButton(p);
         canvas.mouseClicked(() => allAtOnce = !allAtOnce);
         tempData = splitIntoYears(input);
         console.log(tempData);

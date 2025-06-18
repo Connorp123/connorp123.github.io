@@ -1,4 +1,4 @@
-import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
 
 export const text_particles = (p) => {
 
@@ -34,6 +34,7 @@ export const text_particles = (p) => {
     p.setup = () => {
         // Creates the canvas
         canvas = createGalleryCanvas(p);
+        setupFullscreenButton(p);
 
         // Calculate the font size
         p.textAlign(p.CENTER, p.CENTER);

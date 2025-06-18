@@ -34,12 +34,41 @@ export const setGalleryButtonUrls = () => {
 };
 
 export const createGalleryCanvas = (p, smallWidth = 600, mediumWidth = 1000) => {
+    const SMALL_SIZE  = 250;
+    const MEDIUM_SIZE = 350;
+    const LARGE_SIZE  = 500;
     return p.windowWidth < smallWidth
-           ? p.createCanvas(250, 250)
+           ? p.createCanvas(SMALL_SIZE, SMALL_SIZE)
            : p.windowWidth < mediumWidth
-             ? p.createCanvas(350, 350)
-             : p.createCanvas(500, 500);
+             ? p.createCanvas(LARGE_SIZE, MEDIUM_SIZE)
+             : p.createCanvas(LARGE_SIZE, LARGE_SIZE);
 };
+
+export const toggleFullscreenStyles = (p, isFullscreen, fullscreenButton) => {
+    let canvas;
+    if (isFullscreen) {
+        canvas = createGalleryCanvas(p);
+        canvas.style("position", "unset");
+        fullscreenButton.style("position", "absolute");
+    } else {
+        canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+        canvas.position(0, 0, "fixed");
+        fullscreenButton.style("position", "fixed");
+    }
+};
+
+export const setupFullscreenButton = (p, onToggle) => {
+    const button     = p.select("button#fullscreen");
+    let isFullscreen = false;
+    button.mousePressed(() => {
+        toggleFullscreenStyles(p, isFullscreen, button);
+        isFullscreen = !isFullscreen;
+        p.background(0);
+        if (onToggle) onToggle();
+    });
+    button.elt.addEventListener("mousedown", (e) => e.stopPropagation());
+};
+
 
 /** Helpers **/
 

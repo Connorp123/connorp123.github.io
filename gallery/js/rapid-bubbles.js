@@ -1,4 +1,4 @@
-import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
 
 export const rapid_bubbles = (p) => {
     let canvas;
@@ -13,6 +13,7 @@ export const rapid_bubbles = (p) => {
 
     p.setup = () => {
         canvas = createGalleryCanvas(p);
+        setupFullscreenButton(p);
         p.frameRate(45);
         p.background(0);
         p.noFill();

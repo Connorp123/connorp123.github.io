@@ -1,9 +1,8 @@
 import { createWalker } from "../../classes/module/Walker.js";
-import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
 
 export const attraction = (p) => {
     let canvas;
-    let w;
     let walkers          = [];
     let redraw           = true;
     let recording        = false;
@@ -13,6 +12,7 @@ export const attraction = (p) => {
 
     p.setup = () => {
         canvas = createGalleryCanvas(p);
+        setupFullscreenButton(p);
         p.frameRate(60);
 
         walkers.push(new Walker(p.mouseX, p.mouseY, 20));

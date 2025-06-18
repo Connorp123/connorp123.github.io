@@ -4,16 +4,16 @@ export const galleryPages = [
     "cursor-v1.html",
     "rapid-bubbles.html",
     "whitney.html",
+    "word-vomit.html",
+    "tiles.html",
+    "primary-layers.html",
+    "easiest-snake-game.html",
     "hand-attraction.html",
     "random-number-visualizer.html",
-    "rubiks-cube.html",
+    "face-attraction.html",
     "dfs.html",
-    "easiest-snake-game.html",
     "cursor-v2.html",
-    "tiles.html",
-    "word-vomit.html",
     "seattle-temp-viz.html",
-    "rubiks-cube-ai.html",
-    "primary-layers.html",
-    "face-attraction.html"
+    "rubiks-cube.html",
+    "rubiks-cube-ai.html"
 ];

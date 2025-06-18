@@ -1,5 +1,5 @@
 import { WordManager } from "../../classes/module/WordManager.js";
-import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
 
 export const word_vomit = (p) => {
     let state = {
@@ -32,7 +32,8 @@ export const word_vomit = (p) => {
     const words = text.match(/[a-zA-Z]+(?:'[a-zA-Z]+)?/g);
 
     p.setup = () => {
-        canvas      = createGalleryCanvas(p);
+        canvas = createGalleryCanvas(p);
+        setupFullscreenButton(p);
         wordManager = new WordManager({
             p:            p,
             state:        state,
@@ -48,6 +49,7 @@ export const word_vomit = (p) => {
     };
 
     p.mouseClicked = () => {
+        console.log("mouse clicked");
         wordManager.newWord({x: p.mouseX, y: p.mouseY});
     };
 

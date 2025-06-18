@@ -1,4 +1,4 @@
-import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
 
 export const primary_layers = (p) => {
     let canvas;
@@ -20,6 +20,7 @@ export const primary_layers = (p) => {
 
     p.setup = () => {
         canvas = createGalleryCanvas(p);
+        setupFullscreenButton(p);
         p.background(0);
         if (!autoRun) {
             p.fill(255);

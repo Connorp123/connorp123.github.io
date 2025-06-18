@@ -1,4 +1,4 @@
-import { createGalleryCanvas } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
 
 export const snake_game = (p) => {
     // Snake
@@ -11,12 +11,13 @@ export const snake_game = (p) => {
     let gameOver;
     let best = 0;
 
-    const draw_scale = 10;
+    const draw_scale = 30;
     const fps        = 10;
 
     p.setup = () => {
         // Canvas setup
         canvas = createGalleryCanvas(p);
+        setupFullscreenButton(p);
         p.frameRate(fps);
         calcBorderValues();
 
