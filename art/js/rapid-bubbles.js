@@ -2,14 +2,14 @@ import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/galler
 
 export const rapid_bubbles = (p) => {
     let canvas;
-    let redraw      = false;
-    let radius      = 1;
-    let x           = 0;
-    let y           = 0;
+    let redraw = false;
+    let radius = 1;
+    let x = 0;
+    let y = 0;
     let R, G, B;
     let forgiveness = 20;
-    let SPACING     = 10;
-    let b           = 12;
+    let SPACING = 10;
+    let b = 12;
 
     p.setup = () => {
         canvas = createGalleryCanvas(p);
@@ -31,11 +31,11 @@ export const rapid_bubbles = (p) => {
                 radius += SPACING;
             } else {
                 radius = p.int(p.random(4, 6) + 1);
-                x      = p.mouseX;
-                y      = p.mouseY;
-                R      = p.random(0, 255);
-                G      = p.random(0, 255);
-                B      = p.random(0, 255);
+                x = p.mouseX;
+                y = p.mouseY;
+                R = p.random(0, 255);
+                G = p.random(0, 255);
+                B = p.random(0, 255);
             }
             drawCircle(radius);
         }
@@ -44,5 +44,12 @@ export const rapid_bubbles = (p) => {
     const drawCircle = () => {
         p.stroke(R, G, B);
         p.circle(p.mouseX, p.mouseY, radius);
+    };
+
+
+    p.keyPressed = () => {
+        if (p.key === "b" || p.key === "B") {
+            redraw = !redraw;
+        }
     };
 };
