@@ -6,6 +6,9 @@
         <loc>https://connorpeace.com/resume</loc>
     </url>
     <url>
+        <loc>https://connorpeace.com/art</loc>
+    </url>
+    <url>
         <loc>https://connorpeace.com/art/attraction</loc>
     </url>
     <url>
@@ -13,6 +16,9 @@
     </url>
     <url>
         <loc>https://connorpeace.com/art/cursor-v2</loc>
+    </url>
+    <url>
+        <loc>https://connorpeace.com/art/dfs</loc>
     </url>
     <url>
         <loc>https://connorpeace.com/art/easiest-snake-game</loc>
@@ -33,15 +39,24 @@
         <loc>https://connorpeace.com/art/rapid-bubbles</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/tiles</loc>
+        <loc>https://connorpeace.com/art/rubiks-cube</loc>
+    </url>
+    <url>
+        <loc>https://connorpeace.com/art/rubiks-cube-ai</loc>
     </url>
     <url>
         <loc>https://connorpeace.com/art/seattle-temp-viz</loc>
     </url>
     <url>
+        <loc>https://connorpeace.com/art/text-particles</loc>
+    </url>
+    <url>
+        <loc>https://connorpeace.com/art/tiles</loc>
+    </url>
+    <url>
         <loc>https://connorpeace.com/art/whitney</loc>
     </url>
     <url>
-        <loc>https://connorpeace.com/art/dfs</loc>
+        <loc>https://connorpeace.com/art/word-vomit</loc>
     </url>
 </urlset>
