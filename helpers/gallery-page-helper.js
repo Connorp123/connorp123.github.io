@@ -16,7 +16,8 @@ export const createGalleryPageHelpButton = (controls) => {
 
 export const setGalleryButtonUrls = () => {
     const currentPage   = window.location.pathname.split("/").pop();
-    const currentIndex  = galleryPages.indexOf(currentPage);
+    const isIndex       = currentPage === "" || currentPage === "index.html";
+    const currentIndex  = isIndex ? 0 : galleryPages.indexOf(currentPage);
     const backButton    = /** @type {HTMLButtonElement} */ document.getElementById(backButtonId);
     const forwardButton = /** @type {HTMLButtonElement} */ document.getElementById(forwardButtonId);
 

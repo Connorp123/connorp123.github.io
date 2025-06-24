@@ -1,5 +1,5 @@
 export const galleryPages = [
-    "", // attraction
+    "attraction.html", // attraction
     "cursor-v1.html",
     "rapid-bubbles.html",
     "whitney.html",
