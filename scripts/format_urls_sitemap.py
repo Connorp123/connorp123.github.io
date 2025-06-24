@@ -2,11 +2,12 @@ import os
 import re
 
 
+# Must be run from repository root, not from within scripts folder
 def process_sitemap():
     """
-    Process all .html files in  sitemap.xml
+    Process all .html files in sitemap.xml
     """
-    root_directory = os.path.dirname(os.getcwd())  # Repository root
+    root_directory = os.getcwd()  # Repository root
     file_path = os.path.join(root_directory, "sitemap.xml")
     process_file(file_path)
 

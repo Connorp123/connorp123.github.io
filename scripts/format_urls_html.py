@@ -2,8 +2,9 @@ import os
 import re
 
 
+# Must be run from repository root, not from within scripts folder
 def process_html_files():
-    root_directory = os.path.dirname(os.getcwd())  # Or set this explicitly if needed
+    root_directory = os.getcwd()  # Or set this explicitly if needed
     for dirpath, _, filenames in os.walk(root_directory):
         for file in filenames:
             if file.endswith(".html"):
