@@ -51,6 +51,10 @@ const createSvgCanvas = (p, width, height) => {
     return p.createCanvas(width, height, p.SVG);
 };
 
+const createA3SvgCanvas = (p, scale = 1) => {
+    return p.createCanvas(297 * scale, 420 * scale, p.SVG);
+};
+
 function getGifName() {
     let time = Math.floor(Date.now() / 1000);
     let path = window.location.pathname.replaceAll("/", "_")
