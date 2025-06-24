@@ -1,5 +1,5 @@
 export const galleryPages = [
-    "index.html", // attraction
+    "", // attraction
     "cursor-v1.html",
     "rapid-bubbles.html",
     "whitney.html",
@@ -14,5 +14,5 @@ export const galleryPages = [
     "cursor-v2.html",
     "seattle-temp-viz.html",
     "rubiks-cube.html",
-    "rubiks-cube-ai.html"
+    "rubiks-cube-ai.html",
 ];
