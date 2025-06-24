@@ -1,60 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({
-          "gtm.start":
-              new Date().getTime(), event: "gtm.js",
-      });
-      var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src =
-          "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-  })(window, document, "script", "dataLayer", "GTM-5WT2CP6");</script>
+    <!-- Google Tag Manager -->
+    <script>(function(w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            "gtm.start":
+                new Date().getTime(), event: "gtm.js",
+        });
+        const f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l !== "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src =
+            "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-5WT2CP6");</script>
+    <!-- End Google Tag Manager -->
 
-  <!-- SEO -->
-  <meta charset="UTF-8">
-  <title>Pleasing Tile Pattern</title>
-  <link href="https://connorpeace.com/art/tiles.html" rel="canonical">
-  <meta property="og:image" content="./../img/profile.png"/>
-  <meta name="viewport" content="width=device-width">
+    <!-- SEO -->
+    <meta charset="UTF-8">
+    <title>Connor Peace - Gradient Tiles Using Perlin Noise</title>
+    <link rel="canonical" href="https://connorpeace.com/gallery/tiles">
+    <meta property="og:image" content="./../img/profile.png"/>
+    <meta name="viewport" content="width=device-width">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="./../css/global.css">
-  <link rel="stylesheet" href="./../css/art.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/gallery.css">
 
-  <!-- p5 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.min.js"
-          integrity="sha512-gQVBYBvfC+uyor5Teonjr9nmY1bN+DlOCezkhzg4ShpC5q81ogvFsr5IV4xXAj6HEtG7M1Pb2JCha97tVFItYQ=="
-          crossorigin="anonymous"></script>
-  <script src="../helpers/display-helpers.js"></script>
+    <!-- p5 -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"
+        integrity="sha512-bcfltY+lNLlNxz38yBBm/HLaUB1gTV6I0e+fahbF9pS6roIdzUytozWdnFV8ZnM6cSAG5EbmO0ag0a/fLZSG4Q=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer">
+    </script>
 
-  <!-- Sketch -->
-  <script src="../sketch/home/tiles.js" type="text/javascript"></script>
-  <script>new p5(tiles, "sketch");</script>
+    <!-- Helpers -->
+
+    <!-- Page Setup -->
+    <script type="module">
+        import {
+            setGalleryButtonUrls,
+            createGalleryPageHelpButton,
+        } from "../helpers/gallery-page-helper.js";
+
+        setGalleryButtonUrls();
+        createGalleryPageHelpButton([]);
+    </script>
+
+    <!-- Sketch -->
+    <script type="module">
+        import { tiles } from "./js/tiles.js";
+
+        new p5(tiles, "sketch");
+    </script>
 </head>
 
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript>
-  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WT2CP6"
-          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WT2CP6"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
-<div class="art-wrapper">
-  <div class="back-button">
-    <a href="../index.html"><=</a>
-  </div>
-  <div class="sketch" id="sketch"></div>
-  <div class="sidebar">
-    <h1>Gradient Tiles Using Perlin Noise</h1>
-    <p>Tiles colored with Perlin noise slowly disappearing and re-appearing.</p>
-  </div>
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="gallery">
+    <div class="back-button">
+        <a href="../index">connorpeace.com</a>
+    </div>
+    <div class="main-content">
+        <div class="info">
+            <h1>Pleasing Tile Pattern</h1>
+            <p>Tiles colored with Perlin noise slowly disappearing and re-appearing.</p>
+            <a id="show-sketch-controls">Controls</a>
+        </div>
+        <div class="sketch" id="sketch">
+            <button id="fullscreen">⛶</button>
+        </div>
+    </div>
+    <div class="controls">
+        <button id="back">back</button>
+        <button id="forward">forward</button>
+    </div>
+    <footer>gallery design inspired by <a href="https://www.codepalette.net/" target="_blank"
+                                          rel="noopener noreferrer">https://www.codepalette.net/</a>
+    </footer>
 </div>
-
-
 </body>
 </html>

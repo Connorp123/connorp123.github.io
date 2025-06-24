@@ -1,4 +1,4 @@
-import { Gui } from "../classes/module/Gui.js";
+import { Gui } from "../classes/Gui.js";
 
 /**
  * Create a gui from a state with controls set

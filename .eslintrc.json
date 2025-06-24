@@ -1,0 +1,44 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "rules": {
+        // Formatting rules to match WebStorm
+        "indent": ["warn", 4, {"SwitchCase": 1}],
+        "semi": ["warn", "always"],
+        "quotes": ["warn", "double", {"avoidEscape": true}],
+        "comma-dangle": ["warn", "only-multiline"],
+        "object-curly-spacing": ["warn", "always"],
+        "space-in-parens": ["warn", "never"],
+        "array-bracket-spacing": ["warn", "never"],
+        "space-before-blocks": ["warn", "always"],
+        "keyword-spacing": ["warn", {"before": true, "after": true}],
+        "space-infix-ops": "warn",
+        "space-before-function-paren": ["warn", "never"],
+        "func-call-spacing": ["warn", "never"],
+        "no-multiple-empty-lines": ["warn", {"max": 2}],
+        "eol-last": ["warn", "always"],
+        "no-trailing-spaces": "warn",
+        // Logic/syntax hygiene (but not strict)
+        "no-unused-vars": ["warn", {"vars": "all", "args": "after-used", "ignoreRestSiblings": true}],
+        "no-undef": "warn",
+        "no-console": "off",
+        // Style preferences
+        "brace-style": ["warn", "1tbs", {"allowSingleLine": true}],
+        "curly": ["warn", "multi-line"],
+        "prefer-const": "warn",
+        // Absolute import encouragement
+        "no-restricted-imports": [
+            "warn",
+            {
+                "patterns": ["./*", "../*"]
+            }
+        ]
+    }
+}

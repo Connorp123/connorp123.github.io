@@ -1,0 +1,247 @@
+@font-face {
+  font-family: "Rubik-Bold";
+  src: url("../static/fonts/Rubik-Bold.eot");
+  src: url("../static/fonts/Rubik-Bold.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-Bold.woff2") format("woff2"), url("../static/fonts/Rubik-Bold.woff") format("woff"), url("../static/fonts/Rubik-Bold.ttf") format("truetype"), url("../static/fonts/Rubik-Bold.svg#Rubik-Bold") format("svg");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik-BoldItalic";
+  src: url("../static/fonts/Rubik-BoldItalic.eot");
+  src: url("../static/fonts/Rubik-BoldItalic.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-BoldItalic.woff2") format("woff2"), url("../static/fonts/Rubik-BoldItalic.woff") format("woff"), url("../static/fonts/Rubik-BoldItalic.ttf") format("truetype"), url("../static/fonts/Rubik-BoldItalic.svg#Rubik-BoldItalic") format("svg");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik-Medium";
+  src: url("../static/fonts/Rubik-Medium.eot");
+  src: url("../static/fonts/Rubik-Medium.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-Medium.woff2") format("woff2"), url("../static/fonts/Rubik-Medium.woff") format("woff"), url("../static/fonts/Rubik-Medium.ttf") format("truetype"), url("../static/fonts/Rubik-Medium.svg#Rubik-Medium") format("svg");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik-Light";
+  src: url("../static/fonts/Rubik-Light.eot");
+  src: url("../static/fonts/Rubik-Light.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-Light.woff2") format("woff2"), url("../static/fonts/Rubik-Light.woff") format("woff"), url("../static/fonts/Rubik-Light.ttf") format("truetype"), url("../static/fonts/Rubik-Light.svg#Rubik-Light") format("svg");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik-Regular";
+  src: url("../static/fonts/Rubik-Regular.eot");
+  src: url("../static/fonts/Rubik-Regular.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-Regular.woff2") format("woff2"), url("../static/fonts/Rubik-Regular.woff") format("woff"), url("../static/fonts/Rubik-Regular.ttf") format("truetype"), url("../static/fonts/Rubik-Regular.svg#Rubik-Regular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+h1 {
+  font-family: "Rubik-Medium";
+  font-size: 50px;
+}
+
+h2 {
+  font-family: "Rubik-Light";
+  font-size: 42px;
+}
+
+h3 {
+  font-family: "Rubik-Bold";
+  font-size: 36px;
+}
+
+body, p, li, a {
+  font-family: "Rubik-Regular";
+  color: black;
+  text-decoration: none;
+  text-underline: none;
+}
+body:visited, p:visited, li:visited, a:visited {
+  color: black;
+}
+body:hover, p:hover, li:hover, a:hover {
+  color: black;
+}
+
+a {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 1px;
+  padding-bottom: 5px;
+}
+
+p {
+  font-size: 30px;
+}
+
+.back-button {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  user-select: none;
+}
+.back-button a {
+  color: #333333;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #EAEAEC;
+}
+
+.gallery {
+  display: grid;
+  grid-template-rows: 50px auto 50px 50px;
+  grid-template-columns: 1fr minmax(500px, 1000px) 1fr;
+  justify-content: space-between;
+  grid-gap: 1rem;
+}
+
+.back-button {
+  grid-row: 1;
+  grid-column: 2;
+  position: unset;
+  align-self: end;
+}
+.back-button a {
+  color: #141414;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.main-content {
+  grid-column: 2;
+  grid-row: 2;
+  border: 1px solid #625F63;
+  padding: 30px;
+  border-radius: 15px;
+  background-color: #F4F4F5;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+.main-content .info, .main-content p, .main-content p:hover {
+  color: #141414;
+}
+.main-content .info {
+  font-family: "Rubik-Regular";
+  letter-spacing: 1px;
+  text-align: left;
+  padding-right: 20px;
+}
+.main-content .info h1 {
+  font-family: "Rubik-Light";
+  padding: 0;
+  margin: 0;
+}
+.main-content .info p {
+  font-size: 20px;
+}
+.main-content #sketch {
+  justify-self: end;
+  align-self: center;
+  position: relative;
+}
+.main-content #fullscreen {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: 0;
+  border: 0;
+  color: white;
+  font-size: 32px;
+  padding: 0 10px;
+  z-index: 10;
+}
+.main-content .sketch-specific-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-items: stretch;
+  align-content: start;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  padding-top: 20px;
+}
+.main-content .sketch-specific-inputs textarea {
+  grid-row-start: 1;
+  grid-column-start: -1;
+  grid-column-end: 1;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #E2E0F5;
+  resize: none;
+}
+.main-content .sketch-specific-inputs button {
+  grid-row-start: 2;
+  padding: 20px 40px;
+  border-radius: 10px;
+  background-color: #E2E0F5;
+}
+.main-content .sketch-specific-inputs button:hover {
+  cursor: pointer;
+}
+
+.controls {
+  grid-row: 3;
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  align-items: start;
+}
+.controls button {
+  padding: 20px 40px;
+  border-radius: 10px;
+  background-color: #E2E0F5;
+}
+.controls button:hover {
+  cursor: pointer;
+}
+.controls #back {
+  grid-column: 1;
+}
+.controls #forward {
+  grid-column: 2;
+}
+
+footer {
+  grid-column: 2;
+  grid-row: 4;
+  justify-self: center;
+}
+footer a {
+  text-decoration: none;
+}
+
+footer, footer a, footer a:visited {
+  color: #625F63;
+  font-size: 12px;
+}
+
+@media only screen and (min-width: 20px) and (max-width: 699px) {
+  .gallery {
+    grid-template-columns: 1fr minmax(250px, 100%) 1fr;
+  }
+  .main-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+  .main-content .info {
+    padding-right: 0;
+  }
+  .main-content h1 {
+    font-size: 28px;
+  }
+  .main-content #sketch {
+    justify-self: center;
+  }
+}
+
+/*# sourceMappingURL=gallery.css.map */

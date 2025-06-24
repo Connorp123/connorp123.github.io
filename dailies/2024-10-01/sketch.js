@@ -1,4 +1,4 @@
-import { getGifName, getReelCanvas } from "../../helpers/modules/display-helpers-modules.js";
+import { getGifName, getReelCanvas } from "../../helpers/display-helpers-modules.js";
 
 const MAX_OFFSET = 20;
 

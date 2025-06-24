@@ -1,0 +1,37 @@
+name: Format URLs
+
+on:
+  push:
+    paths:
+      - '*.html'
+      - 'sitemap.xml'
+
+jobs:
+  process-urls:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Format html urls
+        run: |
+          python scripts/format_urls_html.py
+
+      - name: Format sitemap urls
+        run: |
+          python scripts/format_urls_sitemap.py
+
+      # Commit and push changes if any
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Automatically format urls" || echo "No changes to commit"
+          git push

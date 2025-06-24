@@ -1,4 +1,4 @@
-import { getGifName } from "../../helpers/modules/display-helpers-modules.js";
+import { getGifName } from "../../helpers/display-helpers-modules.js";
 
 const createLoadingIcon = ({p}) => {
     class LoadingDot {
