@@ -32,7 +32,7 @@ export const attraction = (p) => {
         }
 
         if (recording) {
-            saveCanvas("img" + frame, "png");
+            p.saveCanvas("img" + frame, "png");
             frame++;
             if (frame >= RECORDING_LENGTH) {
                 recording = false;
