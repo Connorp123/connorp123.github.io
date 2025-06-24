@@ -1,6 +1,5 @@
-import { createSimplePhysicsObject } from "../../../classes/module/SimplePhysicsObject.js";
-import { createGui } from "../../../helpers/gui-helpers.js";
 import { getGifName } from "../../../helpers/daily-helpers.js";
+import { createGui } from "../../../helpers/gui-helpers.js";
 
 export const createSquare = ({p}) => {
 

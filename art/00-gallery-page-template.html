@@ -19,8 +19,8 @@
 
     <!-- SEO -->
     <meta charset="UTF-8">
-    <title>Connor Peace - Temperature Visualizer for Seattle</title>
-    <link rel="canonical" href="https://connorpeace.com/gallery/seattle-temp-viz">
+    <title>Connor Peace - Sketch</title>
+    <link rel="canonical" href="https://connorpeace.com/gallery/00-gallery-page-template">
     <meta property="og:image" content="./../img/profile.png"/>
     <meta name="viewport" content="width=device-width">
 
@@ -45,14 +45,14 @@
         } from "../helpers/gallery-page-helper.js";
 
         setGalleryButtonUrls();
-        createGalleryPageHelpButton(["Click - Toggle all years at once"]);
+        createGalleryPageHelpButton([]);
     </script>
 
     <!-- Sketch -->
     <script type="module">
-        import { temp_viz } from "./js/temp-viz.js";
+        import { galleryPageTemplate } from "./js/00-gallery-page-template.js";
 
-        new p5(temp_viz, "sketch");
+        new p5(galleryPageTemplate, "sketch");
     </script>
 </head>
 
@@ -70,9 +70,11 @@
     </div>
     <div class="main-content">
         <div class="info">
-            <h1>Daily Highs and Lows - Seattle</h1>
-            <p>Using the daily high and low temperatures in Fahrenheit from NOAA (National Centers for Environmental
-                Information).</p>
+            <h1>Random Number Visualizer</h1>
+            <p>Harris portrayed herself, appearing in a mirror opposite the actor who plays her on the
+                show, Maya Rudolph, who was nervously preparing for a campaign speech. Dressed identically
+                in a black suit and pearls, the two traded variations on Harris' first name, saying
+                Americans want to "end the drama-la" in politics "with a cool new stepmom-ala."</p>
             <a id="show-sketch-controls">Controls</a>
         </div>
         <div class="sketch" id="sketch">

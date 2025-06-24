@@ -1,6 +1,6 @@
+import { createFlowField } from "../../../classes/FlowFieldClass.js";
 import { getGifName } from "../../../helpers/daily-helpers.js";
 import { createGui } from "../../../helpers/gui-helpers.js";
-import { createFlowField } from "../../../classes/module/FlowFieldClass.js";
 
 const smallerCanvasDimension = (p) => {
     return Math.min(p.width, p.height);

@@ -1,8 +1,8 @@
 const VIDEO_WIDTH  = 150.0;
 const VIDEO_HEIGHT = 150.0;
 
+import CameraStuff, { createVideoCapture } from "../../../classes/CameraStuff.js";
 import { createGui } from "../../../helpers/gui-helpers.js";
-import CameraStuff, { createVideoCapture } from "../../../classes/module/CameraStuff.js";
 
 export const sketch = (p) => {
 
