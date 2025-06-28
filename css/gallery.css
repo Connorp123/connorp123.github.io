@@ -147,6 +147,20 @@ body {
   justify-self: end;
   align-self: center;
   position: relative;
+  height: 500px;
+  width: 500px;
+}
+@media only screen and (min-width: 20px) and (max-width: 599px) {
+  .main-content #sketch {
+    height: 250px;
+    width: 250px;
+  }
+}
+@media only screen and (min-width: 600px) and (max-width: 999px) {
+  .main-content #sketch {
+    height: 350px;
+    width: 350px;
+  }
 }
 .main-content #fullscreen {
   position: absolute;
@@ -235,6 +249,7 @@ footer, footer a, footer a:visited {
   }
   .main-content .info {
     padding-right: 0;
+    padding-bottom: 30px;
   }
   .main-content h1 {
     font-size: 28px;

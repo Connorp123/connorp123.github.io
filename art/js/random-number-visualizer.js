@@ -1,4 +1,4 @@
-import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "./helpers/gallery-page-helper.js";
 
 export const random_number_visualizer = (p) => {
     let num_dots = 1000000;

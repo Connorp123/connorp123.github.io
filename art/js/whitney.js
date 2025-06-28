@@ -2,7 +2,7 @@
 // https://www.youtube.com/watch?v=XGe9QuJWOIg
 
 
-import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "./helpers/gallery-page-helper.js";
 
 export const whitney = (p) => {
     let telescopes = [];

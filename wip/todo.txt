@@ -1,5 +1,2 @@
-- Catch and swallow drag event when on canvas (this helps mobile ux)
-- Controls text gets cut off by canvas on mobile
 - Hand detection url takes a long time to load and makes button feel unresponsive
 - DFS moves on touchStarted and touchEnded
-- Reduce layout shift when sketch is loading

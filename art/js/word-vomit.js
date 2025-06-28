@@ -1,5 +1,5 @@
 import { WordManager } from "../../classes/WordManager.js";
-import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "./helpers/gallery-page-helper.js";
 
 export const word_vomit = (p) => {
     let state = {

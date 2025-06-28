@@ -1,4 +1,4 @@
-import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "./helpers/gallery-page-helper.js";
 
 export const snake_game = (p) => {
     // Snake

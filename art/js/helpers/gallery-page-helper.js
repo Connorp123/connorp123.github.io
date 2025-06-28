@@ -1,4 +1,4 @@
-import { galleryPages } from "../gallery-pages.js";
+import { galleryPages } from "../../../gallery-pages.js";
 
 const showSketchControlsId = "show-sketch-controls";
 const backButtonId         = "back";
@@ -35,14 +35,20 @@ export const setGalleryButtonUrls = () => {
 };
 
 export const createGalleryCanvas = (p, smallWidth = 600, mediumWidth = 1000) => {
-    const SMALL_SIZE  = 250;
-    const MEDIUM_SIZE = 350;
-    const LARGE_SIZE  = 500;
-    return p.windowWidth < smallWidth
-           ? p.createCanvas(SMALL_SIZE, SMALL_SIZE)
-           : p.windowWidth < mediumWidth
-             ? p.createCanvas(LARGE_SIZE, MEDIUM_SIZE)
-             : p.createCanvas(LARGE_SIZE, LARGE_SIZE);
+    // Also in _variables.scss
+    const SMALL_SIZE  = 250; // $canvas-small
+    const MEDIUM_SIZE = 350; // $canvas-medium
+    const LARGE_SIZE  = 500; // $canvas-large
+    let canvas;
+    setTimeout(() => {
+        canvas = p.windowWidth < smallWidth
+                 ? p.createCanvas(SMALL_SIZE, SMALL_SIZE)
+                 : p.windowWidth < mediumWidth
+                   ? p.createCanvas(MEDIUM_SIZE, MEDIUM_SIZE)
+                   : p.createCanvas(LARGE_SIZE, LARGE_SIZE);
+        canvas.touchMoved((e) => e.preventDefault());
+    }, 2000);
+    return canvas;
 };
 
 export const toggleFullscreenStyles = (p, isFullscreen, fullscreenButton) => {
@@ -106,5 +112,3 @@ const setupButton = (button, url) => {
     button.disabled = !url;
     button.onclick  = url ? () => window.location.href = url : null;
 };
-
-

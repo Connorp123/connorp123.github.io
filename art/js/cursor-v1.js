@@ -117,7 +117,7 @@ class Cursor {
  */
 
 import { RandomWalker } from "/classes/RandomWalker.js";
-import { createGalleryCanvas, setupFullscreenButton } from "../../helpers/gallery-page-helper.js";
+import { createGalleryCanvas, setupFullscreenButton } from "./helpers/gallery-page-helper.js";
 
 export const home_cursor_v1 = (p) => {
     const FPS = 100;
