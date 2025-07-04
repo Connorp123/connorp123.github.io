@@ -40,14 +40,12 @@ export const createGalleryCanvas = (p, smallWidth = 600, mediumWidth = 1000) => 
     const MEDIUM_SIZE = 350; // $canvas-medium
     const LARGE_SIZE  = 500; // $canvas-large
     let canvas;
-    setTimeout(() => {
-        canvas = p.windowWidth < smallWidth
-                 ? p.createCanvas(SMALL_SIZE, SMALL_SIZE)
-                 : p.windowWidth < mediumWidth
-                   ? p.createCanvas(MEDIUM_SIZE, MEDIUM_SIZE)
-                   : p.createCanvas(LARGE_SIZE, LARGE_SIZE);
-        canvas.touchMoved((e) => e.preventDefault());
-    }, 2000);
+    canvas            = p.windowWidth < smallWidth
+                        ? p.createCanvas(SMALL_SIZE, SMALL_SIZE)
+                        : p.windowWidth < mediumWidth
+                          ? p.createCanvas(MEDIUM_SIZE, MEDIUM_SIZE)
+                          : p.createCanvas(LARGE_SIZE, LARGE_SIZE);
+    canvas.touchMoved((e) => e.preventDefault());
     return canvas;
 };
 
