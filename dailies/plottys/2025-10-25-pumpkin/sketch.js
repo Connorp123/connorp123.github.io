@@ -1,10 +1,23 @@
-import { getGifName } from "../../helpers/display-helpers-modules.js";
-
 export const sketch = (p) => {
 
     // Basics
+    const mmWidth      = 278;
+    const mmHeight     = 420;
+    const scale        = 4;
+    const baseFileName = "p5svg";
     let canvas;
     let pumpkin;
+
+    const getTime = () => {
+        const date  = new Date();
+        const year  = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const day   = date.getDate().toString().padStart(2, "0");
+        const hour  = date.getHours().toString().padStart(2, "0");
+        const min   = date.getMinutes().toString().padStart(2, "0");
+        const sec   = date.getSeconds().toString().padStart(2, "0");
+        return `${year}-${month}-${day}-${hour}-${min}-${sec}`;
+    };
 
 
     p.preload = () => {
@@ -13,9 +26,7 @@ export const sketch = (p) => {
 
 
     p.setup = () => {
-        // canvas = p.createCanvas(1000, 1000, p.SVG);
-        canvas = p.createCanvas(1000, 1000);
-
+        canvas = p.createCanvas(mmWidth * scale, mmHeight * scale);
     };
 
     p.draw = () => {
@@ -33,7 +44,7 @@ export const sketch = (p) => {
         p.noFill();
         p.rectMode(p.CENTER);
 
-        beginRecordSVG(p, "myOutput.svg");
+        beginRecordSVG(p, `${baseFileName}-${getTime()}.svg`);
 
         for (let y = 0; y < p.height; y += avgDist) {
             for (let x = 0; x < p.width; x += avgDist) {
@@ -82,13 +93,15 @@ export const sketch = (p) => {
 
         console.log("hi");
         // p.updatePixels();
-        endRecordSVG();
+        // endRecordSVG();
 
         p.noLoop();
     };
 
     p.keyPressed = () => {
         const key = p.key.toLowerCase();
-        if (key === "s") p.save(`${getGifName()}.svg`);
+        if (key === "s") {
+            endRecordSVG();
+        }
     };
 };
