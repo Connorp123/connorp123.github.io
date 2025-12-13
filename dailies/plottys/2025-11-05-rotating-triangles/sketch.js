@@ -10,6 +10,9 @@ const mmHeight     = 420;
 const scale        = 4;
 const baseFileName = "p5svg";
 
+const spacing = 140;
+const size    = 120;
+
 const getTime = () => {
     const date  = new Date();
     const year  = date.getFullYear();
@@ -22,30 +25,38 @@ const getTime = () => {
 };
 
 class Tri {
-    constructor(radius) {
+    constructor(radius, ringNumber) {
         this.startOrbit  = random(TWO_PI);
         this.tOrbit      = this.startOrbit;
         this.tRotate     = 0;
-        // this.color       = color(random(pal));
         this.color       = 255;
-        this.orbitSpeed  = random(0.05, 0.07) * random([-1, 1]);
-        this.rotateSpeed = random(0.05, 0.1) * random([-1, 1]);
-        this.size        = 100;
+        this.orbitSpeed  = random(-0.058, -0.054) + (ringNumber * 0.004);
+        this.rotateSpeed = random(0.064, 0.07) - (ringNumber * 0.001);
+        this.size        = size;
         // this.size        = randomGaussian(80, 20);
         // this.radius      = randomGaussian(radius, 100);
         this.radius = radius;
+        this.dead   = false;
+
+        // 200	-0.054466628037602265	0.06603461093795668
+        //200	-0.058164350533786394	0.07032405758620298
+        // 200	-0.05503713824593187	0.06435558214252357
+
+        console.log(`radius\torbitSpeed\trotateSpeed\n${this.radius}\t${this.orbitSpeed}\t${this.rotateSpeed}`);
     }
 
     update() {
+        if (this.dead) return;
+
         this.tOrbit += this.orbitSpeed;
         this.tRotate += this.rotateSpeed;
+        if (abs(this.tOrbit - this.startOrbit - this.orbitSpeed) > TWO_PI) {
+            this.dead = true;
+        }
     }
 
     display() {
-        if (abs(this.tOrbit) > abs(this.startOrbit) + TWO_PI) {
-            console.log("stopping", this.tOrbit, this.startOrbit);
-            return;
-        }
+        if (this.dead) return;
 
         push();
 
@@ -78,14 +89,11 @@ function setup() {
     textAlign(CENTER, CENTER);
     textSize(48);
     background(0);
-    // textFont('Courier New')
 
-    // triangles.push(new Tri(30));
-    for (let r = 200; r < 1200; r += 100) {
-        triangles.push(new Tri(r));
-
-        // for (let i = 0; i < 1; i++) {
-        // }
+    let i = 1;
+    for (let r = 80; r < 600; r += spacing) {
+        triangles.push(new Tri(r, i));
+        i++;
     }
 
     beginRecordSVG(this, `${baseFileName}-${getTime()}.svg`);
@@ -99,20 +107,18 @@ function draw() {
         tri.display();
     });
 
-    if (frameCount > 200) {
-        noLoop();
-    }
-}
+    // stroke(255);
+    // strokeWeight(1);
+    // line(width / 2, 0, width / 2, height);
+    // line(0, height / 2, width, height / 2);
 
-function drawText(version) {
-    stroke(0);
-    strokeWeight(2);
-    fill(color(pal[0]));
-    text(`v${version}`, width / 2, height / 2);
 }
 
 function keyPressed() {
     if (key === "S" || key === "s") {
         endRecordSVG();
+    }
+    if (key === "B" || key === "b") {
+        noLoop();
     }
 }
