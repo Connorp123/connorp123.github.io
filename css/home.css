@@ -1,128 +1,113 @@
 @font-face {
-    font-family: "Rubik-Bold";
-    src: url("../static/fontsfonts/Rubik-Bold.eot");
-    src: url("../static/fonts/Rubik-Bold.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-Bold.woff2") format("woff2"), url("../static/fonts/Rubik-Bold.woff") format("woff"), url("../static/fonts/Rubik-Bold.ttf") format("truetype"), url("../static/fonts/Rubik-Bold.svg#Rubik-Bold") format("svg");
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Rubik-Bold";
+  src: url("../static/fonts/Rubik-Bold.eot");
+  src: url("../static/fonts/Rubik-Bold.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-Bold.woff2") format("woff2"), url("../static/fonts/Rubik-Bold.woff") format("woff"), url("../static/fonts/Rubik-Bold.ttf") format("truetype"), url("../static/fonts/Rubik-Bold.svg#Rubik-Bold") format("svg");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
-
 @font-face {
-    font-family: "Rubik-BoldItalic";
-    src: url("../static/fonts/Rubik-BoldItalic.eot");
-    src: url("../static/fonts/Rubik-BoldItalic.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-BoldItalic.woff2") format("woff2"), url("../static/fonts/Rubik-BoldItalic.woff") format("woff"), url("../static/fonts/Rubik-BoldItalic.ttf") format("truetype"), url("../static/fonts/Rubik-BoldItalic.svg#Rubik-BoldItalic") format("svg");
-    font-weight: bold;
-    font-style: italic;
-    font-display: swap;
+  font-family: "Rubik-BoldItalic";
+  src: url("../static/fonts/Rubik-BoldItalic.eot");
+  src: url("../static/fonts/Rubik-BoldItalic.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-BoldItalic.woff2") format("woff2"), url("../static/fonts/Rubik-BoldItalic.woff") format("woff"), url("../static/fonts/Rubik-BoldItalic.ttf") format("truetype"), url("../static/fonts/Rubik-BoldItalic.svg#Rubik-BoldItalic") format("svg");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
 }
-
 @font-face {
-    font-family: "Rubik-Medium";
-    src: url("../static/fonts/Rubik-Medium.eot");
-    src: url("../static/fonts/Rubik-Medium.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-Medium.woff2") format("woff2"), url("../static/fonts/Rubik-Medium.woff") format("woff"), url("../static/fonts/Rubik-Medium.ttf") format("truetype"), url("../static/fonts/Rubik-Medium.svg#Rubik-Medium") format("svg");
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Rubik-Medium";
+  src: url("../static/fonts/Rubik-Medium.eot");
+  src: url("../static/fonts/Rubik-Medium.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-Medium.woff2") format("woff2"), url("../static/fonts/Rubik-Medium.woff") format("woff"), url("../static/fonts/Rubik-Medium.ttf") format("truetype"), url("../static/fonts/Rubik-Medium.svg#Rubik-Medium") format("svg");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
-
 @font-face {
-    font-family: "Rubik-Light";
-    src: url("../static/fonts/Rubik-Light.eot");
-    src: url("../static/fonts/Rubik-Light.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-Light.woff2") format("woff2"), url("../static/fonts/Rubik-Light.woff") format("woff"), url("../static/fonts/Rubik-Light.ttf") format("truetype"), url("../static/fonts/Rubik-Light.svg#Rubik-Light") format("svg");
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Rubik-Light";
+  src: url("../static/fonts/Rubik-Light.eot");
+  src: url("../static/fonts/Rubik-Light.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-Light.woff2") format("woff2"), url("../static/fonts/Rubik-Light.woff") format("woff"), url("../static/fonts/Rubik-Light.ttf") format("truetype"), url("../static/fonts/Rubik-Light.svg#Rubik-Light") format("svg");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
-
 @font-face {
-    font-family: "Rubik-Regular";
-    src: url("../static/fonts/Rubik-Regular.eot");
-    src: url("../static/fonts/Rubik-Regular.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-Regular.woff2") format("woff2"), url("../static/fonts/Rubik-Regular.woff") format("woff"), url("../static/fonts/Rubik-Regular.ttf") format("truetype"), url("../static/fonts/Rubik-Regular.svg#Rubik-Regular") format("svg");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Rubik-Regular";
+  src: url("../static/fonts/Rubik-Regular.eot");
+  src: url("../static/fonts/Rubik-Regular.eot?#iefix") format("embedded-opentype"), url("../static/fonts/Rubik-Regular.woff2") format("woff2"), url("../static/fonts/Rubik-Regular.woff") format("woff"), url("../static/fonts/Rubik-Regular.ttf") format("truetype"), url("../static/fonts/Rubik-Regular.svg#Rubik-Regular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
-
 body {
-    background: #FAFAF8;
+  background: #EAEAEC;
 }
 
 #home-sketch {
-    position: fixed !important;
-    z-index: -1;
+  position: fixed !important;
+  z-index: -1;
 }
 
 .body-wrapper {
-    margin-left: 50px;
-    margin-right: 50px;
-    padding-top: 40px;
-    max-width: 1350px;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding-top: 40px;
+  max-width: 1350px;
 }
-
 @media only screen and (min-width: 1450px) {
-    .body-wrapper {
-        margin-left: auto;
-        margin-right: auto;
-    }
+  .body-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .intro {
-    margin-bottom: 60px;
+  margin-bottom: 60px;
 }
-
 .intro .img-container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
-
 .intro .img-container img {
-    width: 300px;
-    height: 300px;
+  width: 300px;
+  height: 300px;
 }
 
 .projects {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 }
-
 @media only screen and (min-width: 992px) {
-    .projects {
-        gap: 40px;
-    }
+  .projects {
+    gap: 40px;
+  }
 }
-
 .projects .mini-sketch-container {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
-
 .projects .mini-sketch-container .title {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
-
 .projects .mini-sketch-container .icon {
-    align-self: center;
-    width: 15px;
-    height: 40px;
+  align-self: center;
+  width: 15px;
+  height: 40px;
 }
-
 .projects .mini-sketch-container a {
-    font-family: "Rubik-Regular";
-    font-size: 36px;
-    text-decoration: underline;
-    text-underline-offset: 7px;
-    text-decoration-thickness: 1px;
-    padding-bottom: 5px;
+  font-family: "Rubik-Regular";
+  font-size: 36px;
+  text-decoration: underline;
+  text-underline-offset: 7px;
+  text-decoration-thickness: 1px;
+  padding-bottom: 5px;
 }
-
 .projects .mini-sketch-container .sketch {
-    width: 400px;
-    height: 400px;
+  width: 400px;
+  height: 400px;
 }
-
 .projects .mini-sketch-container .sketch canvas {
-    border: 1px solid #625F63;
+  border: 1px solid #625F63;
 }
 
 /*# sourceMappingURL=home.css.map */

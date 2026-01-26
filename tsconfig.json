@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ESNext",
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "types": ["p5/global"],
+  },
+  "include": ["**/*.js", "index.html"]
+}

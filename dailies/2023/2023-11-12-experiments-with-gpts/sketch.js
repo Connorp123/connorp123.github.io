@@ -1,4 +1,4 @@
-import { createSimplePhysicsObject } from "../../../classes/module/SimplePhysicsObject.js";
+import { createSimplePhysicsObject } from "../../../classes/SimplePhysicsObject.js";
 
 export const sketch = (p) => {
     let canvas;

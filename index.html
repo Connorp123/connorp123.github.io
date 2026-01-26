@@ -1,178 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
-  <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({"gtm.start": new Date().getTime(), event: "gtm.js"});
-      let f = d.getElementsByTagName(s)[0];
-      let j = d.createElement(s);
-      let dl = l !== "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-5WT2CP6");
-  </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            "gtm.start":
+                new Date().getTime(), event: "gtm.js",
+        });
+        const f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l !== "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src =
+            "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-5WT2CP6");</script>
+    <!-- End Google Tag Manager -->
 
-  <!-- SEO -->
-  <meta charset="UTF-8">
-  <title>Connor Peace's Personal Website</title>
-  <link href="https://connorpeace.com/" rel="canonical">
-  <meta property="og:image" content="./img/profile.png"/>
-  <meta name="viewport" content="width=device-width">
+    <!-- SEO -->
+    <meta charset="UTF-8">
+    <title>Connor Peace's Personal Website</title>
+    <link rel="canonical" href="https://connorpeace.com">
+    <meta property="og:image" content="./img/profile.png"/>
+    <meta name="viewport" content="width=device-width">
 
-  <!-- p5 -->
-  <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"
-      integrity="sha512-bcfltY+lNLlNxz38yBBm/HLaUB1gTV6I0e+fahbF9pS6roIdzUytozWdnFV8ZnM6cSAG5EbmO0ag0a/fLZSG4Q=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer">
-  </script>
+    <!-- p5 -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"
+        integrity="sha512-bcfltY+lNLlNxz38yBBm/HLaUB1gTV6I0e+fahbF9pS6roIdzUytozWdnFV8ZnM6cSAG5EbmO0ag0a/fLZSG4Q=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer">
+    </script>
 
-  <!-- Tensorflow -->
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface" async></script>
+    <!-- Render home sketch -->
+    <script type="module" async>
+        import { flow_field } from "./art/js/home.js";
 
-  <!-- Helpers -->
-  <script src="./helpers/home-helpers.js" async></script>
-  <script src="./helpers/pan-zoom-helpers.js" async></script>
+        new p5(flow_field, "sketch");
+    </script>
 
-  <!-- p5 Instances -->
-  <script src="./sketch/home/home.js" async></script>
-  <script src="./sketch/home/cursor-v2.js" async></script>
-  <script src="./sketch/home/whitney.js" async></script>
-  <script src="./sketch/home/rapid-bubbles.js" async></script>
-  <script src="./sketch/home/tiles.js" async></script>
-  <script src="./sketch/home/random-number-visualizer.js" async></script>
-  <script src="./sketch/home/snake-game.js" async></script>
-  <script src="./sketch/home/face-attraction.js" async></script>
-  <script src="./sketch/home/temp-viz.js" async></script>
-  <script src="./sketch/home/primary-layers.js" async></script>
-
-  <!-- Render all sketches -->
-  <script src="./sketch/home/home-render-sketches.js" type="module" async></script>
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="./css/global.css">
-  <link rel="stylesheet" href="./css/home.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/home.css">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript>
-  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WT2CP6"
-          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WT2CP6"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 <!--Background Sketch-->
 <div id="home-sketch"></div>
 <div class="body-wrapper">
-  <!-- Intro Block -->
-  <div class="intro">
-    <div class="img-container">
-      <img src="static/img/profile.png" alt="picture of me"/>
+    <!-- Intro Block -->
+    <div class="intro">
+        <div class="img-container">
+            <img src="static/img/profile.png" alt="picture of me"/>
+        </div>
+        <h1>Hi! I'm Connor Peace</h1>
+        <p>
+            Welcome to my site! It's written in HTML with Sass for styling, and the majority of my site
+            contains p5.js sketches that I made for fun. I originally wanted to use a modern stack, but chose this
+            stack specifically for SEO and ease of updating because I wanted people to find my art, and I wanted to be
+            able to push up art with as few barriers as possible :)
+        </p>
+        <h2>You can see my art <a href="./art/attraction">here</a></h2>
+        <h2>Also check out my daily sketches <a href="https://editor.p5js.org/Connorp123/sketches">here</a></h2>
+        <h2>You can find my resume <a href="./resume">here</a></h2>
     </div>
-    <h1>Hi! I'm Connor Peace</h1>
-    <p>
-      Welcome to my site! It's written in HTML with Sass for styling, and the majority of my site
-      contains
-      p5.js sketches that I made for fun. I originally wanted to use a modern stack, but chose this
-      stack specifically
-      for SEO and ease of updating because I wanted people to find my art, and I wanted to be able
-      to push up art with
-      as few barriers as possible :)
-    </p>
-    <h2>You can find my resume <a href="./resume.html">here</a></h2>
-  </div>
-  <!-- Mini Sketches -->
-  <div class="projects">
-    <!-- Sketch 11 -->
-    <div class="mini-sketch-container">
-      <div class="title">
-        <a href="./art/word-vomit.html">Word Vomit</a>
-      </div>
-      <div class="sketch" id="sketch12"></div>
-    </div>
-    <!-- Sketch 11 -->
-    <div class="mini-sketch-container">
-      <div class="title">
-        <a href="./art/dfs.html">Depth-First Search</a>
-      </div>
-      <div class="sketch" id="sketch11"></div>
-    </div>
-    <!-- Sketch 10 -->
-    <div class="mini-sketch-container">
-      <div class="title">
-        <a href="./art/primary-layers.html">Primary Layers</a>
-      </div>
-      <div class="sketch" id="sketch10"></div>
-    </div>
-    <!-- Sketch 9 -->
-    <div class="mini-sketch-container">
-      <div class="title">
-        <a href="./art/random-number-visualizer.html">Big Number Visualizer</a>
-        <img class="icon" src="static/resources/arrow-pointer-solid.svg" alt="hand pointing up"/>
-      </div>
-      <div class="sketch" id="sketch9"></div>
-    </div>
-    <!-- Sketch 8 -->
-    <div class="mini-sketch-container">
-      <div class="title">
-        <a href="./art/seattle-temp-viz.html">Seattle Temps</a>
-      </div>
-      <div class="sketch" id="sketch8"></div>
-    </div>
-    <!-- Sketch 7 -->
-    <div class="mini-sketch-container">
-      <div class="title">
-        <a href="./art/face-attraction.html">Face Attraction</a>
-      </div>
-      <div class="sketch" id="sketch7"></div>
-    </div>
-    <!-- Sketch 6 -->
-    <div class="mini-sketch-container">
-      <div class="title">
-        <a href="./art/easiest-snake-game.html">EZ Snake</a>
-      </div>
-      <div class="sketch" id="sketch6"></div>
-    </div>
-    <!-- Sketch 5 -->
-    <div class="mini-sketch-container">
-      <div class="title">
-        <a href="./art/cursor-v1.html">Following Cursor v1</a>
-      </div>
-      <div class="sketch" id="sketch5"></div>
-    </div>
-    <!-- Sketch 4 -->
-    <div class="mini-sketch-container">
-      <div class="title">
-        <a href="./art/cursor-v2.html">Following Cursor v2</a>
-      </div>
-      <div class="sketch" id="sketch4"></div>
-    </div>
-    <!-- Sketch 3 -->
-    <div class="mini-sketch-container">
-      <div class="title">
-        <a href="./art/whitney.html">Whitney Inspired</a>
-        <img class="icon" src="static/resources/arrow-pointer-solid.svg" alt="hand pointing up"/>
-      </div>
-      <div class="sketch" id="sketch3"></div>
-    </div>
-    <!-- Sketch 2 -->
-    <div class="mini-sketch-container">
-      <div class="title">
-        <a href="./art/rapid-bubbles.html">Rapid Bubbles</a>
-        <img class="icon" src="static/resources/arrow-pointer-solid.svg" alt="hand pointing up"/>
-      </div>
-      <div class="sketch" id="sketch2"></div>
-    </div>
-    <!-- Sketch 1 -->
-    <div class="mini-sketch-container">
-      <div class="title">
-        <a href="./art/tiles.html">Just Tiles</a>
-      </div>
-      <div class="sketch" id="sketch1"></div>
-    </div>
-  </div>
 </div>
 </body>
 </html>

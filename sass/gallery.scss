@@ -1,0 +1,197 @@
+@import './global.scss';
+
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: $bg-color-2-light-gray;
+}
+
+.gallery {
+  display: grid;
+  grid-template-rows: 50px auto 50px 50px;
+  grid-template-columns: 1fr minmax(500px, 1000px) 1fr;
+  justify-content: space-between;
+  grid-gap: 1rem;
+}
+
+.back-button {
+  grid-row: 1;
+  grid-column: 2;
+  position: unset;
+  align-self: end;
+
+  a {
+    color: $bg-color-3-black;
+    font-size: 20px;
+    text-decoration: none;
+  }
+}
+
+.main-content {
+  grid-column: 2;
+  grid-row: 2;
+
+  border: 1px solid $bg-color-dark-grey;
+  padding: 30px;
+  border-radius: 15px;
+  background-color: $bg-color-light-grey;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+
+  .info, p, p:hover {
+    color: $bg-color-3-black;
+  }
+
+  .info {
+    font-family: $font-regular;
+    letter-spacing: 1px;
+    text-align: left;
+    padding-right: 20px;
+
+    h1 {
+      font-family: $font-light;
+      padding: 0;
+      margin: 0;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+
+  #sketch {
+    justify-self: end;
+    align-self: center;
+    position: relative;
+    height: $canvas-large;
+    width: $canvas-large;
+  }
+
+  @media only screen and (min-width: 20px) and (max-width: $bp-canvas-medium - 1px) {
+    #sketch {
+      height: $canvas-small;
+      width: $canvas-small;
+    }
+  }
+
+  @media only screen and (min-width: $bp-canvas-medium) and (max-width: $bp-canvas-large - 1px) {
+    #sketch {
+      height: $canvas-medium;
+      width: $canvas-medium;
+    }
+  }
+
+  #fullscreen {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: 0;
+    border: 0;
+    color: white;
+    font-size: 32px;
+    padding: 0 10px;
+    z-index: 10;
+  }
+
+  .sketch-specific-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: stretch;
+    align-content: start;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    padding-top: 20px;
+
+    textarea {
+      grid-row-start: 1;
+      grid-column-start: -1;
+      grid-column-end: 1;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: $bg-color-2-light-purple;
+      resize: none;
+    }
+
+    button {
+      grid-row-start: 2;
+      padding: 20px 40px;
+      border-radius: 10px;
+      background-color: $bg-color-2-light-purple;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.controls {
+  grid-row: 3;
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  align-items: start;
+
+  button {
+    padding: 20px 40px;
+    border-radius: 10px;
+    background-color: $bg-color-2-light-purple;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  #back {
+    grid-column: 1;
+  }
+
+  #forward {
+    grid-column: 2;
+  }
+}
+
+footer {
+  grid-column: 2;
+  grid-row: 4;
+  justify-self: center;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+footer, footer a, footer a:visited {
+  color: $bg-color-dark-grey;
+  font-size: 12px;
+}
+
+// Phone
+@media only screen and (min-width: 20px) and (max-width: 700px - 1px) {
+  .gallery {
+    grid-template-columns: 1fr minmax(250px, 100%) 1fr;
+  }
+
+  .main-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+
+    .info {
+      padding-right: 0;
+      padding-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+
+    #sketch {
+      justify-self: center;
+    }
+  }
+}

@@ -1,75 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
-  <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({"gtm.start": new Date().getTime(), event: "gtm.js"});
-      let f   = d.getElementsByTagName(s)[0];
-      let j   = d.createElement(s);
-      let dl  = l !== "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src   = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-5WT2CP6");
-  </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            "gtm.start":
+                new Date().getTime(), event: "gtm.js",
+        });
+        const f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l !== "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src =
+            "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-5WT2CP6");</script>
+    <!-- End Google Tag Manager -->
 
-  <!-- SEO -->
-  <meta charset="UTF-8">
-  <title>Word Vomit</title>
-  <link href="https://connorpeace.com/art/word-vomit.html" rel="canonical">
-  <meta property="og:image" content="./../img/profile.png"/>
-  <meta name="viewport" content="width=device-width">
+    <!-- SEO -->
+    <meta charset="UTF-8">
+    <title>Connor Peace - Word Vomit</title>
+    <link rel="canonical" href="https://connorpeace.com/art/word-vomit">
+    <meta property="og:image" content="./../img/profile.png"/>
+    <meta name="viewport" content="width=device-width">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="./../css/global.css">
-  <link rel="stylesheet" href="./../css/art.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/gallery.css">
 
-  <!-- p5 -->
-  <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"
-      integrity="sha512-bcfltY+lNLlNxz38yBBm/HLaUB1gTV6I0e+fahbF9pS6roIdzUytozWdnFV8ZnM6cSAG5EbmO0ag0a/fLZSG4Q=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer">
-  </script>
+    <!-- p5 -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"
+        integrity="sha512-bcfltY+lNLlNxz38yBBm/HLaUB1gTV6I0e+fahbF9pS6roIdzUytozWdnFV8ZnM6cSAG5EbmO0ag0a/fLZSG4Q=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer">
+    </script>
 
-  <!-- Helpers -->
-  <script src="./../helpers/display-helpers.js"></script>
+    <!-- Helpers -->
 
-  <!-- Sketch -->
-  <script type="module">
+    <!-- Page Setup -->
+    <script type="module">
+        import { setGalleryButtonUrls, createGalleryPageHelpButton } from "./js/helpers/gallery-page-helper.js";
 
-  </script>
-  <script type="module">
-    import {word_vomit} from "../sketch/modules/word-vomit.js";
+        setGalleryButtonUrls();
+        createGalleryPageHelpButton(["Click - Spawn new word"]);
+    </script>
 
-    new p5(word_vomit, "sketch");
-  </script>
+    <!-- Sketch -->
+    <script type="module">
+        import { word_vomit } from "./js/word-vomit.js";
+
+        new p5(word_vomit, "sketch");
+    </script>
 </head>
 
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript>
-  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WT2CP6"
-          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WT2CP6"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
-<div class="art-wrapper">
-  <div class="back-button">
-    <a href="../index.html"><=</a>
-  </div>
-  <div class="sketch" id="sketch"></div>
-  <div class="sidebar">
-    <h1>Word Vomit</h1>
-    <p>
-      This was originally designed for my pen plotter. I wanted to have a bunch of words spread across the screen and
-      I liked the idea of being able to spew them from my mouse like a sparkler.</p>
-    <p>
-      The lyrics for Mr. Roger's famous song <i>Won't You Be My Neighbor</i> were initially placeholder text -- I had
-      been thinking of him a lot since re-watching his documentary (MUST WATCH) -- But I loved them so much I decided to
-      keep them permanently :)
-    </p>
-  </div>
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="gallery">
+    <div class="back-button">
+        <a href="../index">connorpeace.com</a>
+    </div>
+    <div class="main-content">
+        <div class="info">
+            <h1>Word Vomit</h1>
+            <p>
+                This was originally designed for my pen plotter. I wanted to have a bunch of words spread across the
+                screen and I liked the idea of being able to spew them from my mouse like a sparkler.</p>
+            <p>
+                The lyrics for Mr. Roger's famous song <i>Won't You Be My Neighbor</i> were initially placeholder text
+                -- I had been thinking of him a lot since re-watching his documentary (MUST WATCH) -- But I loved them
+                so much I decided to keep them permanently :)
+            </p>
+            <a id="show-sketch-controls">Controls</a>
+        </div>
+        <div class="sketch" id="sketch">
+            <button id="fullscreen">⛶</button>
+        </div>
+    </div>
+    <div class="controls">
+        <button id="back">back</button>
+        <button id="forward">forward</button>
+    </div>
+    <footer>gallery design inspired by <a href="https://www.codepalette.net/" target="_blank"
+                                          rel="noopener noreferrer">https://www.codepalette.net/</a>
+    </footer>
 </div>
 </body>
 </html>

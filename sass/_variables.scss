@@ -25,6 +25,12 @@ $bg-color-3-black: #141414;
 $white: #FFFFFF;
 $bg-color: #fafaf8;
 
-
 // Breakpoints
 $bp-desktop: 992px;
+
+// Canvas sizing (also in createGalleryCanvas)
+$bp-canvas-medium: 600px;
+$bp-canvas-large: 1000px;
+$canvas-small: 250px;
+$canvas-medium: 350px;
+$canvas-large: 500px;

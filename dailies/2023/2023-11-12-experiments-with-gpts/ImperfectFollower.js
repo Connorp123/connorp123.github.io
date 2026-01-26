@@ -1,5 +1,5 @@
 // File: dailies/YYYY-MM-DD/ImperfectFollower.js
-import { createSimplePhysicsObject } from "../../../classes/module/SimplePhysicsObject.js";
+import { createSimplePhysicsObject } from "../../../classes/SimplePhysicsObject.js";
 
 export const createImperfectFollower = ({p}) => {
     return class ImperfectFollower extends createSimplePhysicsObject({p}) {
