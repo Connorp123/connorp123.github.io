@@ -4,16 +4,14 @@ This would be a P5 sketch that kind of simulate traffic specifically how moving 
 
 const pal = ["#35a7ff", "#329f5b", "#ffe74c", "#ff5964"];
 
-const LANE_SIZE = 25;
-const CAR_SIZE = 20;
-const CAR_SPACING = 75;
+const LANE_SIZE           = 25;
+const CAR_SIZE            = 20;
+const CAR_SPACING         = 50;
 const OUT_OF_SIGHT_CUTOFF = 100;
+const BRAKE_DISTANCE      = CAR_SIZE;
 
-const ACCELERATIONS = [1, 2, 3, 4];
-const SPEED_LIMITS = [55, 65, 75, 85];
-
-const WRAP_MARGIN = CAR_SIZE;
-let loopSize;
+const ACCELERATIONS = [0.5, 1, 2, 4];
+const SPEED_LIMITS  = [55, 65, 75, 90];
 
 let lanes = [];
 
@@ -23,40 +21,40 @@ export const sketch = (p) => {
 
     class Car {
         constructor({x, y, laneIndex, carIndex}) {
-            this.pos = p.createVector(x, y);
-            this.w = CAR_SIZE;
-            this.h = CAR_SIZE;
+            this.pos        = p.createVector(x, y);
+            this.w          = CAR_SIZE;
+            this.h          = CAR_SIZE;
             this.speedIndex = p.random([0, 1, 2, 3]);
-            this.color = pal[this.speedIndex];
+            this.color      = pal[this.speedIndex];
 
             this.speedLimit = SPEED_LIMITS[this.speedIndex] / 10;
-            this.vel = p.createVector(0, 0);
+            this.vel        = p.createVector(0, 0);
 
             this.baseAcc = p.createVector(0, (ACCELERATIONS[this.speedIndex] * -1) / 10);
-            this.acc = this.baseAcc.copy();
+            this.acc     = this.baseAcc.copy();
 
             this.accelerating = false;
 
             this.laneIndex = laneIndex;
-            this.index = carIndex;
+            this.index     = carIndex;
         }
 
         respawn() {
-            this.pos.y = p.height + this.h;
+            this.pos.y      = p.height + this.h;
             this.speedIndex = p.random([0, 1, 2, 3]);
-            this.color = pal[this.speedIndex];
+            this.color      = pal[this.speedIndex];
 
             this.speedLimit = SPEED_LIMITS[this.speedIndex] / 10;
-            this.vel = p.createVector(0, 0);
+            this.vel        = p.createVector(0, 0);
 
             this.baseAcc = p.createVector(0, (ACCELERATIONS[this.speedIndex] * -1) / 10);
-            this.acc = this.baseAcc.copy();
+            this.acc     = this.baseAcc.copy();
 
             this.accelerating = false;
         }
 
         update() {
-            this.acc = this.baseAcc.copy();
+            this.acc   = this.baseAcc.copy();
             this.color = pal[this.speedIndex];
 
             const prevVel = this.vel.mag();
@@ -88,20 +86,18 @@ export const sketch = (p) => {
                 p.stroke(255);
                 p.strokeWeight(1);
 
-                p.line(-5, 0, -5, 15);
+                p.line(-5, 0, -5, this.h - 5);
                 p.line(0, 0, 0, this.h);
-                p.line(5, 0, 5, 15);
+                p.line(5, 0, 5, this.h - 5);
             }
         }
 
         checkCarInFront() {
             const carInFrontIndex = (this.index + 1) % lanes[this.laneIndex].length;
-            const carInFront = lanes[this.laneIndex][carInFrontIndex];
+            const carInFront      = lanes[this.laneIndex][carInFrontIndex];
 
-            const my = loopY(this.pos.y);
-            const fr = loopY(carInFront.pos.y);
-            const distance = (my - fr + loopSize) % loopSize;
-            if (distance > 0 && distance <= 50) {
+            const distance = this.pos.y - carInFront.pos.y;
+            if (distance > 0 && distance <= BRAKE_DISTANCE + CAR_SIZE / 2) {
                 this.acc.set(0, 0);
                 this.vel.y = p.max(this.vel.y, carInFront.vel.y);
                 return true;
@@ -133,14 +129,9 @@ export const sketch = (p) => {
         }
     }
 
-    function loopY(y) {
-        return (y + WRAP_MARGIN + loopSize) % loopSize;
-    }
-
     p.setup = () => {
         p.createCanvas(432, 768);
         p.textSize(40);
-        loopSize = p.height + WRAP_MARGIN * 2;
 
         p.frameRate(60);
         let laneIndex = 0;
@@ -153,7 +144,7 @@ export const sketch = (p) => {
             }
             laneIndex++;
         }
-    }
+    };
 
     p.draw = () => {
         p.background(0);
@@ -167,7 +158,7 @@ export const sketch = (p) => {
         });
 
         lanes.forEach((lane) => {
-            lane.sort((a, b) => loopY(b.pos.y) - loopY(a.pos.y));
+            lane.sort((a, b) => b.pos.y - a.pos.y);
             lane.forEach((car, i) => (car.index = i));
         });
 
@@ -176,7 +167,7 @@ export const sketch = (p) => {
                 car.display();
             });
         });
-    }
+    };
 
     function drawLanes() {
         p.stroke(255);
@@ -185,4 +176,8 @@ export const sketch = (p) => {
             p.line(x, 0, x, p.height);
         }
     }
-}
+
+    function switchLanes({carA, laneA, laneB}) {
+
+    }
+};
