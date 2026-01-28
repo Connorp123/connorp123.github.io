@@ -19,6 +19,10 @@ const DEBUG = false;
 
 export const sketch = (p) => {
 
+    class Quadtree {
+        // constructor({})
+    }
+
     class Car {
         constructor({x, y, laneIndex, carIndex}) {
             this.pos        = p.createVector(x, y);
