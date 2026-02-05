@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- SEO -->
+    <meta charset="UTF-8">
+    <title>Daily Sketch </title>
+    <meta property="og:image" content="./../../img/profile.png"/>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./../../css/global.css">
+    <style>
+        body, .art-wrapper, #sketch {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+
+    <!-- ml5 -->
+    <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+
+    <!-- p5 -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@2.1.2/lib/p5.js"></script>
+
+    <!-- Sketch -->
+    <script src="sketch.js" type="module" async></script>
+    <script type="module" async>
+        import {sketch} from "./sketch.js";
+
+        new p5(sketch, "sketch");
+    </script>
+</head>
+
+<body>
+<div class="art-wrapper">
+    <div class="sketch" id="sketch"></div>
+</div>
+</body>
+</html>
