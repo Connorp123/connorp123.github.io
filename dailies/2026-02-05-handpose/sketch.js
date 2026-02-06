@@ -20,6 +20,10 @@ export const sketch = (p) => {
     let loaded = false;
     let t      = 0;
 
+    let canvasHeight = 1024;
+    let canvasWidth  = 576;
+    let cameraHeight = 324;
+
     const gotHands = (results) => {
         hands = results;
     };
@@ -29,12 +33,14 @@ export const sketch = (p) => {
     };
 
     p.setup = async () => {
-        canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+        // canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+        canvas = p.createCanvas(canvasWidth, canvasHeight);
         p.frameRate(144);
         p.background(0);
 
         video = p.createCapture(p.VIDEO);
-        video.size(p.windowWidth, p.windowHeight);
+        // video.size(p.windowWidth, p.windowHeight);
+        video.size(canvasWidth, cameraHeight);
         video.hide();
 
         handPose = await ml5.handPose({
@@ -49,6 +55,14 @@ export const sketch = (p) => {
 
     p.draw = () => {
         if (state.redrawBackground) p.background(0);
+
+        p.push();
+        p.translate(canvasWidth, 0);
+        p.scale(-1, 1);
+        p.image(video, 0, canvasHeight - cameraHeight, canvasWidth, cameraHeight);
+        p.filter(p.GRAY);
+        p.pop();
+
         t += 1;
 
         let hand          = hands?.at(0);
